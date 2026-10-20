@@ -14,7 +14,7 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         :root {
-            /* Тёмная тема по умолчанию */
+            /* Тёмная тема */
             --bg-color: #000000;
             --card-bg: #1c1c1e;
             --card-secondary: #2c2c2e;
@@ -69,12 +69,12 @@
             user-select: none;
         }
 
-        /* Премиальный Нативный Хедер */
+        /* Нативный Хедер */
         .app-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 10px 4px 18px 4px;
+            padding: 8px 4px 14px 4px;
         }
         .uni-brand {
             display: flex;
@@ -122,16 +122,104 @@
             border-radius: 50%;
             box-shadow: 0 0 8px #30d158;
         }
-        .status-badge.guest .status-dot {
-            background: #ff9500;
-            box-shadow: 0 0 8px #ff9500;
+
+        /* Виджет Погоды с Анимацией */
+        .weather-card {
+            background: linear-gradient(135deg, rgba(10, 132, 255, 0.18), rgba(94, 92, 230, 0.12));
+            border: 1px solid rgba(10, 132, 255, 0.25);
+            border-radius: 18px;
+            padding: 12px 16px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+        .weather-info {
+            z-index: 2;
+        }
+        .weather-temp {
+            font-family: var(--font-display);
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+        .weather-city {
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        .weather-anim-box {
+            position: relative;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            z-index: 2;
+        }
+        /* Анимация парения облачка */
+        .cloud-anim {
+            animation: floatCloud 3s ease-in-out infinite alternate;
+        }
+        @keyframes floatCloud {
+            0% { transform: translateY(0px) scale(1); }
+            100% { transform: translateY(-5px) scale(1.05); }
         }
 
-        /* Системные Вкладки Дней */
+        /* Виджет Живого Таймера Пар */
+        .live-timer-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            padding: 16px;
+            margin-bottom: 14px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        .timer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .timer-status-pill {
+            font-family: var(--font-display);
+            font-size: 11px;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .timer-status-pill.active { background: rgba(52, 199, 89, 0.15); color: #30d158; }
+        .timer-status-pill.break { background: rgba(255, 149, 0, 0.15); color: #ff9500; }
+        .timer-status-pill.ended { background: rgba(142, 142, 147, 0.15); color: #8e8e93; }
+
+        .timer-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+        }
+        .timer-sub {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        .timer-countdown {
+            font-family: var(--font-display);
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--accent-blue);
+            margin-top: 8px;
+        }
+
+        /* Вкладки Дней */
         .tabs-container {
             display: flex;
             gap: 6px;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
             overflow-x: auto;
             scrollbar-width: none;
             padding-bottom: 2px;
@@ -156,14 +244,13 @@
             box-shadow: 0 4px 14px rgba(10, 132, 255, 0.35);
         }
 
-        /* Карточка Секции */
+        /* Карточки */
         .card {
             background: var(--card-bg);
             border-radius: 18px;
             padding: 16px;
             border: 1px solid var(--border-color);
             margin-bottom: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
         }
         .card-header {
             font-family: var(--font-display);
@@ -184,258 +271,57 @@
             padding: 12px 0;
             border-bottom: 1px solid var(--border-color);
         }
-        .lesson-row:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
-        }
-        .lesson-row:first-child {
-            padding-top: 0;
-        }
-        .lesson-time-col {
-            width: 85px;
-            flex-shrink: 0;
-        }
-        .lesson-start {
-            font-family: var(--font-display);
-            font-size: 15px;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-        .lesson-end {
-            font-size: 12px;
-            color: var(--text-secondary);
-            font-weight: 500;
-        }
-        .lesson-main {
-            flex-grow: 1;
-            padding-left: 8px;
-        }
-        .lesson-title {
-            font-size: 15px;
-            font-weight: 600;
-            color: var(--text-primary);
-            line-height: 1.25;
-            margin-bottom: 4px;
-        }
-        .lesson-meta {
-            font-size: 12px;
-            color: var(--text-secondary);
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            align-items: center;
-        }
-        .type-pill {
-            font-family: var(--font-display);
-            font-size: 10px;
-            font-weight: 800;
-            padding: 2px 7px;
-            border-radius: 6px;
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-        }
+        .lesson-row:last-child { border-bottom: none; padding-bottom: 0; }
+        .lesson-row:first-child { padding-top: 0; }
+        .lesson-time-col { width: 85px; flex-shrink: 0; }
+        .lesson-start { font-family: var(--font-display); font-size: 15px; font-weight: 700; color: var(--text-primary); }
+        .lesson-end { font-size: 12px; color: var(--text-secondary); font-weight: 500; }
+        .lesson-main { flex-grow: 1; padding-left: 8px; }
+        .lesson-title { font-size: 15px; font-weight: 600; color: var(--text-primary); line-height: 1.25; margin-bottom: 4px; }
+        .lesson-meta { font-size: 12px; color: var(--text-secondary); display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+        .type-pill { font-family: var(--font-display); font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 6px; text-transform: uppercase; }
         .type-pill.lecture { background: var(--badge-lecture); color: var(--text-lecture); }
         .type-pill.spz { background: var(--badge-spz); color: var(--text-spz); }
 
-        /* Разделы Страниц */
+        /* Разделы */
         .page { display: none; }
         .page.active { display: block; }
 
-        /* Сетка Виджетов в Сервисах */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-bottom: 14px;
-        }
-        .widget-item {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 16px 14px;
-            cursor: pointer;
-        }
-        .widget-item:active {
-            background: var(--card-secondary);
-            transform: scale(0.98);
-        }
-        .widget-icon {
-            width: 28px;
-            height: 28px;
-            margin-bottom: 10px;
-            color: var(--accent-blue);
-        }
-        .widget-title {
-            font-family: var(--font-display);
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 2px;
-        }
-        .widget-sub {
-            font-size: 11px;
-            color: var(--text-secondary);
-        }
+        /* Сервисы */
+        .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 14px; }
+        .widget-item { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 16px 14px; cursor: pointer; }
+        .widget-item:active { background: var(--card-secondary); transform: scale(0.98); }
+        .widget-icon { width: 28px; height: 28px; margin-bottom: 10px; color: var(--accent-blue); }
+        .widget-title { font-family: var(--font-display); font-size: 14px; font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
+        .widget-sub { font-size: 11px; color: var(--text-secondary); }
 
-        /* Выплывающие Окна Сервисов */
-        .sub-panel {
-            display: none;
-            margin-top: 8px;
-        }
+        .sub-panel { display: none; margin-top: 8px; }
         .sub-panel.active { display: block; }
 
-        /* Калькулятор GPA */
-        .gpa-display {
-            background: linear-gradient(180deg, rgba(10, 132, 255, 0.15) 0%, rgba(10, 132, 255, 0.02) 100%);
-            border: 1px solid rgba(10, 132, 255, 0.35);
-            border-radius: 16px;
-            padding: 18px;
-            text-align: center;
-            margin-bottom: 12px;
-        }
-        .gpa-score {
-            font-family: var(--font-display);
-            font-size: 40px;
-            font-weight: 800;
-            color: var(--accent-blue);
-            letter-spacing: -1px;
-        }
-        .gpa-text { font-size: 12px; color: var(--text-secondary); font-weight: 500; }
-        .grade-select-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid var(--border-color);
-        }
-        .grade-select-row:last-child { border-bottom: none; }
-        .subject-label { font-size: 13px; font-weight: 500; }
-        .select-input {
-            background: var(--card-secondary);
-            color: var(--accent-blue);
-            border: 1px solid var(--border-color);
-            padding: 6px 10px;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: 600;
-            outline: none;
-        }
-
-        /* Переключатели Настроек */
-        .setting-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid var(--border-color);
-        }
+        /* Настройки темы */
+        .setting-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border-color); }
         .setting-row:last-child { border-bottom: none; }
         .setting-title { font-size: 14px; font-weight: 500; }
         .setting-sub { font-size: 11px; color: var(--text-secondary); }
-        .ios-switch {
-            position: relative; display: inline-block; width: 44px; height: 24px;
-        }
+        .ios-switch { position: relative; display: inline-block; width: 44px; height: 24px; }
         .ios-switch input { opacity: 0; width: 0; height: 0; }
-        .switch-slider {
-            position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
-            background-color: #3a3a3c; transition: .25s; border-radius: 30px;
-        }
-        .switch-slider:before {
-            position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px;
-            background-color: white; transition: .25s; border-radius: 50%;
-        }
+        .switch-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #3a3a3c; transition: .25s; border-radius: 30px; }
+        .switch-slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .25s; border-radius: 50%; }
         input:checked + .switch-slider { background-color: #34c759; }
         input:checked + .switch-slider:before { transform: translateX(20px); }
 
-        /* Переключатель темы (Светлая / Тёмная) */
-        .theme-selector {
-            display: flex;
-            background: var(--card-secondary);
-            padding: 3px;
-            border-radius: 10px;
-            gap: 2px;
-        }
-        .theme-btn {
-            padding: 6px 12px;
-            font-size: 12px;
-            font-weight: 600;
-            border: none;
-            background: none;
-            color: var(--text-secondary);
-            border-radius: 8px;
-            cursor: pointer;
-        }
-        .theme-btn.active {
-            background: var(--card-bg);
-            color: var(--text-primary);
-            box-shadow: 0 1px 4px rgba(0,0,0,0.15);
-        }
+        .theme-selector { display: flex; background: var(--card-secondary); padding: 3px; border-radius: 10px; gap: 2px; }
+        .theme-btn { padding: 6px 12px; font-size: 12px; font-weight: 600; border: none; background: none; color: var(--text-secondary); border-radius: 8px; cursor: pointer; }
+        .theme-btn.active { background: var(--card-bg); color: var(--text-primary); box-shadow: 0 1px 4px rgba(0,0,0,0.15); }
 
-        /* Аватарка Профиля */
-        .profile-avatar-box {
-            width: 68px;
-            height: 68px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #0a84ff, #5e5ce6);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 32px;
-            color: #fff;
-            margin-bottom: 10px;
-            overflow: hidden;
-        }
-        .profile-avatar-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .guest-warning-card {
-            background: rgba(255, 59, 48, 0.1);
-            border: 1px solid rgba(255, 59, 48, 0.25);
-            color: #ff3b30;
-            padding: 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            line-height: 1.4;
-            margin-top: 10px;
-        }
+        /* Аватарка */
+        .profile-avatar-box { width: 68px; height: 68px; border-radius: 50%; background: linear-gradient(135deg, #0a84ff, #5e5ce6); display: flex; align-items: center; justify-content: center; font-size: 32px; color: #fff; margin-bottom: 10px; overflow: hidden; }
+        .profile-avatar-box img { width: 100%; height: 100%; object-fit: cover; }
+        .guest-warning-card { background: rgba(255, 59, 48, 0.1); border: 1px solid rgba(255, 59, 48, 0.25); color: #ff3b30; padding: 12px; border-radius: 12px; font-size: 12px; font-weight: 600; line-height: 1.4; margin-top: 10px; }
 
-        /* Календарная сетка */
-        .cal-grid {
-            display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; text-align: center; margin-top: 8px;
-        }
-        .cal-head { font-family: var(--font-display); font-size: 11px; color: var(--text-secondary); font-weight: 700; padding-bottom: 4px; }
-        .cal-day { font-family: var(--font-display); padding: 8px 0; background: var(--card-secondary); border-radius: 8px; font-size: 13px; font-weight: 600; }
-        .cal-day.today { background: var(--accent-blue); color: #fff; font-weight: 800; box-shadow: 0 0 10px rgba(10, 132, 255, 0.5); }
-
-        /* Нижняя Системная Навигация */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0; left: 0; right: 0;
-            background: var(--nav-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            display: flex;
-            justify-content: space-around;
-            padding: 8px 16px 20px 16px;
-            border-top: 1px solid var(--border-color);
-            max-width: 440px;
-            margin: 0 auto;
-            z-index: 1000;
-        }
-        .nav-tab {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: var(--text-secondary);
-            background: none;
-            border: none;
-            gap: 3px;
-            cursor: pointer;
-            flex: 1;
-        }
+        /* Нижняя Навигация */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--nav-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); display: flex; justify-content: space-around; padding: 8px 16px 20px 16px; border-top: 1px solid var(--border-color); max-width: 440px; margin: 0 auto; z-index: 1000; }
+        .nav-tab { display: flex; flex-direction: column; align-items: center; color: var(--text-secondary); background: none; border: none; gap: 3px; cursor: pointer; flex: 1; }
         .nav-tab.active { color: var(--accent-blue); }
         .nav-svg { width: 22px; height: 22px; fill: currentColor; }
         .nav-title { font-family: var(--font-display); font-size: 11px; font-weight: 700; }
@@ -453,6 +339,28 @@
             <div class="status-dot"></div>
             <span id="header-badge-text">1 курс • НВП</span>
         </div>
+    </div>
+
+    <!-- Анимированный Виджет Погоды -->
+    <div class="weather-card">
+        <div class="weather-info">
+            <div class="weather-temp" id="weather-temp-text">+16°C</div>
+            <div class="weather-city">Усть-Каменогорск • Переменная облачность</div>
+        </div>
+        <div class="weather-anim-box">
+            <span class="cloud-anim" id="weather-icon">⛅</span>
+        </div>
+    </div>
+
+    <!-- Живой Таймер До Начала/Конца Пары -->
+    <div class="live-timer-card">
+        <div class="timer-header">
+            <span class="timer-sub">Статус занятий</span>
+            <span class="timer-status-pill active" id="timer-pill">Загрузка...</span>
+        </div>
+        <div class="timer-title" id="timer-title-text">Вычисление расписания...</div>
+        <div class="timer-sub" id="timer-location-text">Университет им. С. Аманжолова</div>
+        <div class="timer-countdown" id="timer-countdown-text">--:--</div>
     </div>
 
     <!-- РАЗДЕЛ 1: РАСПИСАНИЕ -->
@@ -614,57 +522,9 @@
             </div>
         </div>
 
-        <!-- ОКНО: КАЛЕНДАРЬ -->
-        <div id="sub-calendar" class="sub-panel card">
-            <div class="card-header">Календарь Занятий</div>
-            <div class="cal-grid">
-                <div class="cal-head">ПН</div><div class="cal-head">ВТ</div><div class="cal-head">СР</div><div class="cal-head">ЧТ</div><div class="cal-head">ПТ</div><div class="cal-head">СБ</div><div class="cal-head">ВС</div>
-                <div class="cal-day" style="opacity:0.3;">28</div><div class="cal-day" style="opacity:0.3;">29</div><div class="cal-day" style="opacity:0.3;">30</div><div class="cal-day">1</div><div class="cal-day">2</div><div class="cal-day">3</div><div class="cal-day">4</div>
-                <div class="cal-day">5</div><div class="cal-day">6</div><div class="cal-day">7</div><div class="cal-day">8</div><div class="cal-day">9</div><div class="cal-day">10</div><div class="cal-day">11</div>
-                <div class="cal-day">12</div><div class="cal-day">13</div><div class="cal-day">14</div><div class="cal-day">15</div><div class="cal-day">16</div><div class="cal-day">17</div><div class="cal-day">18</div>
-                <div class="cal-day">19</div><div class="cal-day today">20</div><div class="cal-day">21</div><div class="cal-day">22</div><div class="cal-day">23</div><div class="cal-day">24</div><div class="cal-day">25</div>
-                <div class="cal-day">26</div><div class="cal-day">27</div><div class="cal-day">28</div><div class="cal-day">29</div><div class="cal-day">30</div><div class="cal-day">31</div>
-            </div>
-            <div style="margin-top: 12px; font-size: 11px; color: var(--text-secondary); line-height: 1.4;">
-                • Рейтинговый контроль: 7 и 15 недели семестра.
-            </div>
-        </div>
-
-        <!-- ОКНО: GPA БАЛЛЫ -->
-        <div id="sub-gpa" class="sub-panel">
-            <div class="gpa-display">
-                <div class="gpa-score" id="gpa-val">3.67</div>
-                <div class="gpa-text" id="gpa-status">Средний балл (Шкала 4.0 GPA)</div>
-            </div>
-            <div class="card">
-                <div class="card-header">Расчет Дисциплин</div>
-                <div class="grade-select-row"><span class="subject-label">Социология</span><select class="select-input" onchange="recalcGPA()"><option value="4.0">A (95-100)</option><option value="3.67" selected>A- (90-94)</option><option value="3.33">B+ (85-89)</option></select></div>
-                <div class="grade-select-row"><span class="subject-label">Иностранный язык</span><select class="select-input" onchange="recalcGPA()"><option value="4.0" selected>A (95-100)</option><option value="3.67">A- (90-94)</option></select></div>
-                <div class="grade-select-row"><span class="subject-label">История Казахстана</span><select class="select-input" onchange="recalcGPA()"><option value="4.0">A (95-100)</option><option value="3.33" selected>B+ (85-89)</option></select></div>
-                <div class="grade-select-row"><span class="subject-label">Психология</span><select class="select-input" onchange="recalcGPA()"><option value="4.0" selected>A (95-100)</option><option value="3.67">A- (90-94)</option></select></div>
-            </div>
-        </div>
-
-        <!-- ОКНО: МУЗЫКА -->
-        <div id="sub-music" class="sub-panel card">
-            <div class="card-header">SoundCloud Аудиоплеер</div>
-            <div style="padding: 6px 0;">
-                <div style="font-size: 14px; font-weight: 600;" id="track-name">Big Baby Tape & Kizaru — Bandana</div>
-                <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 12px;">Официальный трек</div>
-                <a id="track-url" href="https://soundcloud.com/search/sounds?q=Big%20Baby%20Tape%20Kizaru%20Bandana" target="_blank" style="display: block; width: 100%; text-align: center; padding: 10px; background: #ff5500; color: #fff; border-radius: 10px; font-weight: 600; font-size: 13px; text-decoration: none;">
-                    Слушать в SoundCloud
-                </a>
-                <button onclick="nextRandomTrack()" style="width: 100%; margin-top: 8px; padding: 10px; background: var(--card-secondary); color: var(--text-primary); border: none; border-radius: 10px; font-weight: 600; font-size: 12px; cursor: pointer;">
-                    Переключить трек
-                </button>
-            </div>
-        </div>
-
-        <!-- ОКНО: НАСТРОЙКИ -->
+        <!-- Настройки темы и профиля ниже... -->
         <div id="sub-settings" class="sub-panel card">
             <div class="card-header">Параметры Приложения</div>
-            
-            <!-- Переключатель Темы -->
             <div class="setting-row">
                 <div><div class="setting-title">Оформление темы</div><div class="setting-sub">Выберите стиль интерфейса</div></div>
                 <div class="theme-selector">
@@ -672,7 +532,6 @@
                     <button class="theme-btn" id="theme-light-btn" onclick="setTheme('light')">Светлая</button>
                 </div>
             </div>
-
             <div class="setting-row">
                 <div><div class="setting-title">Уведомления о парах</div><div class="setting-sub">Напоминания перед началом</div></div>
                 <label class="ios-switch"><input type="checkbox" id="set-notif" checked onchange="saveConfig('notif', this)"><span class="switch-slider"></span></label>
@@ -687,35 +546,26 @@
             </div>
         </div>
 
-        <!-- ОКНО: ПРОФИЛЬ -->
         <div id="sub-profile" class="sub-panel card">
             <div class="card-header">Карточка Студента</div>
             <div style="padding: 4px 0; display: flex; flex-direction: column; align-items: center; text-align: center;">
-                
-                <div class="profile-avatar-box" id="profile-avatar-box">
-                    <span>👨‍🎓</span>
-                </div>
-
+                <div class="profile-avatar-box" id="profile-avatar-box"><span>👨‍🎓</span></div>
                 <div style="font-size: 18px; font-weight: 700; margin-bottom: 2px;" id="prof-display-name">Семён</div>
                 <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 12px;" id="prof-display-username">@username</div>
-                
                 <div style="width: 100%;">
                     <div class="setting-row"><span class="setting-title">Telegram ID</span><span class="setting-sub" style="color:var(--text-primary);" id="prof-id">5644768982</span></div>
                     <div class="setting-row"><span class="setting-title">Статус доступа</span><span class="setting-sub" id="prof-status-val" style="color:#30d158;">Студент / Админ</span></div>
                     <div class="setting-row"><span class="setting-title">Университет</span><span class="setting-sub" style="color:var(--text-primary);" id="prof-uni-val">Amanzholov University</span></div>
                     <div class="setting-row"><span class="setting-title">Специальность</span><span class="setting-sub" style="color:var(--text-primary);" id="prof-spec-val">Начальная военная подготовка</span></div>
                 </div>
-
-                <!-- Блок предупреждения для гостей -->
                 <div class="guest-warning-card" id="guest-warning" style="display: none; width: 100%;">
                     ⚠️ Данный пользователь не является студентом университета Amanzholov University.
                 </div>
-
             </div>
         </div>
     </div>
 
-    <!-- Системная Нижняя Панель Навигации -->
+    <!-- Нижняя Панель Навигации -->
     <div class="bottom-nav">
         <button class="nav-tab active" onclick="navigate('schedule', this)">
             <svg class="nav-svg" viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/></svg>
@@ -729,20 +579,11 @@
 
     <script>
         const tg = window.Telegram ? window.Telegram.WebApp : null;
-        if (tg) {
-            tg.expand();
-            tg.ready();
-        }
+        if (tg) { tg.expand(); tg.ready(); }
 
         let hapticOn = localStorage.getItem('haptic') !== 'false';
+        function haptic() { if (hapticOn && tg && tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light'); }
 
-        function haptic() {
-            if (hapticOn && tg && tg.HapticFeedback) {
-                tg.HapticFeedback.impactOccurred('light');
-            }
-        }
-
-        /* Переключение темы */
         function setTheme(theme) {
             haptic();
             if (theme === 'light') {
@@ -762,7 +603,6 @@
             haptic();
             document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
             if (btn) btn.classList.add('active');
-
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             const target = document.getElementById('page-' + pageId);
             if (target) target.classList.add('active');
@@ -772,7 +612,6 @@
             haptic();
             document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
             if (btn) btn.classList.add('active');
-
             document.querySelectorAll('.day-content').forEach(d => d.style.display = 'none');
             const target = document.getElementById('day-' + dayId);
             if (target) target.style.display = 'block';
@@ -794,39 +633,136 @@
             if (key === 'haptic') hapticOn = el.checked;
         }
 
-        function recalcGPA() {
-            haptic();
-            const selects = document.querySelectorAll('.select-input');
-            let sum = 0;
-            selects.forEach(s => sum += parseFloat(s.value));
-            const res = (sum / selects.length).toFixed(2);
-            document.getElementById('gpa-val').innerText = res;
+        /* --- БАЗА ДАННЫХ РАСПИСАНИЯ ДЛЯ ЖИВОГО ТАЙМЕРА --- */
+        const scheduleDB = {
+            1: [ // Понедельник
+                { name: "Социология", type: "Лекция", room: "Корп. №1, ауд. 111", start: "09:50", end: "10:40" },
+                { name: "Иностранный язык", type: "СПЗ", room: "Корп. №7, ауд. 219", start: "11:00", end: "11:50" },
+                { name: "Иностранный язык", type: "СПЗ", room: "Корп. №7, ауд. 219", start: "11:55", end: "12:45" },
+                { name: "Иностранный язык", type: "СПЗ", room: "Корп. №7, ауд. 112", start: "12:50", end: "13:40" },
+                { name: "Гигиена и медицина", type: "Лекция", room: "Корп. №2, ауд. 31", start: "13:45", end: "14:35" },
+                { name: "Гигиена и медицина", type: "Лекция", room: "Корп. №2, ауд. 31", start: "14:40", end: "15:30" }
+            ],
+            2: [ // Вторник
+                { name: "Политология", type: "Лекция", room: "Корп. №1, ауд. 305", start: "08:00", end: "08:50" },
+                { name: "Политология", type: "СПЗ", room: "Корп. №1, ауд. 311", start: "09:50", end: "10:40" },
+                { name: "Культурология", type: "Лекция", room: "Корп. №1, ауд. 111", start: "11:00", end: "11:50" },
+                { name: "История Казахстана", type: "Лекция", room: "Корп. №1, ауд. 111", start: "11:55", end: "12:45" },
+                { name: "Социология", type: "СПЗ", room: "Корп. №1, ауд. 252", start: "12:50", end: "13:40" }
+            ],
+            3: [ // Среда
+                { name: "Казахский (русский) язык", type: "СПЗ", room: "Корп. №1, ауд. 406", start: "08:00", end: "08:50" },
+                { name: "Психология", type: "Лекция", room: "Корп. №1, ауд. 111", start: "08:55", end: "09:45" },
+                { name: "Культурология", type: "СПЗ", room: "Корп. №1, ауд. 327а", start: "11:00", end: "11:50" },
+                { name: "История Казахстана", type: "Лекция", room: "Корп. №1, Зал 257", start: "11:55", end: "12:45" },
+                { name: "История Казахстана", type: "СПЗ", room: "Корп. №1, ауд. 316", start: "12:50", end: "13:40" }
+            ],
+            4: [ // Четверг
+                { name: "Психология", type: "СПЗ", room: "Корп. №9, ауд. 301", start: "08:00", end: "08:50" },
+                { name: "Казахский (русский) язык", type: "СПЗ", room: "Корп. №9, ауд. 304", start: "12:50", end: "13:40" },
+                { name: "Гигиена и медицина", type: "СПЗ", room: "Корп. №2, ауд. 32", start: "13:45", end: "14:35" }
+            ],
+            5: [ // Пятница
+                { name: "Физическая культура", type: "СПЗ", room: "Спортзал", start: "09:50", end: "10:40" },
+                { name: "Физическая культура", type: "СПЗ", room: "Спортзал", start: "11:00", end: "11:50" },
+                { name: "Казахский (русский) язык", type: "СПЗ", room: "Корп. №9, ауд. 304", start: "12:50", end: "13:40" }
+            ]
+        };
+
+        function timeToMin(timeStr) {
+            const [h, m] = timeStr.split(':').map(Number);
+            return h * 60 + m;
         }
 
-        const playlist = [
-            { title: "Big Baby Tape & Kizaru — Bandana", url: "https://soundcloud.com/search/sounds?q=Big%20Baby%20Tape%20Kizaru%20Bandana" },
-            { title: "Big Baby Tape & Kizaru — Million", url: "https://soundcloud.com/search/sounds?q=Big%20Baby%20Tape%20Kizaru%20Million" },
-            { title: "Kizaru — Narcos", url: "https://soundcloud.com/search/sounds?q=Kizaru%20Narcos" }
-        ];
+        /* Расчёт статуса пар и обратного отсчёта */
+        function updateLiveTimer() {
+            const now = new Date();
+            const day = now.getDay(); // 0-ВС, 1-ПН...
+            const currentMin = now.getHours() * 60 + now.getMinutes();
+            const secLeft = 59 - now.getSeconds();
 
-        function nextRandomTrack() {
-            haptic();
-            const t = playlist[Math.floor(Math.random() * playlist.length)];
-            document.getElementById('track-name').innerText = t.title;
-            document.getElementById('track-url').href = t.url;
+            const pill = document.getElementById('timer-pill');
+            const title = document.getElementById('timer-title-text');
+            const loc = document.getElementById('timer-location-text');
+            const count = document.getElementById('timer-countdown-text');
+
+            if (!scheduleDB[day] || scheduleDB[day].length === 0) {
+                pill.className = "timer-status-pill ended";
+                pill.innerText = "Выходной";
+                title.innerText = "Сегодня пар нет";
+                loc.innerText = "Отдыхаем и набираемся сил!";
+                count.innerText = "🎉 Свободный день";
+                return;
+            }
+
+            const todayLessons = scheduleDB[day];
+            const firstLessonStart = timeToMin(todayLessons[0].start);
+            const lastLessonEnd = timeToMin(todayLessons[todayLessons.length - 1].end);
+
+            // 1. Утро — пары ещё не начались
+            if (currentMin < firstLessonStart) {
+                const diffMin = firstLessonStart - currentMin - 1;
+                pill.className = "timer-status-pill break";
+                pill.innerText = "Ожидание";
+                title.innerText = `До 1 пары: ${todayLessons[0].name}`;
+                loc.innerText = todayLessons[0].room;
+                count.innerText = `До начала: ${diffMin} мин ${secLeft} сек`;
+                return;
+            }
+
+            // 2. Вечер — пары на сегодня закончились
+            if (currentMin >= lastLessonEnd) {
+                pill.className = "timer-status-pill ended";
+                pill.innerText = "Окончено";
+                title.innerText = "Все пары на сегодня завершены!";
+                loc.innerText = "Университет Сарсена Аманжолова";
+                count.innerText = "🏁 Отличная работа!";
+                return;
+            }
+
+            // 3. Проверяем текущие пары и перемены
+            for (let i = 0; i < todayLessons.length; i++) {
+                const l = todayLessons[i];
+                const startM = timeToMin(l.start);
+                const endM = timeToMin(l.end);
+
+                // Идет пара
+                if (currentMin >= startM && currentMin < endM) {
+                    const remMin = endM - currentMin - 1;
+                    pill.className = "timer-status-pill active";
+                    pill.innerText = `Идёт ${i+1} пара`;
+                    title.innerText = `${l.name} (${l.type})`;
+                    loc.innerText = l.room;
+                    count.innerText = `До конца: ${remMin} мин ${secLeft} сек`;
+                    return;
+                }
+
+                // Перемена между парами
+                if (i < todayLessons.length - 1) {
+                    const nextL = todayLessons[i+1];
+                    const nextStartM = timeToMin(nextL.start);
+                    if (currentMin >= endM && currentMin < nextStartM) {
+                        const remBreak = nextStartM - currentMin - 1;
+                        pill.className = "timer-status-pill break";
+                        pill.innerText = "Перемена";
+                        title.innerText = `Далее: ${nextL.name}`;
+                        loc.innerText = nextL.room;
+                        count.innerText = `До пары: ${remBreak} мин ${secLeft} сек`;
+                        return;
+                    }
+                }
+            }
         }
 
-        /* Загрузка и проверка Telegram пользователя */
+        /* Пользовательский профиль */
         function initUserProfile() {
             let user = tg && tg.initDataUnsafe ? tg.initDataUnsafe.user : null;
-            
             const adminId = "5644768982";
             let userId = user ? String(user.id) : adminId;
             let firstName = user ? user.first_name : "Семён";
             let username = user && user.username ? "@" + user.username : "@semen";
             let photoUrl = user ? user.photo_url : null;
 
-            // Проверка: Ты (Администратор/Студент) или Другой пользователь
             let isStudentAdmin = (userId === adminId) || (firstName.toLowerCase().includes("семён"));
 
             document.getElementById('prof-display-name').innerText = firstName;
@@ -847,7 +783,6 @@
                 document.getElementById('prof-uni-val').innerText = "Amanzholov University";
                 document.getElementById('prof-spec-val').innerText = "Начальная военная подготовка";
                 document.getElementById('guest-warning').style.display = "none";
-                
                 document.getElementById('header-badge-text').innerText = "1 курс • НВП";
                 document.getElementById('header-badge').classList.remove('guest');
             } else {
@@ -857,22 +792,19 @@
                 document.getElementById('prof-uni-val').innerText = "—";
                 document.getElementById('prof-spec-val').innerText = "—";
                 document.getElementById('guest-warning').style.display = "block";
-                
                 document.getElementById('header-badge-text').innerText = "Гость";
                 document.getElementById('header-badge').classList.add('guest');
             }
         }
 
         document.addEventListener("DOMContentLoaded", () => {
-            // Восстановление темы из памяти
             const savedTheme = localStorage.getItem('app_theme');
-            if (savedTheme === 'light') {
-                setTheme('light');
-            } else {
-                setTheme('dark');
-            }
+            if (savedTheme === 'light') setTheme('light');
+            else setTheme('dark');
 
             initUserProfile();
+            updateLiveTimer();
+            setInterval(updateLiveTimer, 1000); // Секундный обсчет обратного отсчета
 
             const today = new Date().getDay();
             const days = ['sat', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
