@@ -14,6 +14,7 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         :root {
+            /* Тёмная тема */
             --bg-color: #000000;
             --card-bg: #1c1c1e;
             --card-secondary: #2c2c2e;
@@ -31,6 +32,7 @@
             --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
+        /* Светлая тема */
         body.light-theme {
             --bg-color: #f2f2f7;
             --card-bg: #ffffff;
@@ -67,7 +69,7 @@
             user-select: none;
         }
 
-        /* ЭКРАН БЛОКИРОВКИ ДОСТУПА */
+        /* ЭКРАН ОГРАНИЧЕНИЯ ДОСТУПА */
         #access-denied-screen {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -80,24 +82,9 @@
             padding: 24px;
             text-align: center;
         }
-        .lock-icon {
-            font-size: 54px;
-            margin-bottom: 16px;
-        }
-        .lock-title {
-            font-family: var(--font-display);
-            font-size: 22px;
-            font-weight: 800;
-            color: #ffffff;
-            margin-bottom: 8px;
-        }
-        .lock-desc {
-            font-size: 13px;
-            color: #8e8e93;
-            line-height: 1.5;
-            margin-bottom: 24px;
-            max-width: 300px;
-        }
+        .lock-icon { font-size: 60px; margin-bottom: 16px; }
+        .lock-title { font-family: var(--font-display); font-size: 24px; font-weight: 800; color: #ffffff; margin-bottom: 8px; }
+        .lock-desc { font-size: 13px; color: #8e8e93; line-height: 1.5; margin-bottom: 24px; max-width: 300px; }
         .btn-request {
             background: linear-gradient(135deg, #0a84ff, #5e5ce6);
             color: #ffffff;
@@ -112,16 +99,14 @@
             box-shadow: 0 4px 16px rgba(10, 132, 255, 0.4);
         }
 
+        /* Нативный Хедер */
         .app-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 8px 4px 14px 4px;
         }
-        .uni-brand {
-            display: flex;
-            flex-direction: column;
-        }
+        .uni-brand { display: flex; flex-direction: column; }
         .uni-name {
             font-family: var(--font-display);
             font-size: 21px;
@@ -133,12 +118,7 @@
             filter: drop-shadow(0px 2px 12px rgba(10, 132, 255, 0.35));
             line-height: 1.1;
         }
-        .uni-sub {
-            font-size: 11px;
-            color: var(--text-secondary);
-            font-weight: 500;
-            margin-top: 3px;
-        }
+        .uni-sub { font-size: 11px; color: var(--text-secondary); font-weight: 500; margin-top: 3px; }
         .status-badge {
             background: rgba(52, 199, 89, 0.12);
             color: #30d158;
@@ -151,19 +131,10 @@
             gap: 6px;
             border: 1px solid rgba(48, 209, 88, 0.2);
         }
-        .status-badge.guest {
-            background: rgba(255, 149, 0, 0.12);
-            color: #ff9500;
-            border-color: rgba(255, 149, 0, 0.2);
-        }
-        .status-dot {
-            width: 6px;
-            height: 6px;
-            background: #30d158;
-            border-radius: 50%;
-            box-shadow: 0 0 8px #30d158;
-        }
+        .status-badge.guest { background: rgba(255, 149, 0, 0.12); color: #ff9500; border-color: rgba(255, 149, 0, 0.2); }
+        .status-dot { width: 6px; height: 6px; background: #30d158; border-radius: 50%; box-shadow: 0 0 8px #30d158; }
 
+        /* Погодный Виджет */
         .weather-card {
             background: linear-gradient(135deg, rgba(10, 132, 255, 0.18), rgba(94, 92, 230, 0.12));
             border: 1px solid rgba(10, 132, 255, 0.25);
@@ -189,6 +160,7 @@
         .sun-ray { position: absolute; top: -20px; right: -20px; width: 90px; height: 90px; background: radial-gradient(circle, rgba(255,214,10,0.4) 0%, rgba(255,149,0,0) 70%); animation: pulseSun 2s ease-in-out infinite alternate; }
         @keyframes pulseSun { 0% { transform: scale(0.9); opacity: 0.6; } 100% { transform: scale(1.2); opacity: 1; } }
 
+        /* Живой Таймер Пар */
         .live-timer-card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -207,6 +179,7 @@
         .timer-sub { font-size: 12px; color: var(--text-secondary); }
         .timer-countdown { font-family: var(--font-display); font-size: 22px; font-weight: 800; color: var(--accent-blue); margin-top: 8px; }
 
+        /* Вкладки Дней */
         .tabs-container { display: flex; gap: 6px; margin-bottom: 14px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
         .tabs-container::-webkit-scrollbar { display: none; }
         .tab-item { font-family: var(--font-display); background: var(--card-bg); color: var(--text-secondary); border: 1px solid var(--border-color); padding: 8px 14px; border-radius: 12px; font-size: 13px; font-weight: 700; white-space: nowrap; cursor: pointer; }
@@ -231,6 +204,7 @@
         .page { display: none; }
         .page.active { display: block; }
 
+        /* Сетка Сервисов */
         .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 14px; }
         .widget-item { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 16px 14px; cursor: pointer; }
         .widget-item:active { background: var(--card-secondary); transform: scale(0.98); }
@@ -258,11 +232,9 @@
 
         .profile-avatar-box { width: 68px; height: 68px; border-radius: 50%; background: linear-gradient(135deg, #0a84ff, #5e5ce6); display: flex; align-items: center; justify-content: center; font-size: 32px; color: #fff; margin-bottom: 10px; overflow: hidden; }
         .profile-avatar-box img { width: 100%; height: 100%; object-fit: cover; }
-        .guest-warning-card { background: rgba(255, 59, 48, 0.1); border: 1px solid rgba(255, 59, 48, 0.25); color: #ff3b30; padding: 12px; border-radius: 12px; font-size: 12px; font-weight: 600; line-height: 1.4; margin-top: 10px; }
 
+        /* Стили Админ Панели */
         .admin-widget-card { background: linear-gradient(135deg, rgba(255, 45, 85, 0.15), rgba(175, 82, 222, 0.12)); border: 1px solid rgba(255, 45, 85, 0.3); grid-column: span 2; }
-        .req-widget-card { background: linear-gradient(135deg, rgba(255, 149, 0, 0.15), rgba(255, 204, 0, 0.12)); border: 1px solid rgba(255, 149, 0, 0.3); grid-column: span 2; }
-
         .user-manage-item { display: flex; align-items: center; justify-content: space-between; background: var(--card-secondary); padding: 10px 12px; border-radius: 12px; margin-bottom: 8px; }
         .user-manage-info { display: flex; flex-direction: column; }
         .user-manage-name { font-size: 13px; font-weight: 700; color: var(--text-primary); }
@@ -270,7 +242,10 @@
         .admin-action-btn { padding: 6px 10px; border-radius: 8px; border: none; font-size: 11px; font-weight: 700; cursor: pointer; margin-left: 4px; }
         .btn-mute { background: rgba(255, 149, 0, 0.2); color: #ff9500; }
         .btn-kick { background: rgba(255, 59, 48, 0.2); color: #ff3b30; }
-        .btn-approve { background: rgba(52, 199, 89, 0.2); color: #30d158; }
+
+        /* Элементы GPA Калькулятора */
+        .gpa-input { background: var(--card-secondary); border: 1px solid var(--border-color); color: var(--text-primary); padding: 8px 12px; border-radius: 10px; font-size: 14px; width: 100%; margin-bottom: 8px; outline: none; }
+        .gpa-btn { background: var(--accent-blue); color: #fff; border: none; padding: 10px 16px; border-radius: 10px; font-weight: 700; width: 100%; cursor: pointer; }
 
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--nav-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); display: flex; justify-content: space-around; padding: 8px 16px 20px 16px; border-top: 1px solid var(--border-color); max-width: 440px; margin: 0 auto; z-index: 1000; }
         .nav-tab { display: flex; flex-direction: column; align-items: center; color: var(--text-secondary); background: none; border: none; gap: 3px; cursor: pointer; flex: 1; }
@@ -281,7 +256,7 @@
 </head>
 <body>
 
-    <!-- ЭКРАН ОГРАНИЧЕНИЯ ДОСТУПА ДЛЯ ПОСТОРОННИХ -->
+    <!-- ЭКРАН ОГРАНИЧЕНИЯ ДОСТУПА -->
     <div id="access-denied-screen" style="display: none;">
         <div class="lock-icon">🔒</div>
         <div class="lock-title">Доступ ограничен</div>
@@ -301,7 +276,7 @@
         </div>
     </div>
 
-    <!-- Погода -->
+    <!-- Виджет Авто-Погоды -->
     <div class="weather-card">
         <div class="weather-fx-layer" id="weather-fx"></div>
         <div class="weather-info">
@@ -313,7 +288,7 @@
         </div>
     </div>
 
-    <!-- Таймер Пар -->
+    <!-- Живой Таймер Пар -->
     <div class="live-timer-card">
         <div class="timer-header">
             <span class="timer-sub">Статус занятий</span>
@@ -402,35 +377,25 @@
     <div id="page-services" class="page">
         <div class="services-grid">
             
-            <!-- АДМИН-ПАНЕЛЬ И ЗАЯВКИ (ТОЛЬКО ДЛЯ СЕМЁНА) -->
+            <!-- АДМИН-ПАНЕЛЬ (ТОЛЬКО ДЛЯ СЕМЁНА) -->
             <div class="widget-item admin-widget-card" id="admin-widget-btn" style="display:none;" onclick="openWidget('admin')">
                 <svg class="widget-icon" style="color:#ff2d55;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                 <div class="widget-title" style="color:#ff2d55;">Панель Администратора</div>
                 <div class="widget-sub">Управление участниками бота</div>
             </div>
 
-            <div class="widget-item req-widget-card" id="req-widget-btn" style="display:none;" onclick="openWidget('requests')">
-                <svg class="widget-icon" style="color:#ff9500;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><polyline points="17 11 19 13 23 9"/></svg>
-                <div class="widget-title" style="color:#ff9500;">Заявки на доступ</div>
-                <div class="widget-sub">Одобрение входящих запросов</div>
-            </div>
-
+            <!-- ИСПРАВЛЕННАЯ КНОПКА КАЛЕНДАРЯ -->
             <div class="widget-item" onclick="openWidget('calendar')">
                 <svg class="widget-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
                 <div class="widget-title">Календарь</div>
                 <div class="widget-sub">Рейтинговые недели</div>
             </div>
 
+            <!-- ИСПРАВЛЕННАЯ КНОПКА РАСЧЕТА GPA -->
             <div class="widget-item" onclick="openWidget('gpa')">
                 <svg class="widget-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
                 <div class="widget-title">Расчет GPA</div>
                 <div class="widget-sub">Успеваемость</div>
-            </div>
-
-            <div class="widget-item" onclick="openWidget('music')">
-                <svg class="widget-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-                <div class="widget-title">Музыка</div>
-                <div class="widget-sub">SoundCloud Плейлист</div>
             </div>
 
             <div class="widget-item" onclick="openWidget('settings')">
@@ -448,32 +413,50 @@
 
         <!-- ОКНО: АДМИН-ПАНЕЛЬ -->
         <div id="sub-admin" class="sub-panel card" style="border-color: rgba(255,45,85,0.4);">
-            <div class="card-header" style="color:#ff2d55;">
-                <span>Управление Участниками</span>
-            </div>
+            <div class="card-header" style="color:#ff2d55;">Управление Участниками</div>
             <div id="admin-user-list">
                 <div class="user-manage-item">
                     <div class="user-manage-info">
                         <span class="user-manage-name">Семён (Владелец)</span>
-                        <span class="user-manage-sub">ID: 5644768982</span>
+                        <span class="user-manage-sub">ID: 5644768982 • @semen</span>
                     </div>
                     <div><span style="font-size:11px; font-weight:700; color:#30d158;">Админ</span></div>
                 </div>
-            </div>
-        </div>
-
-        <!-- ОКНО: ПАНЕЛЬ ЗАЯВОК НА ВХОД -->
-        <div id="sub-requests" class="sub-panel card" style="border-color: rgba(255,149,0,0.4);">
-            <div class="card-header" style="color:#ff9500;">
-                <span>Новые заявки на доступ</span>
-            </div>
-            <div id="admin-request-list">
-                <div style="text-align: center; color: var(--text-secondary); font-size: 13px; padding: 12px 0;">
-                    Нет активных заявок
+                <div class="user-manage-item">
+                    <div class="user-manage-info">
+                        <span class="user-manage-name">Тестовый Студент</span>
+                        <span class="user-manage-sub">ID: 987654321</span>
+                    </div>
+                    <div>
+                        <button class="admin-action-btn btn-mute" onclick="muteUser('987654321')">🔇 Mute</button>
+                        <button class="admin-action-btn btn-kick" onclick="kickUser('987654321')">🚪 Kick</button>
+                    </div>
                 </div>
             </div>
         </div>
 
+        <!-- ОКНО: КАЛЕНДАРЬ СЕМЕСТРА -->
+        <div id="sub-calendar" class="sub-panel card">
+            <div class="card-header">Академический Календарь</div>
+            <div class="setting-row"><div><div class="setting-title">1 Модуль (Обучение)</div><div class="setting-sub">Недели 1 — 7</div></div><span class="type-pill lecture">Активно</span></div>
+            <div class="setting-row"><div><div class="setting-title">Рубежный контроль 1 (Р1)</div><div class="setting-sub">8 Неделя</div></div><span class="type-pill spz">Контроль</span></div>
+            <div class="setting-row"><div><div class="setting-title">2 Модуль (Обучение)</div><div class="setting-sub">Недели 9 — 14</div></div><span class="setting-sub">Ожидание</span></div>
+            <div class="setting-row"><div><div class="setting-title">Рубежный контроль 2 (Р2)</div><div class="setting-sub">15 Неделя</div></div><span class="setting-sub">Ожидание</span></div>
+            <div class="setting-row"><div><div class="setting-title">Зимняя Сессия</div><div class="setting-sub">Экзаменационный период</div></div><span class="setting-sub" style="color:#ff3b30;">Сессия</span></div>
+        </div>
+
+        <!-- ОКНО: КАЛЬКУЛЯТОР GPA -->
+        <div id="sub-gpa" class="sub-panel card">
+            <div class="card-header">Калькулятор GPA</div>
+            <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 12px;">Введите ваши текущие оценки по предметам для расчета итогового среднего балла:</div>
+            <input type="number" id="gpa-val1" class="gpa-input" placeholder="Оценка 1 (например 90)" max="100">
+            <input type="number" id="gpa-val2" class="gpa-input" placeholder="Оценка 2 (например 85)" max="100">
+            <input type="number" id="gpa-val3" class="gpa-input" placeholder="Оценка 3 (например 95)" max="100">
+            <button class="gpa-btn" onclick="calculateGPA()">Рассчитать GPA</button>
+            <div id="gpa-result" style="margin-top: 12px; font-size: 16px; font-weight: 800; text-align: center; color: var(--accent-blue);"></div>
+        </div>
+
+        <!-- ОКНО: НАСТРОЙКИ -->
         <div id="sub-settings" class="sub-panel card">
             <div class="card-header">Параметры Приложения</div>
             <div class="setting-row">
@@ -488,15 +471,12 @@
                 <label class="ios-switch"><input type="checkbox" id="set-notif" checked onchange="saveConfig('notif', this)"><span class="switch-slider"></span></label>
             </div>
             <div class="setting-row">
-                <div><div class="setting-title">Звук сообщений</div><div class="setting-sub">Беззвучный режим для бота</div></div>
-                <label class="ios-switch"><input type="checkbox" id="set-sound" checked onchange="saveConfig('sound', this)"><span class="switch-slider"></span></label>
-            </div>
-            <div class="setting-row">
                 <div><div class="setting-title">Тактильный отклик (Haptic)</div><div class="setting-sub">Системная вибрация</div></div>
                 <label class="ios-switch"><input type="checkbox" id="set-haptic" checked onchange="saveConfig('haptic', this)"><span class="switch-slider"></span></label>
             </div>
         </div>
 
+        <!-- ОКНО: ПРОФИЛЬ -->
         <div id="sub-profile" class="sub-panel card">
             <div class="card-header">Карточка Пользователя</div>
             <div style="padding: 4px 0; display: flex; flex-direction: column; align-items: center; text-align: center;">
@@ -506,8 +486,8 @@
                 <div style="width: 100%;">
                     <div class="setting-row"><span class="setting-title">Telegram ID</span><span class="setting-sub" style="color:var(--text-primary);" id="prof-id">--</span></div>
                     <div class="setting-row"><span class="setting-title">Статус доступа</span><span class="setting-sub" id="prof-status-val" style="color:#30d158;">Проверка...</span></div>
-                    <div class="setting-row"><span class="setting-title">Университет</span><span class="setting-sub" style="color:var(--text-primary);" id="prof-uni-val">Amanzholov University</span></div>
-                    <div class="setting-row"><span class="setting-title">Специальность</span><span class="setting-sub" style="color:var(--text-primary);" id="prof-spec-val">Начальная военная подготовка</span></div>
+                    <div class="setting-row"><span class="setting-title">Университет</span><span class="setting-sub" style="color:var(--text-primary);">Amanzholov University</span></div>
+                    <div class="setting-row"><span class="setting-title">Специальность</span><span class="setting-sub" style="color:var(--text-primary);">Начальная военная подготовка</span></div>
                 </div>
             </div>
         </div>
@@ -532,16 +512,46 @@
         let hapticOn = localStorage.getItem('haptic') !== 'false';
         function haptic() { if (hapticOn && tg && tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light'); }
 
-        const ADMIN_ID = "5644768982";
-        // Валидный список разрешенных пользователей (Whitelist)
-        let allowedUsers = [ADMIN_ID]; 
+        const ADMIN_ID = "5644768982"; // Ваш постоянный Telegram ID
+        let allowedUsers = [ADMIN_ID];
 
         function sendAccessRequest() {
             haptic();
             if (tg) {
                 tg.sendData(JSON.stringify({ action: "request_access" }));
-                tg.showAlert("Ваша заявка отправлена администратору! Ожидайте подтверждения.");
+                tg.showAlert("Заявка отправлена администратору! Ожидайте подтверждения.");
             }
+        }
+
+        function muteUser(targetId) {
+            haptic();
+            if (tg) {
+                tg.sendData(JSON.stringify({ action: "mute", user_id: targetId }));
+                tg.showAlert("Пользователю ID " + targetId + " переключен Mute!");
+            }
+        }
+
+        function kickUser(targetId) {
+            haptic();
+            if (tg) {
+                tg.sendData(JSON.stringify({ action: "kick", user_id: targetId }));
+                tg.showAlert("Пользователь ID " + targetId + " заблокирован!");
+            }
+        }
+
+        function calculateGPA() {
+            haptic();
+            const v1 = parseFloat(document.getElementById('gpa-val1').value) || 0;
+            const v2 = parseFloat(document.getElementById('gpa-val2').value) || 0;
+            const v3 = parseFloat(document.getElementById('gpa-val3').value) || 0;
+            
+            if (!v1 && !v2 && !v3) {
+                document.getElementById('gpa-result').innerText = "Введите хотя бы одну оценку";
+                return;
+            }
+            const avg = (v1 + v2 + v3) / ((v1?1:0)+(v2?1:0)+(v3?1:0));
+            const gpa = ((avg / 100) * 4.0).toFixed(2);
+            document.getElementById('gpa-result').innerText = `Ваш средний балл: ${avg.toFixed(1)}% | GPA: ${gpa}`;
         }
 
         function setTheme(theme) {
@@ -564,11 +574,4 @@
             document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
             if (btn) btn.classList.add('active');
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            const target = document.getElementById('page-' + pageId);
-            if (target) target.classList.add('active');
-        }
-
-        function selectDay(dayId, btn) {
-            haptic();
-            document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
-            if (btn) btn.classList.add('active
+            const target = document.getElementById('page-'
