@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>AMANZHOLOV Mini App</title>
-    <!-- Подключаем Telegram WebApp SDK для интерактивности -->
+    <!-- Telegram WebApp SDK -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         * {
@@ -17,7 +17,7 @@
         body {
             background-color: #0f0f11;
             color: #ffffff;
-            padding: 12px;
+            padding: 14px 12px 90px 12px;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
@@ -25,39 +25,47 @@
             margin: 0 auto;
             user-select: none;
         }
+
+        /* Хедер */
         .header {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            padding: 8px 4px 14px 4px;
+            padding: 6px 0 16px 0;
+            border-bottom: 1px solid #2c2c2e;
+            margin-bottom: 14px;
         }
-        .header-btn {
-            color: #0a84ff;
-            font-size: 15px;
-            font-weight: 500;
-            cursor: pointer;
+        .header-title-box {
+            text-align: center;
         }
         .header-title {
-            font-size: 16px;
-            font-weight: 700;
-            text-align: center;
+            font-size: 18px;
+            font-weight: 800;
+            letter-spacing: 0.3px;
+            background: linear-gradient(135deg, #64b5f6, #0a84ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         .header-sub {
             font-size: 11px;
             color: #8e8e93;
-            text-align: center;
+            margin-top: 2px;
+            font-weight: 500;
         }
+
+        /* Статус-карточка */
         .status-card {
-            background: #1c1c1e;
+            background: linear-gradient(145deg, #1c1c1e, #252528);
             border-radius: 20px;
-            padding: 18px;
+            padding: 16px 18px;
             margin-bottom: 16px;
             border: 1px solid #2c2c2e;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
         }
         .status-title {
-            font-size: 20px;
+            font-size: 19px;
             font-weight: 700;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -65,35 +73,35 @@
         .status-desc {
             font-size: 13px;
             color: #aeaeb2;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             line-height: 1.4;
         }
         .status-footer {
             font-size: 12px;
-            color: #d1d1d6;
-            border-top: 1px solid #2c2c2e;
-            padding-top: 10px;
-            font-weight: 500;
+            color: #64b5f6;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding-top: 8px;
+            font-weight: 600;
         }
+
+        /* Верхние табы */
         .tabs {
             display: flex;
             gap: 8px;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
             overflow-x: auto;
             padding-bottom: 4px;
             scrollbar-width: none;
         }
-        .tabs::-webkit-scrollbar {
-            display: none;
-        }
+        .tabs::-webkit-scrollbar { display: none; }
         .tab {
             background: #1c1c1e;
             color: #8e8e93;
-            border: none;
-            padding: 10px 16px;
-            border-radius: 16px;
-            font-size: 14px;
-            font-weight: 600;
+            border: 1px solid #2c2c2e;
+            padding: 10px 15px;
+            border-radius: 14px;
+            font-size: 13px;
+            font-weight: 700;
             white-space: nowrap;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -101,22 +109,29 @@
         .tab.active {
             background: #0a84ff;
             color: #ffffff;
-            box-shadow: 0 4px 12px rgba(10, 132, 255, 0.3);
+            border-color: #0a84ff;
+            box-shadow: 0 4px 14px rgba(10, 132, 255, 0.4);
         }
+
+        /* Контейнер контента */
         .content-card {
             background: #1c1c1e;
-            border-radius: 24px;
+            border-radius: 22px;
             padding: 16px;
-            flex-grow: 1;
-            margin-bottom: 75px;
             border: 1px solid #2c2c2e;
+            flex-grow: 1;
         }
         .date-title {
             font-size: 14px;
             color: #8e8e93;
-            margin-bottom: 14px;
-            font-weight: 500;
+            margin-bottom: 12px;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
+
+        /* Карточка пары */
         .lesson-item {
             display: flex;
             align-items: center;
@@ -124,24 +139,21 @@
             border-radius: 16px;
             padding: 12px 14px;
             margin-bottom: 10px;
-            transition: transform 0.1s ease;
-        }
-        .lesson-item:active {
-            transform: scale(0.98);
+            border: 1px solid rgba(255,255,255,0.04);
         }
         .lesson-badge {
             width: 36px;
             height: 36px;
             background: #0a84ff;
-            border-radius: 50%;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 700;
-            font-size: 14px;
+            font-weight: 800;
+            font-size: 15px;
             margin-right: 12px;
             flex-shrink: 0;
-            color: #fff;
+            color: #ffffff;
         }
         .lesson-badge.lecture {
             background: #30b0c7;
@@ -151,174 +163,395 @@
         }
         .lesson-name {
             font-size: 14px;
-            font-weight: 600;
+            font-weight: 700;
             margin-bottom: 3px;
             line-height: 1.3;
+            color: #ffffff;
         }
-        .lesson-time {
+        .lesson-detail {
+            font-size: 12px;
+            color: #a1a1a6;
+        }
+
+        /* Разделы */
+        .page-section {
+            display: none;
+        }
+        .page-section.active {
+            display: block;
+        }
+
+        /* Профиль */
+        .profile-header {
+            text-align: center;
+            padding: 10px 0 16px 0;
+        }
+        .profile-avatar {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #0a84ff, #5e5ce6);
+            border-radius: 50%;
+            margin: 0 auto 10px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+        }
+        .profile-name {
+            font-size: 20px;
+            font-weight: 800;
+        }
+        .profile-sub {
+            font-size: 13px;
+            color: #8e8e93;
+            margin-top: 2px;
+        }
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #2c2c2e;
+            font-size: 14px;
+        }
+        .info-label { color: #8e8e93; }
+        .info-value { font-weight: 600; color: #ffffff; text-align: right; }
+
+        /* Календарь */
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 6px;
+            text-align: center;
+            margin-top: 10px;
+        }
+        .cal-day-head {
+            font-size: 11px;
+            color: #8e8e93;
+            font-weight: 700;
+            padding-bottom: 6px;
+        }
+        .cal-cell {
+            padding: 10px 0;
+            background: #2c2c2e;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .cal-cell.today {
+            background: #0a84ff;
+            color: #fff;
+            font-weight: 800;
+            box-shadow: 0 2px 8px rgba(10,132,255,0.5);
+        }
+
+        /* Настройки в Ещё */
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid #2c2c2e;
+        }
+        .setting-title {
+            font-size: 15px;
+            font-weight: 600;
+        }
+        .setting-desc {
             font-size: 12px;
             color: #8e8e93;
+            margin-top: 2px;
         }
-        .empty-day {
-            text-align: center;
-            color: #3a3a3c;
-            padding: 40px 0;
-            font-size: 15px;
-            font-weight: 500;
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 48px;
+            height: 26px;
         }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider {
+            position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #3a3a3c; transition: .3s; border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute; content: ""; height: 20px; width: 20px; left: 3px; bottom: 3px;
+            background-color: white; transition: .3s; border-radius: 50%;
+        }
+        input:checked + .slider { background-color: #34c759; }
+        input:checked + .slider:before { transform: translateX(22px); }
+
+        /* Увеличенная нижняя панель навигации */
         .nav-bar {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(22, 22, 24, 0.94);
-            backdrop-filter: blur(20px);
+            background: rgba(22, 22, 24, 0.95);
+            backdrop-filter: blur(25px);
             display: flex;
             justify-content: space-around;
-            padding: 12px 0;
+            padding: 12px 6px 16px 6px;
             border-top: 1px solid #2c2c2e;
             max-width: 480px;
             margin: 0 auto;
-            z-index: 100;
+            z-index: 999;
         }
-        .nav-item {
+        .nav-button {
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             color: #8e8e93;
-            font-size: 11px;
-            text-decoration: none;
-            gap: 4px;
-            cursor: pointer;
             background: none;
             border: none;
-            font-weight: 500;
+            gap: 4px;
+            cursor: pointer;
+            flex: 1;
+            padding: 4px 0;
+            transition: all 0.15s ease;
         }
-        .nav-item.active {
+        .nav-icon {
+            font-size: 22px;
+        }
+        .nav-label {
+            font-size: 11px;
+            font-weight: 700;
+        }
+        .nav-button.active {
             color: #0a84ff;
+            transform: translateY(-2px);
         }
-        .section-view {
-            display: none;
-        }
-        .section-view.active {
-            display: block;
+        .nav-button:active {
+            transform: scale(0.92);
         }
     </style>
 </head>
 <body>
 
+    <!-- Шапка -->
     <div class="header">
-        <div class="header-btn" onclick="closeApp()">Закрыть</div>
-        <div>
-            <div class="header-title">AMANZHOLOVbot</div>
-            <div class="header-sub">мини-приложение</div>
+        <div class="header-title-box">
+            <div class="header-title">Amanzholov University</div>
+            <div class="header-sub">Расписание & Студенческий портал</div>
         </div>
-        <div style="width: 50px;"></div>
     </div>
 
-    <!-- Карточка статуса -->
+    <!-- Статус-карточка -->
     <div class="status-card">
-        <div class="status-title" id="status-title">☕ Перемена</div>
-        <div class="status-desc" id="status-desc">Университет Сарсена Аманжолова</div>
-        <div class="status-footer" id="status-footer">🚀 Загрузка статуса...</div>
+        <div class="status-title" id="status-icon">🎓 ВГУ им. С. Аманжолова</div>
+        <div class="status-desc" id="status-text">Специальность: Начальная военная подготовка</div>
+        <div class="status-footer" id="status-time">⚡ Учебный семестр идет полным ходом</div>
     </div>
 
-    <!-- Верхние переключатели дней -->
-    <div class="tabs">
-        <button class="tab active" onclick="switchDay('mon', this)">ПН</button>
-        <button class="tab" onclick="switchDay('tue', this)">ВТ</button>
-        <button class="tab" onclick="switchDay('wed', this)">СР</button>
-        <button class="tab" onclick="switchDay('thu', this)">ЧТ</button>
-        <button class="tab" onclick="switchDay('fri', this)">ПТ</button>
-        <button class="tab" onclick="switchDay('calls', this)">🔔 Звонки</button>
+    <!-- РАЗДЕЛ: РАСПИСАНИЕ -->
+    <div id="section-schedule" class="page-section active">
+        <!-- Вкладки дней -->
+        <div class="tabs">
+            <button class="tab active" onclick="switchDay('mon', this)">ПН</button>
+            <button class="tab" onclick="switchDay('tue', this)">ВТ</button>
+            <button class="tab" onclick="switchDay('wed', this)">СР</button>
+            <button class="tab" onclick="switchDay('thu', this)">ЧТ</button>
+            <button class="tab" onclick="switchDay('fri', this)">ПТ</button>
+            <button class="tab" onclick="switchDay('sat', this)">СБ</button>
+            <button class="tab" onclick="switchDay('calls', this)">🔔 Звонки</button>
+        </div>
+
+        <div class="content-card">
+            <!-- ПОНЕДЕЛЬНИК -->
+            <div id="day-mon" class="day-view">
+                <div class="date-title">Понедельник <span>6 пар</span></div>
+                <div class="lesson-item"><div class="lesson-badge lecture">1</div><div class="lesson-info"><div class="lesson-name">Социология (Лекция)</div><div class="lesson-detail">09:50 – 10:40 | Рякова Е.Г. | Корпус №1, ауд. 111</div></div></div>
+                <div class="lesson-item"><div class="lesson-badge">2</div><div class="lesson-info"><div class="lesson-name">Иностранный язык (СПЗ)</div><div class="lesson-detail">11:00 – 11:50 | Жоламанова К.Д. | Корпус №7, ауд. 219</div></div></div>
+                <div class="lesson-item"><div class="lesson-badge">3</div><div class="lesson-info"><div class="lesson-name">Иностранный язык (СПЗ)</div><div class="lesson-detail">11:55 – 12:45 | Жоламанова К.Д. | Корпус №7, ауд. 219</div></div></div>
+                <div class="lesson-item"><div class="lesson-badge">4</div><div class="lesson-info"><div class="lesson-name">Иностранный язык (СПЗ)</div><div class="lesson-detail">12:50 – 13:40 | Жоламанова К.Д. | Корпус №7, ауд. 112</div></div></div>
+                <div class="lesson-item"><div class="lesson-badge lecture">5</div><div class="lesson-info"><div class="lesson-name">Гигиена, медицина и первая помощь (Лекция)</div><div class="lesson-detail">13:45 – 14:35 | Куленова Г.Б. | Корпус №2, ауд. 31</div></div></div>
+                <div class="lesson-item"><div class="lesson-badge lecture">6</div><div class="lesson-info"><div class="lesson-name">Гигиена, медицина и первая помощь (Лекция)</div><div class="lesson-detail">14:40 – 15:30 | Куленова Г.Б. | Корпус №2, ауд. 31</div></div></div>
+            </div>
+
+            <!-- ВТОРНИК -->
+            <div id="day-tue" class="day-view" style="display:none;">
+                <div class="date-title">Вторник <span>5 пар</span></div>
+                <div class="lesson-item"><div class="lesson-badge lecture">1</div><div class="lesson-info"><div class="lesson-name">Политология (Лекция)</div><div class="lesson-detail">08:00 – 08:50 | Жиренова А.Т. | Корпус №1, ауд. 305</div></div></div>
+                <div class="lesson-item"><div class="lesson-badge">2</div><div class="lesson-info"><div class="lesson-name">Политология (СПЗ)</div><div class="lesson-detail">09:50 – 10:40 | Жиренова А.Т. | Корпус №1, ауд. 311</div></div></div>
+                <div class="lesson-item"><div class="lesson-badge lecture">3</div><div class="lesson-info"><div class="lesson-name">Культурология (Лекция)</div><div class="lesson-detail">11:00 – 11:50 | Болгауова Г.Т. | Корпус №1, ауд. 111</div></div></div>
+                <div class="lesson-item"><div class="lesson-badge lecture">4</div><div class="lesson-info"><div class="lesson-name">История Казахстана (Лекция)</div><div class="lesson-detail">11:55 – 12:45 | Айдарбаева Р.К. | Корпус №1, ауд. 111</div></div></div>
+                <div class="lesson-item"><div class="lesson-badge">5</div><div class="lesson-info"><div class="lesson-name">Социология (СПЗ)</div><div class="lesson-detail">12:50 – 13:40 | Рякова Е.Г. | Корпус №1, ауд. 252</div></div></div>
+            </div>
+
+            <!-- СРЕДА -->
+            <div id="day-wed" class="day-view" style="display:none;">
+                <div class="date-title">Среда <span>5 пар</span></div>
+                <div class="lesson-item"><div class="lesson-badge">1</div><div class="lesson-info"><div class="lesson-name">Казахский (русский) язык (СПЗ)</div><div class="lesson-detail">08:00 – 08:50 | Апышева К.А. | Корпус №1, ауд. 406</div></div></div>
+                <div class="lesson-item"><div class="lesson-badge lecture">2</div><div class="lesson-info"><div class="lesson-name">Психология (Лекция)</div><div class="lesson-detail">08:55 – 09:45 | Есимханова Д.М. | Корпус №1, ауд. 111</div></div></div>
+                <div class="lesson-item"><div class="lesson-badge">3</div><div class="lesson-info"><div class="lesson-name">Культурология (СПЗ)</div><div class="lesson-detail">11:00 – 11:50 | Болгауова Г.Т. | Корпус №1, ауд. 327а</div></div></div>
+                <div class="lesson-item"><div class="lesson-badge lecture">4</div><div class="lesson-info"><div class="lesson-name">История Казахстана (Лекция)</div><div class="lesson-detail">11:55 – 12:45 | Айдарбаева Р.К. | Корпус №1, ауд. 257 (Мультимедийный)</div></div></div>
+                <div class="lesson-item"><div class="lesson-badge">5</div><div class="lesson-info"><div class="lesson-name">История Казахстана (СПЗ)</div><div class="lesson-detail">12:50 – 13:40 | Омарканова А.О. | Корпус №1, ауд. 316</div></div></div>
+            </div>
+
+            <!-- ЧЕТВЕРГ -->
+            <div id="day-thu" class="day-view" style="display:none;">
+                <div class="date-title">Четверг <span>3 пары</span></div>
+                <div class="lesson-item"><div class="lesson-badge">1</div><div class="lesson-info"><div class="lesson-name">Психология (СПЗ)</div><div class="lesson-detail">08:00 – 08:50 | Ахаева А.Ш. | Корпус №9, ауд. 301</div></div></div>
+                <div class="lesson-item"><div class="lesson-badge">2</div><div class="lesson-info"><div class="lesson-name">Казахский (русский) язык (СПЗ)</div><div class="lesson-detail">12:50 – 13:40 | Апышева К.А. | Корпус №9, ауд. 304</div></div></div>
+                <div class="lesson-item"><div class="lesson-badge">3</div><div class="lesson-info"><div class="lesson-name">Гигиена, медицина и первая помощь (СПЗ)</div><div class="lesson-detail">13:45 – 14:35 | Куленова Г.Б. | Корпус №2, ауд. 32</div></div></div>
+            </div>
+
+            <!-- ПЯТНИЦА -->
+            <div id="day-fri" class="day-view" style="display:none;">
+                <div class="date-title">Пятница <span>3 пары</span></div>
+                <div class="lesson-item"><div class="lesson-badge">1</div><div class="lesson-info"><div class="lesson-name">Физическая культура (СПЗ)</div><div class="lesson-detail">09:50 – 10:40 | Зуев А.С. | Корпус №1, Спортзал</div></div></div>
+                <div class="lesson-item"><div class="lesson-badge">2</div><div class="lesson-info"><div class="lesson-name">Физическая культура (СПЗ)</div><div class="lesson-detail">11:00 – 11:50 | Зуев А.С. | Корпус №1, Спортзал</div></div></div>
+                <div class="lesson-item"><div class="lesson-badge">3</div><div class="lesson-info"><div class="lesson-name">Казахский (русский) язык (СПЗ)</div><div class="lesson-detail">12:50 – 13:40 | Апышева К.А. | Корпус №9, ауд. 304</div></div></div>
+            </div>
+
+            <!-- СУББОТА -->
+            <div id="day-sat" class="day-view" style="display:none;">
+                <div class="date-title">Суббота</div>
+                <div style="text-align: center; padding: 30px 0; color: #8e8e93; font-size: 15px;">
+                    🎉 Выходной день! Пар нет.
+                </div>
+            </div>
+
+            <!-- ЗВОНКИ -->
+            <div id="day-calls" class="day-view" style="display:none;">
+                <div class="date-title">Расписание звонков</div>
+                <div class="lesson-item"><div class="lesson-badge">1</div><div class="lesson-info"><div class="lesson-name">1 пара</div><div class="lesson-detail">08:00 — 08:50</div></div></div>
+                <div class="lesson-item"><div class="lesson-badge">2</div><div class="lesson-info"><div class="lesson-name">2 пара</div><div class="lesson-detail">08:55 — 09:45</div></div></div>
+                <div class="lesson-item"><div class="lesson-badge">3</div><div class="lesson-info"><div class="lesson-name">3 пара</div><div class="lesson-detail">09:50 — 10:40</div></div></div>
+                <div class="lesson-item"><div class="lesson-badge">4</div><div class="lesson-info"><div class="lesson-name">4 пара</div><div class="lesson-detail">11:00 — 11:50</div></div></div>
+                <div class="lesson-item"><div class="lesson-badge">5</div><div class="lesson-info"><div class="lesson-name">5 пара</div><div class="lesson-detail">11:55 — 12:45</div></div></div>
+                <div class="lesson-item"><div class="lesson-badge">6</div><div class="lesson-info"><div class="lesson-name">6 пара</div><div class="lesson-detail">12:50 — 13:40</div></div></div>
+                <div class="lesson-item"><div class="lesson-badge">7</div><div class="lesson-info"><div class="lesson-name">7 пара</div><div class="lesson-detail">13:45 — 14:35</div></div></div>
+                <div class="lesson-item"><div class="lesson-badge">8</div><div class="lesson-info"><div class="lesson-name">8 пара</div><div class="lesson-detail">14:40 — 15:30</div></div></div>
+            </div>
+        </div>
     </div>
 
-    <!-- КОНТЕНТ: ПОНЕДЕЛЬНИК -->
-    <div id="day-mon" class="section-view active content-card">
-        <div class="date-title">Понедельник</div>
-        <div class="lesson-item"><div class="lesson-badge lecture">1</div><div class="lesson-info"><div class="lesson-name">Социология (Лекция)</div><div class="lesson-time">09:50 – 10:40 | Корпус №1, ауд. 111</div></div></div>
-        <div class="lesson-item"><div class="lesson-badge">2</div><div class="lesson-info"><div class="lesson-name">Иностранный язык (СПЗ)</div><div class="lesson-time">11:00 – 11:50 | Корпус №7, ауд. 219</div></div></div>
-        <div class="lesson-item"><div class="lesson-badge">3</div><div class="lesson-info"><div class="lesson-name">Иностранный язык (СПЗ)</div><div class="lesson-time">11:55 – 12:45 | Корпус №7, ауд. 219</div></div></div>
-        <div class="lesson-item"><div class="lesson-badge">4</div><div class="lesson-info"><div class="lesson-name">Иностранный язык (СПЗ)</div><div class="lesson-time">12:50 – 13:40 | Корпус №7, ауд. 112</div></div></div>
-        <div class="lesson-item"><div class="lesson-badge lecture">5</div><div class="lesson-info"><div class="lesson-name">Гигиена, медицина (Лекция)</div><div class="lesson-time">13:45 – 14:35 | Корпус №2, ауд. 31</div></div></div>
-        <div class="lesson-item"><div class="lesson-badge lecture">6</div><div class="lesson-info"><div class="lesson-name">Гигиена, медицина (Лекция)</div><div class="lesson-time">14:40 – 15:30 | Корпус №2, ауд. 31</div></div></div>
+    <!-- РАЗДЕЛ: КАЛЕНДАРЬ -->
+    <div id="section-calendar" class="page-section">
+        <div class="content-card">
+            <div class="date-title" id="cal-month-title">Октябрь 2026</div>
+            <div class="calendar-grid">
+                <div class="cal-day-head">ПН</div><div class="cal-day-head">ВТ</div><div class="cal-day-head">СР</div><div class="cal-day-head">ЧТ</div><div class="cal-day-head">ПТ</div><div class="cal-day-head">СБ</div><div class="cal-day-head">ВС</div>
+                <!-- Дни месяца -->
+                <div class="cal-cell" style="opacity: 0.3;">28</div><div class="cal-cell" style="opacity: 0.3;">29</div><div class="cal-cell" style="opacity: 0.3;">30</div><div class="cal-cell">1</div><div class="cal-cell">2</div><div class="cal-cell">3</div><div class="cal-cell">4</div>
+                <div class="cal-cell">5</div><div class="cal-cell">6</div><div class="cal-cell">7</div><div class="cal-cell">8</div><div class="cal-cell">9</div><div class="cal-cell">10</div><div class="cal-cell">11</div>
+                <div class="cal-cell">12</div><div class="cal-cell">13</div><div class="cal-cell">14</div><div class="cal-cell">15</div><div class="cal-cell">16</div><div class="cal-cell">17</div><div class="cal-cell">18</div>
+                <div class="cal-cell">19</div><div class="cal-cell today">20</div><div class="cal-cell">21</div><div class="cal-cell">22</div><div class="cal-cell">23</div><div class="cal-cell">24</div><div class="cal-cell">25</div>
+                <div class="cal-cell">26</div><div class="cal-cell">27</div><div class="cal-cell">28</div><div class="cal-cell">29</div><div class="cal-cell">30</div><div class="cal-cell">31</div>
+            </div>
+            <div style="margin-top: 20px; font-size: 13px; color: #8e8e93; line-height: 1.6;">
+                📌 <strong style="color:#fff;">Рейтинговые недели:</strong> 7-я и 15-я недели семестра.<br>
+                🔥 Синим цветом подсвечен сегодняшний день.
+            </div>
+        </div>
     </div>
 
-    <!-- КОНТЕНТ: ВТОРНИК -->
-    <div id="day-tue" class="section-view content-card">
-        <div class="date-title">Вторник</div>
-        <div class="lesson-item"><div class="lesson-badge lecture">1</div><div class="lesson-info"><div class="lesson-name">Политология (Лекция)</div><div class="lesson-time">08:00 – 08:50 | Корпус №1, ауд. 305</div></div></div>
-        <div class="lesson-item"><div class="lesson-badge">2</div><div class="lesson-info"><div class="lesson-name">Политология (СПЗ)</div><div class="lesson-time">09:50 – 10:40 | Корпус №1, ауд. 311</div></div></div>
-        <div class="lesson-item"><div class="lesson-badge lecture">3</div><div class="lesson-info"><div class="lesson-name">Культурология (Лекция)</div><div class="lesson-time">11:00 – 11:50 | Корпус №1, ауд. 111</div></div></div>
-        <div class="lesson-item"><div class="lesson-badge lecture">4</div><div class="lesson-info"><div class="lesson-name">История Казахстана (Лекция)</div><div class="lesson-time">11:55 – 12:45 | Корпус №1, ауд. 111</div></div></div>
-        <div class="lesson-item"><div class="lesson-badge">5</div><div class="lesson-info"><div class="lesson-name">Социология (СПЗ)</div><div class="lesson-time">12:50 – 13:40 | Корпус №1, ауд. 252</div></div></div>
+    <!-- РАЗДЕЛ: ПРОФИЛЬ -->
+    <div id="section-profile" class="page-section">
+        <div class="content-card">
+            <div class="profile-header">
+                <div class="profile-avatar">👨‍🎓</div>
+                <div class="profile-name">Семён</div>
+                <div class="profile-sub">Студент 1 курса</div>
+            </div>
+
+            <div class="info-row"><span class="info-label">ВУЗ</span><span class="info-value">ВГУ им. С. Аманжолова</span></div>
+            <div class="info-row"><span class="info-label">Специальность</span><span class="info-value">Начальная военная подготовка</span></div>
+            <div class="info-row"><span class="info-label">Город</span><span class="info-value">Усть-Каменогорск</span></div>
+            <div class="info-row"><span class="info-label">Статус доступа</span><span class="info-value" style="color: #30d158;">Администратор (VIP)</span></div>
+            <div class="info-row"><span class="info-label">Telegram ID</span><span class="info-value">5644768982</span></div>
+        </div>
     </div>
 
-    <!-- КОНТЕНТ: СРЕДА -->
-    <div id="day-wed" class="section-view content-card">
-        <div class="date-title">Среда</div>
-        <div class="lesson-item"><div class="lesson-badge">1</div><div class="lesson-info"><div class="lesson-name">Казахский (русский) язык (СПЗ)</div><div class="lesson-time">08:00 – 08:50 | Корпус №1, ауд. 406</div></div></div>
-        <div class="lesson-item"><div class="lesson-badge lecture">2</div><div class="lesson-info"><div class="lesson-name">Психология (Лекция)</div><div class="lesson-time">08:55 – 09:45 | Корпус №1, ауд. 111</div></div></div>
-        <div class="lesson-item"><div class="lesson-badge">3</div><div class="lesson-info"><div class="lesson-name">Культурология (СПЗ)</div><div class="lesson-time">11:00 – 11:50 | Корпус №1, ауд. 327а</div></div></div>
-        <div class="lesson-item"><div class="lesson-badge lecture">4</div><div class="lesson-info"><div class="lesson-name">История Казахстана (Лекция)</div><div class="lesson-time">11:55 – 12:45 | Корпус №1, 257 Зал</div></div></div>
-        <div class="lesson-item"><div class="lesson-badge">5</div><div class="lesson-info"><div class="lesson-name">История Казахстана (СПЗ)</div><div class="lesson-time">12:50 – 13:40 | Корпус №1, ауд. 316</div></div></div>
+    <!-- РАЗДЕЛ: ЕЩЁ / НАСТРОЙКИ -->
+    <div id="section-more" class="page-section">
+        <div class="content-card">
+            <div class="date-title">Уведомления и звук</div>
+
+            <div class="setting-item">
+                <div>
+                    <div class="setting-title">Уведомления о парах</div>
+                    <div class="setting-desc">Получать анонсы и закрёпы перед парами</div>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="notif-toggle" checked onchange="toggleNotifications(this)">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <div class="setting-item">
+                <div>
+                    <div class="setting-title">Звук уведомлений</div>
+                    <div class="setting-desc">Звуковое сопровождение сообщений</div>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="sound-toggle" checked onchange="toggleSound(this)">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <div class="setting-item">
+                <div>
+                    <div class="setting-title">Виброотклик (Haptic)</div>
+                    <div class="setting-desc">Тактильная отдача при нажатии кнопок</div>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="haptic-toggle" checked onchange="toggleHapticSetting(this)">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <div style="margin-top: 24px;">
+                <button onclick="triggerHaptic(); alert('Кэш успешно очищен!');" style="width: 100%; padding: 12px; background: #2c2c2e; border: 1px solid #3a3a3c; border-radius: 12px; color: #ff453a; font-weight: 700; cursor: pointer;">
+                    🧹 Очистить кэш приложения
+                </button>
+            </div>
+        </div>
     </div>
 
-    <!-- КОНТЕНТ: ЧЕТВЕРГ -->
-    <div id="day-thu" class="section-view content-card">
-        <div class="date-title">Четверг</div>
-        <div class="lesson-item"><div class="lesson-badge">1</div><div class="lesson-info"><div class="lesson-name">Психология (СПЗ)</div><div class="lesson-time">08:00 – 08:50 | Корпус №9, ауд. 301</div></div></div>
-        <div class="lesson-item"><div class="lesson-badge">2</div><div class="lesson-info"><div class="lesson-name">Казахский (русский) язык (СПЗ)</div><div class="lesson-time">12:50 – 13:40 | Корпус №9, ауд. 304</div></div></div>
-        <div class="lesson-item"><div class="lesson-badge">3</div><div class="lesson-info"><div class="lesson-name">Гигиена, медицина (СПЗ)</div><div class="lesson-time">13:45 – 14:35 | Корпус №2, ауд. 32</div></div></div>
-    </div>
-
-    <!-- КОНТЕНТ: ПЯТНИЦА -->
-    <div id="day-fri" class="section-view content-card">
-        <div class="date-title">Пятница</div>
-        <div class="lesson-item"><div class="lesson-badge">1</div><div class="lesson-info"><div class="lesson-name">Физическая культура (СПЗ)</div><div class="lesson-time">09:50 – 10:40 | Корпус №1, Спортзал</div></div></div>
-        <div class="lesson-item"><div class="lesson-badge">2</div><div class="lesson-info"><div class="lesson-name">Физическая культура (СПЗ)</div><div class="lesson-time">11:00 – 11:50 | Корпус №1, Спортзал</div></div></div>
-        <div class="lesson-item"><div class="lesson-badge">3</div><div class="lesson-info"><div class="lesson-name">Казахский (русский) язык (СПЗ)</div><div class="lesson-time">12:50 – 13:40 | Корпус №9, ауд. 304</div></div></div>
-    </div>
-
-    <!-- КОНТЕНТ: ЗВОНКИ -->
-    <div id="day-calls" class="section-view content-card">
-        <div class="date-title">⏰ Расписание звонков</div>
-        <div class="lesson-item"><div class="lesson-badge">1</div><div class="lesson-info"><div class="lesson-name">1 пара</div><div class="lesson-time">08:00 — 08:50</div></div></div>
-        <div class="lesson-item"><div class="lesson-badge">2</div><div class="lesson-info"><div class="lesson-name">2 пара</div><div class="lesson-time">08:55 — 09:45</div></div></div>
-        <div class="lesson-item"><div class="lesson-badge">3</div><div class="lesson-info"><div class="lesson-name">3 пара</div><div class="lesson-time">09:50 — 10:40</div></div></div>
-        <div class="lesson-item"><div class="lesson-badge">4</div><div class="lesson-info"><div class="lesson-name">4 пара</div><div class="lesson-time">11:00 — 11:50</div></div></div>
-        <div class="lesson-item"><div class="lesson-badge">5</div><div class="lesson-info"><div class="lesson-name">5 пара</div><div class="lesson-time">11:55 — 12:45</div></div></div>
-        <div class="lesson-item"><div class="lesson-badge">6</div><div class="lesson-info"><div class="lesson-name">6 пара</div><div class="lesson-time">12:50 — 13:40</div></div></div>
-        <div class="lesson-item"><div class="lesson-badge">7</div><div class="lesson-info"><div class="lesson-name">7 пара</div><div class="lesson-time">13:45 — 14:35</div></div></div>
-        <div class="lesson-item"><div class="lesson-badge">8</div><div class="lesson-info"><div class="lesson-name">8 пара</div><div class="lesson-time">14:40 — 15:30</div></div></div>
-    </div>
-
-    <!-- Нижняя навигация -->
+    <!-- Нижняя увеличенная навигационная панель -->
     <div class="nav-bar">
-        <button class="nav-item active" onclick="switchNav('schedule', this)">📅 Расписание</button>
-        <button class="nav-item" onclick="switchDay('calls', document.querySelectorAll('.tab')[5])">⏰ Звонки</button>
-        <button class="nav-item" onclick="triggerHaptic(); alert('Университет имени Сарсена Аманжолова\nСтудент: Семён')">👤 Профиль</button>
+        <button class="nav-button active" onclick="switchNavSection('schedule', this)">
+            <span class="nav-icon">📅</span>
+            <span class="nav-label">Расписание</span>
+        </button>
+        <button class="nav-button" onclick="switchNavSection('calendar', this)">
+            <span class="nav-icon">📆</span>
+            <span class="nav-label">Календарь</span>
+        </button>
+        <button class="nav-button" onclick="switchNavSection('profile', this)">
+            <span class="nav-icon">👤</span>
+            <span class="nav-label">Профиль</span>
+        </button>
+        <button class="nav-button" onclick="switchNavSection('more', this)">
+            <span class="nav-icon">⚙️</span>
+            <span class="nav-label">Ещё</span>
+        </button>
     </div>
 
     <script>
-        // Инициализация Telegram WebApp API
         const tg = window.Telegram ? window.Telegram.WebApp : null;
         if (tg) {
             tg.expand();
             tg.ready();
         }
 
+        let isHapticEnabled = localStorage.getItem('haptic') !== 'false';
+
         function triggerHaptic() {
-            if (tg && tg.HapticFeedback) {
-                tg.HapticFeedback.impactOccurred('light');
+            if (isHapticEnabled && tg && tg.HapticFeedback) {
+                tg.HapticFeedback.impactOccurred('medium');
             }
         }
 
-        function closeApp() {
+        function switchNavSection(sectionName, btn) {
             triggerHaptic();
-            if (tg) {
-                tg.close();
-            }
+            document.querySelectorAll('.nav-button').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+
+            document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+            const targetSection = document.getElementById('section-' + sectionName);
+            if (targetSection) targetSection.classList.add('active');
         }
 
         function switchDay(dayId, btn) {
@@ -326,33 +559,54 @@
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             if (btn) btn.classList.add('active');
 
-            document.querySelectorAll('.section-view').forEach(s => s.classList.remove('active'));
-            const target = document.getElementById('day-' + dayId);
-            if (target) target.classList.add('active');
+            document.querySelectorAll('.day-view').forEach(d => d.style.display = 'none');
+            const targetDay = document.getElementById('day-' + dayId);
+            if (targetDay) targetDay.style.display = 'block';
         }
 
-        function switchNav(type, btn) {
+        function toggleNotifications(el) {
             triggerHaptic();
-            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            if (btn) btn.classList.add('active');
-            if (type === 'schedule') {
-                autoSelectCurrentDay();
+            localStorage.setItem('notif', el.checked);
+            if (tg) {
+                tg.showAlert(el.checked ? "🔔 Уведомления включены!" : "🔕 Уведомления отключены!");
             }
         }
 
-        // Автоопределение сегодняшнего дня недели
-        function autoSelectCurrentDay() {
-            const today = new Date().getDay(); // 0-Воскресенье, 1-ПН, 2-ВТ...
-            const daysMap = { 1: 'mon', 2: 'tue', 3: 'wed', 4: 'thu', 5: 'fri' };
-            const dayKey = daysMap[today] || 'mon';
-            
-            const tabs = document.querySelectorAll('.tab');
-            const dayIndexMap = { 'mon': 0, 'tue': 1, 'wed': 2, 'thu': 3, 'fri': 4 };
-            switchDay(dayKey, tabs[dayIndexMap[dayKey]]);
+        function toggleSound(el) {
+            triggerHaptic();
+            localStorage.setItem('sound', el.checked);
+            if (tg) {
+                tg.showAlert(el.checked ? "🔊 Звук включен!" : "🔇 Звук отключен!");
+            }
         }
 
-        // Вызываем автовыбор при старте
-        autoSelectCurrentDay();
+        function toggleHapticSetting(el) {
+            isHapticEnabled = el.checked;
+            localStorage.setItem('haptic', el.checked);
+        }
+
+        // Загрузка сохраненных настроек
+        document.addEventListener("DOMContentLoaded", () => {
+            const savedNotif = localStorage.getItem('notif');
+            if (savedNotif !== null) document.getElementById('notif-toggle').checked = (savedNotif === 'true');
+
+            const savedSound = localStorage.getItem('sound');
+            if (savedSound !== null) document.getElementById('sound-toggle').checked = (savedSound === 'true');
+
+            const savedHaptic = localStorage.getItem('haptic');
+            if (savedHaptic !== null) document.getElementById('haptic-toggle').checked = (savedHaptic === 'true');
+
+            // Выбор текущего дня недели по умолчанию
+            const currentDay = new Date().getDay(); // 0 - ВС, 1 - ПН, 2 - ВТ...
+            const daysArr = ['sat', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+            const dayKey = daysArr[currentDay] || 'mon';
+            
+            const tabButtons = document.querySelectorAll('.tab');
+            const dayIdxMap = { 'mon': 0, 'tue': 1, 'wed': 2, 'thu': 3, 'fri': 4, 'sat': 5 };
+            if (dayIdxMap[dayKey] !== undefined) {
+                switchDay(dayKey, tabButtons[dayIdxMap[dayKey]]);
+            }
+        });
     </script>
 </body>
 </html>
