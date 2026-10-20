@@ -67,6 +67,51 @@
             user-select: none;
         }
 
+        /* ЭКРАН БЛОКИРОВКИ ДОСТУПА */
+        #access-denied-screen {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: #000000;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            text-align: center;
+        }
+        .lock-icon {
+            font-size: 54px;
+            margin-bottom: 16px;
+        }
+        .lock-title {
+            font-family: var(--font-display);
+            font-size: 22px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+        .lock-desc {
+            font-size: 13px;
+            color: #8e8e93;
+            line-height: 1.5;
+            margin-bottom: 24px;
+            max-width: 300px;
+        }
+        .btn-request {
+            background: linear-gradient(135deg, #0a84ff, #5e5ce6);
+            color: #ffffff;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 14px;
+            width: 100%;
+            max-width: 280px;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(10, 132, 255, 0.4);
+        }
+
         .app-header {
             display: flex;
             align-items: center;
@@ -119,7 +164,6 @@
             box-shadow: 0 0 8px #30d158;
         }
 
-        /* Виджет Авто-Погоды */
         .weather-card {
             background: linear-gradient(135deg, rgba(10, 132, 255, 0.18), rgba(94, 92, 230, 0.12));
             border: 1px solid rgba(10, 132, 255, 0.25);
@@ -145,7 +189,6 @@
         .sun-ray { position: absolute; top: -20px; right: -20px; width: 90px; height: 90px; background: radial-gradient(circle, rgba(255,214,10,0.4) 0%, rgba(255,149,0,0) 70%); animation: pulseSun 2s ease-in-out infinite alternate; }
         @keyframes pulseSun { 0% { transform: scale(0.9); opacity: 0.6; } 100% { transform: scale(1.2); opacity: 1; } }
 
-        /* Живой Таймер Пар */
         .live-timer-card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -164,7 +207,6 @@
         .timer-sub { font-size: 12px; color: var(--text-secondary); }
         .timer-countdown { font-family: var(--font-display); font-size: 22px; font-weight: 800; color: var(--accent-blue); margin-top: 8px; }
 
-        /* Вкладки Дней */
         .tabs-container { display: flex; gap: 6px; margin-bottom: 14px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
         .tabs-container::-webkit-scrollbar { display: none; }
         .tab-item { font-family: var(--font-display); background: var(--card-bg); color: var(--text-secondary); border: 1px solid var(--border-color); padding: 8px 14px; border-radius: 12px; font-size: 13px; font-weight: 700; white-space: nowrap; cursor: pointer; }
@@ -189,7 +231,6 @@
         .page { display: none; }
         .page.active { display: block; }
 
-        /* Сервисы & Сетка */
         .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 14px; }
         .widget-item { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 16px 14px; cursor: pointer; }
         .widget-item:active { background: var(--card-secondary); transform: scale(0.98); }
@@ -219,45 +260,17 @@
         .profile-avatar-box img { width: 100%; height: 100%; object-fit: cover; }
         .guest-warning-card { background: rgba(255, 59, 48, 0.1); border: 1px solid rgba(255, 59, 48, 0.25); color: #ff3b30; padding: 12px; border-radius: 12px; font-size: 12px; font-weight: 600; line-height: 1.4; margin-top: 10px; }
 
-        /* СПЕЦИАЛЬНАЯ АДМИН-ПАНЕЛЬ */
-        .admin-widget-card {
-            background: linear-gradient(135deg, rgba(255, 45, 85, 0.15), rgba(175, 82, 222, 0.12));
-            border: 1px solid rgba(255, 45, 85, 0.3);
-            grid-column: span 2;
-        }
-        .user-manage-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: var(--card-secondary);
-            padding: 10px 12px;
-            border-radius: 12px;
-            margin-bottom: 8px;
-        }
-        .user-manage-info {
-            display: flex;
-            flex-direction: column;
-        }
-        .user-manage-name {
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-        .user-manage-sub {
-            font-size: 11px;
-            color: var(--text-secondary);
-        }
-        .admin-action-btn {
-            padding: 6px 10px;
-            border-radius: 8px;
-            border: none;
-            font-size: 11px;
-            font-weight: 700;
-            cursor: pointer;
-            margin-left: 4px;
-        }
+        .admin-widget-card { background: linear-gradient(135deg, rgba(255, 45, 85, 0.15), rgba(175, 82, 222, 0.12)); border: 1px solid rgba(255, 45, 85, 0.3); grid-column: span 2; }
+        .req-widget-card { background: linear-gradient(135deg, rgba(255, 149, 0, 0.15), rgba(255, 204, 0, 0.12)); border: 1px solid rgba(255, 149, 0, 0.3); grid-column: span 2; }
+
+        .user-manage-item { display: flex; align-items: center; justify-content: space-between; background: var(--card-secondary); padding: 10px 12px; border-radius: 12px; margin-bottom: 8px; }
+        .user-manage-info { display: flex; flex-direction: column; }
+        .user-manage-name { font-size: 13px; font-weight: 700; color: var(--text-primary); }
+        .user-manage-sub { font-size: 11px; color: var(--text-secondary); }
+        .admin-action-btn { padding: 6px 10px; border-radius: 8px; border: none; font-size: 11px; font-weight: 700; cursor: pointer; margin-left: 4px; }
         .btn-mute { background: rgba(255, 149, 0, 0.2); color: #ff9500; }
         .btn-kick { background: rgba(255, 59, 48, 0.2); color: #ff3b30; }
+        .btn-approve { background: rgba(52, 199, 89, 0.2); color: #30d158; }
 
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--nav-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); display: flex; justify-content: space-around; padding: 8px 16px 20px 16px; border-top: 1px solid var(--border-color); max-width: 440px; margin: 0 auto; z-index: 1000; }
         .nav-tab { display: flex; flex-direction: column; align-items: center; color: var(--text-secondary); background: none; border: none; gap: 3px; cursor: pointer; flex: 1; }
@@ -267,6 +280,14 @@
     </style>
 </head>
 <body>
+
+    <!-- ЭКРАН ОГРАНИЧЕНИЯ ДОСТУПА ДЛЯ ПОСТОРОННИХ -->
+    <div id="access-denied-screen" style="display: none;">
+        <div class="lock-icon">🔒</div>
+        <div class="lock-title">Доступ ограничен</div>
+        <div class="lock-desc">Это приложение предназначено только для студентов Amanzholov University. Отправьте заявку администратору для получения доступа.</div>
+        <button class="btn-request" onclick="sendAccessRequest()">Подать заявку на доступ</button>
+    </div>
 
     <!-- Нативный Хедер -->
     <div class="app-header">
@@ -280,7 +301,7 @@
         </div>
     </div>
 
-    <!-- Автоматический Погодный Виджет -->
+    <!-- Погода -->
     <div class="weather-card">
         <div class="weather-fx-layer" id="weather-fx"></div>
         <div class="weather-info">
@@ -292,7 +313,7 @@
         </div>
     </div>
 
-    <!-- Живой Таймер Пар -->
+    <!-- Таймер Пар -->
     <div class="live-timer-card">
         <div class="timer-header">
             <span class="timer-sub">Статус занятий</span>
@@ -316,7 +337,6 @@
         </div>
 
         <div class="card">
-            <!-- ПОНЕДЕЛЬНИК -->
             <div id="day-mon" class="day-content">
                 <div class="card-header"><span>Понедельник</span><span>6 пар</span></div>
                 <div class="lesson-row"><div class="lesson-time-col"><div class="lesson-start">09:50</div><div class="lesson-end">10:40</div></div><div class="lesson-main"><div class="lesson-title">Социология</div><div class="lesson-meta"><span class="type-pill lecture">Лекция</span><span>Рякова Е.Г.</span>•<span>Корп. №1, ауд. 111</span></div></div></div>
@@ -327,7 +347,6 @@
                 <div class="lesson-row"><div class="lesson-time-col"><div class="lesson-start">14:40</div><div class="lesson-end">15:30</div></div><div class="lesson-main"><div class="lesson-title">Гигиена, медицина и первая помощь</div><div class="lesson-meta"><span class="type-pill lecture">Лекция</span><span>Куленова Г.Б.</span>•<span>Корп. №2, ауд. 31</span></div></div></div>
             </div>
 
-            <!-- ВТОРНИК -->
             <div id="day-tue" class="day-content" style="display:none;">
                 <div class="card-header"><span>Вторник</span><span>5 пар</span></div>
                 <div class="lesson-row"><div class="lesson-time-col"><div class="lesson-start">08:00</div><div class="lesson-end">08:50</div></div><div class="lesson-main"><div class="lesson-title">Политология</div><div class="lesson-meta"><span class="type-pill lecture">Лекция</span><span>Жиренова А.Т.</span>•<span>Корп. №1, ауд. 305</span></div></div></div>
@@ -337,7 +356,6 @@
                 <div class="lesson-row"><div class="lesson-time-col"><div class="lesson-start">12:50</div><div class="lesson-end">13:40</div></div><div class="lesson-main"><div class="lesson-title">Социология</div><div class="lesson-meta"><span class="type-pill spz">СПЗ</span><span>Рякова Е.Г.</span>•<span>Корп. №1, ауд. 252</span></div></div></div>
             </div>
 
-            <!-- СРЕДА -->
             <div id="day-wed" class="day-content" style="display:none;">
                 <div class="card-header"><span>Среда</span><span>5 пар</span></div>
                 <div class="lesson-row"><div class="lesson-time-col"><div class="lesson-start">08:00</div><div class="lesson-end">08:50</div></div><div class="lesson-main"><div class="lesson-title">Казахский (русский) язык</div><div class="lesson-meta"><span class="type-pill spz">СПЗ</span><span>Апышева К.А.</span>•<span>Корп. №1, ауд. 406</span></div></div></div>
@@ -347,7 +365,6 @@
                 <div class="lesson-row"><div class="lesson-time-col"><div class="lesson-start">12:50</div><div class="lesson-end">13:40</div></div><div class="lesson-main"><div class="lesson-title">История Казахстана</div><div class="lesson-meta"><span class="type-pill spz">СПЗ</span><span>Омарканова А.О.</span>•<span>Корп. №1, ауд. 316</span></div></div></div>
             </div>
 
-            <!-- ЧЕТВЕРГ -->
             <div id="day-thu" class="day-content" style="display:none;">
                 <div class="card-header"><span>Четверг</span><span>3 пары</span></div>
                 <div class="lesson-row"><div class="lesson-time-col"><div class="lesson-start">08:00</div><div class="lesson-end">08:50</div></div><div class="lesson-main"><div class="lesson-title">Психология</div><div class="lesson-meta"><span class="type-pill spz">СПЗ</span><span>Ахаева А.Ш.</span>•<span>Корп. №9, ауд. 301</span></div></div></div>
@@ -355,7 +372,6 @@
                 <div class="lesson-row"><div class="lesson-time-col"><div class="lesson-start">13:45</div><div class="lesson-end">14:35</div></div><div class="lesson-main"><div class="lesson-title">Гигиена, медицина и первая помощь</div><div class="lesson-meta"><span class="type-pill spz">СПЗ</span><span>Куленова Г.Б.</span>•<span>Корп. №2, ауд. 32</span></div></div></div>
             </div>
 
-            <!-- ПЯТНИЦА -->
             <div id="day-fri" class="day-content" style="display:none;">
                 <div class="card-header"><span>Пятница</span><span>3 пары</span></div>
                 <div class="lesson-row"><div class="lesson-time-col"><div class="lesson-start">09:50</div><div class="lesson-end">10:40</div></div><div class="lesson-main"><div class="lesson-title">Физическая культура</div><div class="lesson-meta"><span class="type-pill spz">СПЗ</span><span>Зуев А.С.</span>•<span>Спортзал</span></div></div></div>
@@ -363,13 +379,11 @@
                 <div class="lesson-row"><div class="lesson-time-col"><div class="lesson-start">12:50</div><div class="lesson-end">13:40</div></div><div class="lesson-main"><div class="lesson-title">Казахский (русский) язык</div><div class="lesson-meta"><span class="type-pill spz">СПЗ</span><span>Апышева К.А.</span>•<span>Корп. №9, ауд. 304</span></div></div></div>
             </div>
 
-            <!-- СУББОТА -->
             <div id="day-sat" class="day-content" style="display:none;">
                 <div class="card-header"><span>Суббота</span></div>
                 <div style="text-align: center; padding: 24px 0; color: var(--text-secondary); font-size: 14px;">Выходной день</div>
             </div>
 
-            <!-- ЗВОНКИ -->
             <div id="day-calls" class="day-content" style="display:none;">
                 <div class="card-header"><span>Расписание звонков</span></div>
                 <div class="lesson-row"><div class="lesson-time-col"><div class="lesson-start">08:00</div><div class="lesson-end">08:50</div></div><div class="lesson-main"><div class="lesson-title">1 пара</div></div></div>
@@ -388,11 +402,17 @@
     <div id="page-services" class="page">
         <div class="services-grid">
             
-            <!-- ПАНЕЛЬ УПРАВЛЕНИЯ АДМИНИСТРАТОРА (Семёна) -->
+            <!-- АДМИН-ПАНЕЛЬ И ЗАЯВКИ (ТОЛЬКО ДЛЯ СЕМЁНА) -->
             <div class="widget-item admin-widget-card" id="admin-widget-btn" style="display:none;" onclick="openWidget('admin')">
                 <svg class="widget-icon" style="color:#ff2d55;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                 <div class="widget-title" style="color:#ff2d55;">Панель Администратора</div>
                 <div class="widget-sub">Управление участниками бота</div>
+            </div>
+
+            <div class="widget-item req-widget-card" id="req-widget-btn" style="display:none;" onclick="openWidget('requests')">
+                <svg class="widget-icon" style="color:#ff9500;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><polyline points="17 11 19 13 23 9"/></svg>
+                <div class="widget-title" style="color:#ff9500;">Заявки на доступ</div>
+                <div class="widget-sub">Одобрение входящих запросов</div>
             </div>
 
             <div class="widget-item" onclick="openWidget('calendar')">
@@ -426,34 +446,30 @@
             </div>
         </div>
 
-        <!-- ОКНО: АДМИН-ПАНЕЛЬ (Для Семёна) -->
+        <!-- ОКНО: АДМИН-ПАНЕЛЬ -->
         <div id="sub-admin" class="sub-panel card" style="border-color: rgba(255,45,85,0.4);">
             <div class="card-header" style="color:#ff2d55;">
                 <span>Управление Участниками</span>
-                <span id="admin-user-count">Всего: 2</span>
             </div>
-            
             <div id="admin-user-list">
-                <!-- Демонстрационный список пользователей -->
                 <div class="user-manage-item">
                     <div class="user-manage-info">
-                        <span class="user-manage-name">Семён (Вы)</span>
-                        <span class="user-manage-sub">ID: 5644768982 • @semen</span>
+                        <span class="user-manage-name">Семён (Владелец)</span>
+                        <span class="user-manage-sub">ID: 5644768982</span>
                     </div>
-                    <div>
-                        <span style="font-size:11px; font-weight:700; color:#30d158;">Владелец</span>
-                    </div>
+                    <div><span style="font-size:11px; font-weight:700; color:#30d158;">Админ</span></div>
                 </div>
+            </div>
+        </div>
 
-                <div class="user-manage-item">
-                    <div class="user-manage-info">
-                        <span class="user-manage-name">Студент / Гость</span>
-                        <span class="user-manage-sub">ID: 987654321 • @student_vgu</span>
-                    </div>
-                    <div>
-                        <button class="admin-action-btn btn-mute" onclick="muteUser('987654321')">🔇 Mute</button>
-                        <button class="admin-action-btn btn-kick" onclick="kickUser('987654321')">🚪 Kick</button>
-                    </div>
+        <!-- ОКНО: ПАНЕЛЬ ЗАЯВОК НА ВХОД -->
+        <div id="sub-requests" class="sub-panel card" style="border-color: rgba(255,149,0,0.4);">
+            <div class="card-header" style="color:#ff9500;">
+                <span>Новые заявки на доступ</span>
+            </div>
+            <div id="admin-request-list">
+                <div style="text-align: center; color: var(--text-secondary); font-size: 13px; padding: 12px 0;">
+                    Нет активных заявок
                 </div>
             </div>
         </div>
@@ -481,23 +497,17 @@
             </div>
         </div>
 
-        <!-- ОКНО: ПРОФИЛЬ СТУДЕНТА / ГОСТЯ -->
         <div id="sub-profile" class="sub-panel card">
             <div class="card-header">Карточка Пользователя</div>
             <div style="padding: 4px 0; display: flex; flex-direction: column; align-items: center; text-align: center;">
                 <div class="profile-avatar-box" id="profile-avatar-box"><span>👨‍🎓</span></div>
                 <div style="font-size: 18px; font-weight: 700; margin-bottom: 2px;" id="prof-display-name">Загрузка...</div>
                 <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 12px;" id="prof-display-username">@username</div>
-                
                 <div style="width: 100%;">
                     <div class="setting-row"><span class="setting-title">Telegram ID</span><span class="setting-sub" style="color:var(--text-primary);" id="prof-id">--</span></div>
                     <div class="setting-row"><span class="setting-title">Статус доступа</span><span class="setting-sub" id="prof-status-val" style="color:#30d158;">Проверка...</span></div>
                     <div class="setting-row"><span class="setting-title">Университет</span><span class="setting-sub" style="color:var(--text-primary);" id="prof-uni-val">Amanzholov University</span></div>
                     <div class="setting-row"><span class="setting-title">Специальность</span><span class="setting-sub" style="color:var(--text-primary);" id="prof-spec-val">Начальная военная подготовка</span></div>
-                </div>
-                
-                <div class="guest-warning-card" id="guest-warning" style="display: none; width: 100%;">
-                    ⚠️ Вы не являетесь студентом университета Amanzholov University.
                 </div>
             </div>
         </div>
@@ -521,6 +531,18 @@
 
         let hapticOn = localStorage.getItem('haptic') !== 'false';
         function haptic() { if (hapticOn && tg && tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light'); }
+
+        const ADMIN_ID = "5644768982";
+        // Валидный список разрешенных пользователей (Whitelist)
+        let allowedUsers = [ADMIN_ID]; 
+
+        function sendAccessRequest() {
+            haptic();
+            if (tg) {
+                tg.sendData(JSON.stringify({ action: "request_access" }));
+                tg.showAlert("Ваша заявка отправлена администратору! Ожидайте подтверждения.");
+            }
+        }
 
         function setTheme(theme) {
             haptic();
@@ -549,285 +571,4 @@
         function selectDay(dayId, btn) {
             haptic();
             document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
-            if (btn) btn.classList.add('active');
-            document.querySelectorAll('.day-content').forEach(d => d.style.display = 'none');
-            const target = document.getElementById('day-' + dayId);
-            if (target) target.style.display = 'block';
-        }
-
-        function openWidget(widgetId) {
-            haptic();
-            document.querySelectorAll('.sub-panel').forEach(sp => sp.classList.remove('active'));
-            const target = document.getElementById('sub-' + widgetId);
-            if (target) {
-                target.classList.add('active');
-                target.scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-
-        function saveConfig(key, el) {
-            haptic();
-            localStorage.setItem(key, el.checked);
-            if (key === 'haptic') hapticOn = el.checked;
-        }
-
-        /* --- ФУНКЦИИ АДМИНИСТРАТОРА (СЕМЁНА) --- */
-        function muteUser(targetId) {
-            haptic();
-            if (tg) {
-                tg.sendData(JSON.stringify({ action: "mute", user_id: targetId }));
-                tg.showAlert("пользователю ID " + targetId + " переключен Mute!");
-            }
-        }
-
-        function kickUser(targetId) {
-            haptic();
-            if (tg) {
-                tg.sendData(JSON.stringify({ action: "kick", user_id: targetId }));
-                tg.showAlert("Пользователь ID " + targetId + " заблокирован!");
-            }
-        }
-
-        /* --- АВТОМАТИЧЕСКАЯ ПОГОДА ПО WEATHER API --- */
-        async function fetchRealWeather() {
-            try {
-                const res = await fetch("https://api.open-meteo.com/v1/forecast?latitude=49.95&longitude=82.61&current_weather=true");
-                const data = await res.json();
-                if (data && data.current_weather) {
-                    const temp = Math.round(data.current_weather.temperature);
-                    const code = data.current_weather.weathercode;
-                    renderWeather(temp, code);
-                }
-            } catch (e) {
-                console.log("Weather API error:", e);
-            }
-        }
-
-        function renderWeather(temp, code) {
-            const fxLayer = document.getElementById('weather-fx');
-            const icon = document.getElementById('weather-icon');
-            const tempEl = document.getElementById('weather-temp-text');
-            const descEl = document.getElementById('weather-desc-text');
-
-            fxLayer.innerHTML = '';
-            tempEl.innerText = (temp > 0 ? "+" : "") + temp + "°C";
-
-            if (code >= 51 && code <= 67) { // Дождь
-                icon.innerText = '🌧️';
-                descEl.innerText = 'Усть-Каменогорск • Идёт дождь';
-                for (let i = 0; i < 18; i++) {
-                    const drop = document.createElement('div');
-                    drop.className = 'rain-drop';
-                    drop.style.left = Math.random() * 100 + '%';
-                    drop.style.animationDelay = Math.random() * 0.8 + 's';
-                    fxLayer.appendChild(drop);
-                }
-            } else if (code >= 71 && code <= 86) { // Снег
-                icon.innerText = '❄️';
-                descEl.innerText = 'Усть-Каменогорск • Снегопад';
-                for (let i = 0; i < 12; i++) {
-                    const flake = document.createElement('div');
-                    flake.className = 'snow-flake';
-                    flake.innerText = '❄';
-                    flake.style.left = Math.random() * 100 + '%';
-                    flake.style.animationDelay = Math.random() * 2 + 's';
-                    fxLayer.appendChild(flake);
-                }
-            } else { // Солнце
-                icon.innerText = '☀️';
-                descEl.innerText = 'Усть-Каменогорск • Ясно';
-                const ray = document.createElement('div');
-                ray.className = 'sun-ray';
-                fxLayer.appendChild(ray);
-            }
-        }
-
-        /* --- РАСПИСАНИЕ И ЖИВОЙ ТАЙМЕР --- */
-        const scheduleDB = {
-            1: [
-                { name: "Социология", type: "Лекция", room: "Корп. №1, ауд. 111", start: "09:50", end: "10:40" },
-                { name: "Иностранный язык", type: "СПЗ", room: "Корп. №7, ауд. 219", start: "11:00", end: "11:50" },
-                { name: "Иностранный язык", type: "СПЗ", room: "Корп. №7, ауд. 219", start: "11:55", end: "12:45" },
-                { name: "Иностранный язык", type: "СПЗ", room: "Корп. №7, ауд. 112", start: "12:50", end: "13:40" },
-                { name: "Гигиена и медицина", type: "Лекция", room: "Корп. №2, ауд. 31", start: "13:45", end: "14:35" },
-                { name: "Гигиена и медицина", type: "Лекция", room: "Корп. №2, ауд. 31", start: "14:40", end: "15:30" }
-            ],
-            2: [
-                { name: "Политология", type: "Лекция", room: "Корп. №1, ауд. 305", start: "08:00", end: "08:50" },
-                { name: "Политология", type: "СПЗ", room: "Корп. №1, ауд. 311", start: "09:50", end: "10:40" },
-                { name: "Культурология", type: "Лекция", room: "Корп. №1, ауд. 111", start: "11:00", end: "11:50" },
-                { name: "История Казахстана", type: "Лекция", room: "Корп. №1, ауд. 111", start: "11:55", end: "12:45" },
-                { name: "Социология", type: "СПЗ", room: "Корп. №1, ауд. 252", start: "12:50", end: "13:40" }
-            ],
-            3: [
-                { name: "Казахский (русский) язык", type: "СПЗ", room: "Корп. №1, ауд. 406", start: "08:00", end: "08:50" },
-                { name: "Психология", type: "Лекция", room: "Корп. №1, ауд. 111", start: "08:55", end: "09:45" },
-                { name: "Культурология", type: "СПЗ", room: "Корп. №1, ауд. 327а", start: "11:00", end: "11:50" },
-                { name: "История Казахстана", type: "Лекция", room: "Корп. №1, Зал 257", start: "11:55", end: "12:45" },
-                { name: "История Казахстана", type: "СПЗ", room: "Корп. №1, ауд. 316", start: "12:50", end: "13:40" }
-            ],
-            4: [
-                { name: "Психология", type: "СПЗ", room: "Корп. №9, ауд. 301", start: "08:00", end: "08:50" },
-                { name: "Казахский (русский) язык", type: "СПЗ", room: "Корп. №9, ауд. 304", start: "12:50", end: "13:40" },
-                { name: "Гигиена и медицина", type: "СПЗ", room: "Корп. №2, ауд. 32", start: "13:45", end: "14:35" }
-            ],
-            5: [
-                { name: "Физическая культура", type: "СПЗ", room: "Спортзал", start: "09:50", end: "10:40" },
-                { name: "Физическая культура", type: "СПЗ", room: "Спортзал", start: "11:00", end: "11:50" },
-                { name: "Казахский (русский) язык", type: "СПЗ", room: "Корп. №9, ауд. 304", start: "12:50", end: "13:40" }
-            ]
-        };
-
-        function timeToMin(timeStr) {
-            const [h, m] = timeStr.split(':').map(Number);
-            return h * 60 + m;
-        }
-
-        function updateLiveTimer() {
-            const now = new Date();
-            const day = now.getDay();
-            const currentMin = now.getHours() * 60 + now.getMinutes();
-            const secLeft = 59 - now.getSeconds();
-
-            const pill = document.getElementById('timer-pill');
-            const title = document.getElementById('timer-title-text');
-            const loc = document.getElementById('timer-location-text');
-            const count = document.getElementById('timer-countdown-text');
-
-            if (!scheduleDB[day] || scheduleDB[day].length === 0) {
-                pill.className = "timer-status-pill ended";
-                pill.innerText = "Выходной";
-                title.innerText = "Сегодня пар нет";
-                loc.innerText = "Отдыхаем и набираемся сил!";
-                count.innerText = "🎉 Свободный день";
-                return;
-            }
-
-            const todayLessons = scheduleDB[day];
-            const firstLessonStart = timeToMin(todayLessons[0].start);
-            const lastLessonEnd = timeToMin(todayLessons[todayLessons.length - 1].end);
-
-            if (currentMin < firstLessonStart) {
-                const diffMin = firstLessonStart - currentMin - 1;
-                pill.className = "timer-status-pill break";
-                pill.innerText = "Ожидание";
-                title.innerText = `До 1 пары: ${todayLessons[0].name}`;
-                loc.innerText = todayLessons[0].room;
-                count.innerText = `До начала: ${diffMin} мин ${secLeft} сек`;
-                return;
-            }
-
-            if (currentMin >= lastLessonEnd) {
-                pill.className = "timer-status-pill ended";
-                pill.innerText = "Окончено";
-                title.innerText = "Все пары на сегодня завершены!";
-                loc.innerText = "Университет Сарсена Аманжолова";
-                count.innerText = "🏁 Отличная работа!";
-                return;
-            }
-
-            for (let i = 0; i < todayLessons.length; i++) {
-                const l = todayLessons[i];
-                const startM = timeToMin(l.start);
-                const endM = timeToMin(l.end);
-
-                if (currentMin >= startM && currentMin < endM) {
-                    const remMin = endM - currentMin - 1;
-                    pill.className = "timer-status-pill active";
-                    pill.innerText = `Идёт ${i+1} пара`;
-                    title.innerText = `${l.name} (${l.type})`;
-                    loc.innerText = l.room;
-                    count.innerText = `До конца: ${remMin} мин ${secLeft} сек`;
-                    return;
-                }
-
-                if (i < todayLessons.length - 1) {
-                    const nextL = todayLessons[i+1];
-                    const nextStartM = timeToMin(nextL.start);
-                    if (currentMin >= endM && currentMin < nextStartM) {
-                        const remBreak = nextStartM - currentMin - 1;
-                        pill.className = "timer-status-pill break";
-                        pill.innerText = "Перемена";
-                        title.innerText = `Далее: ${nextL.name}`;
-                        loc.innerText = nextL.room;
-                        count.innerText = `До пары: ${remBreak} мин ${secLeft} сек`;
-                        return;
-                    }
-                }
-            }
-        }
-
-        /* ИНИЦИАЛИЗАЦИЯ ИСПРАВЛЕННОГО ПРОФИЛЯ ПОЛЬЗОВАТЕЛЯ */
-        function initUserProfile() {
-            let user = tg && tg.initDataUnsafe ? tg.initDataUnsafe.user : null;
-            const adminId = "5644768982"; // Ваш постоянный Telegram ID (Семён)
-            
-            let userId = user ? String(user.id) : adminId;
-            let firstName = user ? user.first_name : "Семён";
-            
-            // Динамически берем юзернейм открывшего мини-апп пользователя
-            let usernameText = (user && user.username) ? "@" + user.username : (user ? "Без username (" + userId + ")" : "@semen");
-            let photoUrl = user ? user.photo_url : null;
-
-            // Проверка на Администратора (Семён)
-            let isAdmin = (userId === adminId) || (firstName.toLowerCase().includes("семён") && userId === adminId);
-
-            document.getElementById('prof-display-name').innerText = firstName;
-            document.getElementById('prof-display-username').innerText = usernameText;
-            document.getElementById('prof-id').innerText = userId;
-
-            const avatarBox = document.getElementById('profile-avatar-box');
-            if (photoUrl) {
-                avatarBox.innerHTML = `<img src="${photoUrl}" alt="Avatar">`;
-            } else {
-                avatarBox.innerHTML = isAdmin ? `<span>👨‍🎓</span>` : `<span>👤</span>`;
-            }
-
-            if (isAdmin) {
-                // Вы являетесь Владельцем/Админом
-                document.getElementById('admin-widget-btn').style.display = "block"; // Показать плашку админа
-                document.getElementById('widget-profile-sub').innerText = firstName + " • Администратор";
-                document.getElementById('prof-status-val').innerText = "Администратор / Студент";
-                document.getElementById('prof-status-val').style.color = "#30d158";
-                document.getElementById('prof-uni-val').innerText = "Amanzholov University";
-                document.getElementById('prof-spec-val').innerText = "Начальная военная подготовка";
-                document.getElementById('guest-warning').style.display = "none";
-                document.getElementById('header-badge-text').innerText = "1 курс • НВП";
-                document.getElementById('header-badge').classList.remove('guest');
-            } else {
-                // Обычный сторонний пользователь или гость
-                document.getElementById('admin-widget-btn').style.display = "none"; // Скрыть панель админа
-                document.getElementById('widget-profile-sub').innerText = firstName + " • Гость";
-                document.getElementById('prof-status-val').innerText = "Не подтверждён";
-                document.getElementById('prof-status-val').style.color = "#ff9500";
-                document.getElementById('prof-uni-val').innerText = "—";
-                document.getElementById('prof-spec-val').innerText = "—";
-                document.getElementById('guest-warning').style.display = "block";
-                document.getElementById('header-badge-text').innerText = "Гость";
-                document.getElementById('header-badge').classList.add('guest');
-            }
-        }
-
-        document.addEventListener("DOMContentLoaded", () => {
-            const savedTheme = localStorage.getItem('app_theme');
-            if (savedTheme === 'light') setTheme('light');
-            else setTheme('dark');
-
-            initUserProfile();
-            fetchRealWeather();
-            updateLiveTimer();
-            setInterval(updateLiveTimer, 1000);
-
-            const today = new Date().getDay();
-            const days = ['sat', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
-            const curDay = days[today] || 'mon';
-            
-            const tabBtns = document.querySelectorAll('.tab-item');
-            const map = { 'mon': 0, 'tue': 1, 'wed': 2, 'thu': 3, 'fri': 4, 'sat': 5 };
-            if (map[curDay] !== undefined) {
-                selectDay(curDay, tabBtns[map[curDay]]);
-            }
-        });
-    </script>
-</body>
-</html>
+            if (btn) btn.classList.add('active
