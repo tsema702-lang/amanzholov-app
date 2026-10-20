@@ -101,10 +101,12 @@
             justify-content: space-between;
             padding: 8px 4px 14px 4px;
         }
+        .uni-brand-wrap { display: flex; align-items: center; gap: 10px; }
+        .uni-logo-img { width: 38px; height: 38px; border-radius: 8px; object-fit: contain; }
         .uni-brand { display: flex; flex-direction: column; }
         .uni-name {
             font-family: var(--font-display);
-            font-size: 21px;
+            font-size: 19px;
             font-weight: 800;
             letter-spacing: -0.5px;
             background: linear-gradient(135deg, #0a84ff 0%, #64b5f6 50%, #90caf9 100%);
@@ -113,7 +115,7 @@
             filter: drop-shadow(0px 2px 12px rgba(10, 132, 255, 0.35));
             line-height: 1.1;
         }
-        .uni-sub { font-size: 11px; color: var(--text-secondary); font-weight: 500; margin-top: 3px; }
+        .uni-sub { font-size: 11px; color: var(--text-secondary); font-weight: 500; margin-top: 2px; }
         .status-badge {
             background: rgba(52, 199, 89, 0.12);
             color: #30d158;
@@ -154,7 +156,7 @@
         .wf-icon { font-size: 18px; text-align: center; width: 40px; }
         .wf-temp { font-size: 14px; font-weight: 700; text-align: right; width: 80px; color: var(--accent-blue); }
 
-        /* Живой Таймер Пар */
+        /* Таймер Пар (БЕЗ 00:00) */
         .live-timer-card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -169,9 +171,8 @@
         .timer-status-pill.break { background: rgba(255, 149, 0, 0.15); color: #ff9500; }
         .timer-status-pill.ended { background: rgba(142, 142, 147, 0.15); color: #8e8e93; }
 
-        .timer-title { font-size: 16px; font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
+        .timer-title { font-size: 16px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
         .timer-sub { font-size: 12px; color: var(--text-secondary); }
-        .timer-countdown { font-family: var(--font-display); font-size: 22px; font-weight: 800; color: var(--accent-blue); margin-top: 8px; }
 
         .tabs-container { display: flex; gap: 6px; margin-bottom: 14px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
         .tabs-container::-webkit-scrollbar { display: none; }
@@ -220,7 +221,14 @@
         .gpa-input { background: var(--card-secondary); border: 1px solid var(--border-color); color: var(--text-primary); padding: 8px 12px; border-radius: 10px; font-size: 14px; width: 100%; margin-bottom: 8px; outline: none; }
         .gpa-btn { background: var(--accent-blue); color: #fff; border: none; padding: 10px 16px; border-radius: 10px; font-weight: 700; width: 100%; cursor: pointer; }
 
-        /* ОБЫЧНЫЙ СТИЛЬНЫЙ КАЛЕНДАРЬ МЕСЯЦА */
+        /* iOS Switch */
+        .ios-switch { position: relative; display: inline-block; width: 44px; height: 24px; }
+        .ios-switch input { opacity: 0; width: 0; height: 0; }
+        .switch-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #3a3a3c; transition: .25s; border-radius: 30px; }
+        .switch-slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .25s; border-radius: 50%; }
+        input:checked + .switch-slider { background-color: #34c759; }
+        input:checked + .switch-slider:before { transform: translateX(20px); }
+
         .calendar-header-box { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
         .calendar-month-title { font-family: var(--font-display); font-size: 16px; font-weight: 800; color: var(--text-primary); }
         .calendar-nav-btn { background: var(--card-secondary); color: var(--text-primary); border: 1px solid var(--border-color); width: 32px; height: 32px; border-radius: 8px; font-weight: 800; cursor: pointer; }
@@ -247,11 +255,14 @@
         <button class="btn-request" onclick="sendAccessRequest()">Подать заявку на доступ</button>
     </div>
 
-    <!-- Хедер -->
+    <!-- Хедер с официальным логотипом -->
     <div class="app-header">
-        <div class="uni-brand">
-            <span class="uni-name">Amanzholov University</span>
-            <span class="uni-sub">Студенческий портал</span>
+        <div class="uni-brand-wrap">
+            <img src="https://i.ibb.co/L89V5K6/amanzholov-logo.png" alt="Amanzholov Logo" class="uni-logo-img" onerror="this.onerror=null; this.src='https://amanzholov.edu.kz/wp-content/uploads/2021/11/logo_amanzholov.png';">
+            <div class="uni-brand">
+                <span class="uni-name">Amanzholov University</span>
+                <span class="uni-sub">Студенческий портал</span>
+            </div>
         </div>
         <div class="status-badge">
             <div class="status-dot"></div>
@@ -277,15 +288,14 @@
         <div id="weather-week-list">Загрузка прогноза...</div>
     </div>
 
-    <!-- Живой Таймер Пар -->
+    <!-- Таймер Пар (Без 00:00) -->
     <div class="live-timer-card">
         <div class="timer-header">
-            <span class="timer-sub">Статус занятий</span>
+            <span class="timer-sub">Текущий статус</span>
             <span class="timer-status-pill active" id="timer-pill">Загрузка...</span>
         </div>
         <div class="timer-title" id="timer-title-text">Определяем расписание...</div>
         <div class="timer-sub" id="timer-location-text">Университет им. С. Аманжолова</div>
-        <div class="timer-countdown" id="timer-countdown-text">--:--</div>
     </div>
 
     <!-- РАЗДЕЛ 1: РАСПИСАНИЕ -->
@@ -371,7 +381,6 @@
                 <div class="widget-sub">Заявки и Управление доступом</div>
             </div>
 
-            <!-- ОБЫЧНЫЙ КАЛЕНДАРЬ -->
             <div class="widget-item" onclick="openWidget('calendar')">
                 <svg class="widget-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
                 <div class="widget-title">Календарь</div>
@@ -411,7 +420,6 @@
             </div>
         </div>
 
-        <!-- ОКНО ОБЫЧНОГО ИНТЕРАКТИВНОГО КАЛЕНДАРЯ -->
         <div id="sub-calendar" class="sub-panel card">
             <div class="calendar-header-box">
                 <button class="calendar-nav-btn" onclick="changeMonth(-1)">‹</button>
@@ -439,18 +447,44 @@
             <div id="gpa-result" style="margin-top: 12px; font-size: 15px; font-weight: 800; text-align: center; color: var(--accent-blue);"></div>
         </div>
 
+        <!-- НАСТРОЙКИ С ОТОБРАЖЕНИЕМ АКТИВНОГО РЕЖИМА И УВЕДОМЛЕНИЯМИ -->
         <div id="sub-settings" class="sub-panel card">
             <div class="card-header">Параметры</div>
+            
             <div class="setting-row">
-                <div><div class="setting-title">Оформление темы</div><div class="setting-sub">Стиль интерфейса</div></div>
-                <div style="display:flex; gap:4px;">
-                    <button class="tab-item active" style="padding:4px 8px; font-size:11px;" onclick="setTheme('dark')">Тёмная</button>
-                    <button class="tab-item" style="padding:4px 8px; font-size:11px;" onclick="setTheme('light')">Светлая</button>
+                <div>
+                    <div class="setting-title">Оформление темы</div>
+                    <div class="setting-sub" id="theme-status-text">Текущий режим: Тёмный</div>
                 </div>
+                <div style="display:flex; gap:4px;">
+                    <button class="tab-item active" id="btn-theme-dark" style="padding:6px 12px; font-size:11px;" onclick="setTheme('dark')">Тёмная</button>
+                    <button class="tab-item" id="btn-theme-light" style="padding:6px 12px; font-size:11px;" onclick="setTheme('light')">Светлая</button>
+                </div>
+            </div>
+
+            <div class="setting-row">
+                <div>
+                    <div class="setting-title">Уведомления о парах</div>
+                    <div class="setting-sub">Напоминания перед началом занятий</div>
+                </div>
+                <label class="ios-switch">
+                    <input type="checkbox" id="set-notif" checked onchange="toggleSetting('notif', this)">
+                    <span class="switch-slider"></span>
+                </label>
+            </div>
+
+            <div class="setting-row">
+                <div>
+                    <div class="setting-title">Тактильный отклик (Haptic)</div>
+                    <div class="setting-sub">Системная вибрация при нажатии</div>
+                </div>
+                <label class="ios-switch">
+                    <input type="checkbox" id="set-haptic" checked onchange="toggleSetting('haptic', this)">
+                    <span class="switch-slider"></span>
+                </label>
             </div>
         </div>
 
-        <!-- ПРОФИЛЬ ПОЛЬЗОВАТЕЛЯ -->
         <div id="sub-profile" class="sub-panel card">
             <div class="card-header">Карточка Студента</div>
             <div style="padding: 4px 0; display: flex; flex-direction: column; align-items: center; text-align: center;">
@@ -523,17 +557,15 @@
             return parseInt(parts[0], 10) * 60 + parseInt(parts[1], 10);
         }
 
-        // ЖИВОЙ ТАЙМЕР
+        // СТАТУС ПАР БЕЗ 00:00
         function updateLiveTimer() {
             const now = new Date();
             const day = now.getDay();
             const currentMins = now.getHours() * 60 + now.getMinutes();
-            const currentSecs = now.getSeconds();
 
             const pill = document.getElementById('timer-pill');
             const title = document.getElementById('timer-title-text');
             const loc = document.getElementById('timer-location-text');
-            const countdown = document.getElementById('timer-countdown-text');
 
             if (!pill || !title) return;
 
@@ -542,7 +574,6 @@
                 pill.innerText = "Выходной";
                 title.innerText = "Занятий сегодня нет";
                 loc.innerText = "Университет им. С. Аманжолова";
-                countdown.innerText = "--:--";
                 return;
             }
 
@@ -555,10 +586,10 @@
                 const endM = timeToMinutes(todayLessons[i].end);
 
                 if (currentMins >= startM && currentMins < endM) {
-                    activeLesson = { ...todayLessons[i], endM };
+                    activeLesson = todayLessons[i];
                     break;
                 } else if (currentMins < startM) {
-                    nextLesson = { ...todayLessons[i], startM };
+                    nextLesson = todayLessons[i];
                     break;
                 }
             }
@@ -567,32 +598,20 @@
                 pill.className = "timer-status-pill active";
                 pill.innerText = "Пара идет";
                 title.innerText = activeLesson.name;
-                loc.innerText = activeLesson.room;
-
-                const leftSecs = (activeLesson.endM - currentMins) * 60 - currentSecs;
-                const m = Math.floor(leftSecs / 60);
-                const s = leftSecs % 60;
-                countdown.innerText = `До конца: ${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
+                loc.innerText = activeLesson.room + " • (" + activeLesson.start + " - " + activeLesson.end + ")";
             } else if (nextLesson) {
                 pill.className = "timer-status-pill break";
                 pill.innerText = "Перемена / Ожидание";
                 title.innerText = "Следующая: " + nextLesson.name;
-                loc.innerText = nextLesson.room;
-
-                const leftSecs = (nextLesson.startM - currentMins) * 60 - currentSecs;
-                const m = Math.floor(leftSecs / 60);
-                const s = leftSecs % 60;
-                countdown.innerText = `До начала: ${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
+                loc.innerText = nextLesson.room + " • Начало в " + nextLesson.start;
             } else {
                 pill.className = "timer-status-pill ended";
                 pill.innerText = "Завершено";
                 title.innerText = "Все пары на сегодня окончены";
                 loc.innerText = "Университет им. С. Аманжолова";
-                countdown.innerText = "00:00";
             }
         }
 
-        // ГЕНЕРАТОР ОБЫЧНОГО КАЛЕНДАРЯ МЕСЯЦА
         let calCurrentDate = new Date();
 
         function renderCalendar() {
@@ -606,7 +625,6 @@
             const monthNames = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
             title.innerText = `${monthNames[month]} ${year}`;
 
-            // Очищаем старые дни, оставляя дни недели
             grid.innerHTML = `
                 <div class="cal-day-name">Пн</div>
                 <div class="cal-day-name">Вт</div>
@@ -736,6 +754,28 @@
             } catch (e) {}
         }
 
+        function setTheme(theme) {
+            const darkBtn = document.getElementById('btn-theme-dark');
+            const lightBtn = document.getElementById('btn-theme-light');
+            const statusText = document.getElementById('theme-status-text');
+
+            if (theme === 'light') {
+                document.body.classList.add('light-theme');
+                darkBtn.classList.remove('active');
+                lightBtn.classList.add('active');
+                statusText.innerText = "Текущий режим: Светлый";
+            } else {
+                document.body.classList.remove('light-theme');
+                darkBtn.classList.add('active');
+                lightBtn.classList.remove('active');
+                statusText.innerText = "Текущий режим: Тёмный";
+            }
+        }
+
+        function toggleSetting(key, el) {
+            localStorage.setItem(key, el.checked);
+        }
+
         function checkSecurity() {
             let user = tg && tg.initDataUnsafe ? tg.initDataUnsafe.user : null;
             let userId = user ? String(user.id) : ADMIN_ID;
@@ -786,19 +826,12 @@
             }
         }
 
-        function setTheme(theme) {
-            if (theme === 'light') document.body.classList.add('light-theme');
-            else document.body.classList.remove('light-theme');
-        }
-
         document.addEventListener("DOMContentLoaded", () => {
             checkSecurity();
             setupProfile();
             fetchRealWeather();
             renderCalendar();
-
             updateLiveTimer();
-            setInterval(updateLiveTimer, 1000);
 
             const today = new Date().getDay();
             const days = ['sat', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
