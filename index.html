@@ -17,7 +17,7 @@
         body {
             background-color: #0f0f11;
             color: #ffffff;
-            padding: 14px 12px 95px 12px;
+            padding: 14px 12px 90px 12px;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
@@ -39,7 +39,7 @@
             text-align: center;
         }
         .header-title {
-            font-size: 19px;
+            font-size: 20px;
             font-weight: 800;
             letter-spacing: 0.3px;
             background: linear-gradient(135deg, #64b5f6, #0a84ff);
@@ -84,7 +84,7 @@
             font-weight: 600;
         }
 
-        /* Верхние табы */
+        /* Верхние табы дней */
         .tabs {
             display: flex;
             gap: 8px;
@@ -113,14 +113,14 @@
             box-shadow: 0 4px 14px rgba(10, 132, 255, 0.4);
         }
 
-        /* Контейнер контента */
+        /* Основной контейнер контента */
         .content-card {
             background: #1c1c1e;
             border-radius: 22px;
             padding: 16px;
             border: 1px solid #2c2c2e;
             flex-grow: 1;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
         .date-title {
             font-size: 14px;
@@ -132,7 +132,7 @@
             align-items: center;
         }
 
-        /* Элемент расписания */
+        /* Элемент пары */
         .lesson-item {
             display: flex;
             align-items: center;
@@ -156,12 +156,8 @@
             flex-shrink: 0;
             color: #ffffff;
         }
-        .lesson-badge.lecture {
-            background: #30b0c7;
-        }
-        .lesson-info {
-            flex-grow: 1;
-        }
+        .lesson-badge.lecture { background: #30b0c7; }
+        .lesson-info { flex-grow: 1; }
         .lesson-name {
             font-size: 14px;
             font-weight: 700;
@@ -169,38 +165,69 @@
             line-height: 1.3;
             color: #ffffff;
         }
-        .lesson-detail {
-            font-size: 12px;
-            color: #a1a1a6;
+        .lesson-detail { font-size: 12px; color: #a1a1a6; }
+
+        /* Страницы */
+        .page-section { display: none; }
+        .page-section.active { display: block; }
+
+        /* Сетка сервисов (Окошки / Плитки) */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .service-box {
+            background: #2c2c2e;
+            border: 1px solid #3a3a3c;
+            border-radius: 18px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+            cursor: pointer;
+            transition: transform 0.15s ease, background 0.15s ease;
+        }
+        .service-box:active {
+            transform: scale(0.96);
+            background: #3a3a3c;
+        }
+        .service-box-icon {
+            font-size: 28px;
+        }
+        .service-box-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+        .service-box-desc {
+            font-size: 11px;
+            color: #8e8e93;
+            line-height: 1.2;
         }
 
-        /* Разделы страниц */
-        .page-section {
+        /* Выплывающие модальные окна сервисов */
+        .service-subcard {
             display: none;
+            margin-top: 10px;
         }
-        .page-section.active {
+        .service-subcard.active {
             display: block;
         }
 
-        /* Калькулятор среднего балла (GPA) */
+        /* Калькулятор GPA */
         .gpa-card {
             background: linear-gradient(135deg, #0a84ff, #5e5ce6);
             border-radius: 18px;
             padding: 18px;
             text-align: center;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
             box-shadow: 0 4px 16px rgba(10, 132, 255, 0.3);
         }
-        .gpa-value {
-            font-size: 38px;
-            font-weight: 900;
-            margin: 4px 0;
-        }
-        .gpa-label {
-            font-size: 13px;
-            opacity: 0.9;
-            font-weight: 600;
-        }
+        .gpa-value { font-size: 38px; font-weight: 900; margin: 4px 0; }
+        .gpa-label { font-size: 13px; opacity: 0.9; font-weight: 600; }
         .grade-row {
             display: flex;
             justify-content: space-between;
@@ -210,11 +237,7 @@
             border-radius: 12px;
             margin-bottom: 8px;
         }
-        .grade-name {
-            font-size: 13px;
-            font-weight: 600;
-            max-width: 200px;
-        }
+        .grade-name { font-size: 13px; font-weight: 600; max-width: 190px; }
         .grade-select {
             background: #1c1c1e;
             color: #64b5f6;
@@ -231,21 +254,10 @@
             background: #2c2c2e;
             border-radius: 16px;
             padding: 14px;
-            margin-top: 10px;
             border: 1px solid rgba(255,255,255,0.06);
         }
-        .music-track-title {
-            font-size: 14px;
-            font-weight: 700;
-            color: #ffffff;
-            margin-bottom: 4px;
-        }
-        .music-artist {
-            font-size: 12px;
-            color: #ff7700;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
+        .music-track-title { font-size: 14px; font-weight: 700; color: #ffffff; margin-bottom: 4px; }
+        .music-artist { font-size: 12px; color: #ff7700; font-weight: 600; margin-bottom: 10px; }
         .music-btn {
             display: inline-flex;
             align-items: center;
@@ -264,91 +276,41 @@
         }
 
         /* Профиль */
-        .profile-header {
-            text-align: center;
-            padding: 8px 0 14px 0;
-        }
+        .profile-header { text-align: center; padding: 8px 0 14px 0; }
         .profile-avatar {
-            width: 64px;
-            height: 64px;
+            width: 64px; height: 64px;
             background: linear-gradient(135deg, #0a84ff, #5e5ce6);
             border-radius: 50%;
             margin: 0 auto 8px auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             font-size: 30px;
         }
-        .profile-name {
-            font-size: 19px;
-            font-weight: 800;
-        }
-        .profile-sub {
-            font-size: 12px;
-            color: #8e8e93;
-            margin-top: 2px;
-        }
+        .profile-name { font-size: 19px; font-weight: 800; }
+        .profile-sub { font-size: 12px; color: #8e8e93; margin-top: 2px; }
         .info-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid #2c2c2e;
-            font-size: 13px;
+            display: flex; justify-content: space-between;
+            padding: 10px 0; border-bottom: 1px solid #2c2c2e; font-size: 13px;
         }
         .info-label { color: #8e8e93; }
         .info-value { font-weight: 600; color: #ffffff; text-align: right; }
 
         /* Календарь */
         .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 6px;
-            text-align: center;
-            margin-top: 10px;
+            display: grid; grid-template-columns: repeat(7, 1fr);
+            gap: 6px; text-align: center; margin-top: 10px;
         }
-        .cal-day-head {
-            font-size: 11px;
-            color: #8e8e93;
-            font-weight: 700;
-            padding-bottom: 6px;
-        }
-        .cal-cell {
-            padding: 10px 0;
-            background: #2c2c2e;
-            border-radius: 10px;
-            font-size: 13px;
-            font-weight: 600;
-        }
-        .cal-cell.today {
-            background: #0a84ff;
-            color: #fff;
-            font-weight: 800;
-            box-shadow: 0 2px 8px rgba(10,132,255,0.5);
-        }
+        .cal-day-head { font-size: 11px; color: #8e8e93; font-weight: 700; padding-bottom: 6px; }
+        .cal-cell { padding: 10px 0; background: #2c2c2e; border-radius: 10px; font-size: 13px; font-weight: 600; }
+        .cal-cell.today { background: #0a84ff; color: #fff; font-weight: 800; box-shadow: 0 2px 8px rgba(10,132,255,0.5); }
 
-        /* Переключатели в Сервисах */
+        /* Переключатели */
         .setting-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid #2c2c2e;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 12px 0; border-bottom: 1px solid #2c2c2e;
         }
-        .setting-title {
-            font-size: 14px;
-            font-weight: 600;
-        }
-        .setting-desc {
-            font-size: 11px;
-            color: #8e8e93;
-            margin-top: 2px;
-        }
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 46px;
-            height: 24px;
-        }
+        .setting-title { font-size: 14px; font-weight: 600; }
+        .setting-desc { font-size: 11px; color: #8e8e93; margin-top: 2px; }
+        .switch { position: relative; display: inline-block; width: 46px; height: 24px; }
         .switch input { opacity: 0; width: 0; height: 0; }
         .slider {
             position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
@@ -361,17 +323,15 @@
         input:checked + .slider { background-color: #34c759; }
         input:checked + .slider:before { transform: translateX(22px); }
 
-        /* Нижняя навигационная панель */
+        /* Нижняя навигация */
         .nav-bar {
             position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            bottom: 0; left: 0; right: 0;
             background: rgba(22, 22, 24, 0.96);
             backdrop-filter: blur(25px);
             display: flex;
             justify-content: space-around;
-            padding: 10px 4px 14px 4px;
+            padding: 10px 12px 14px 12px;
             border-top: 1px solid #2c2c2e;
             max-width: 480px;
             margin: 0 auto;
@@ -385,26 +345,16 @@
             color: #8e8e93;
             background: none;
             border: none;
-            gap: 3px;
+            gap: 4px;
             cursor: pointer;
             flex: 1;
-            padding: 3px 0;
+            padding: 4px 0;
             transition: all 0.15s ease;
         }
-        .nav-icon {
-            font-size: 20px;
-        }
-        .nav-label {
-            font-size: 11px;
-            font-weight: 700;
-        }
-        .nav-button.active {
-            color: #0a84ff;
-            transform: translateY(-2px);
-        }
-        .nav-button:active {
-            transform: scale(0.92);
-        }
+        .nav-icon { font-size: 22px; }
+        .nav-label { font-size: 12px; font-weight: 700; }
+        .nav-button.active { color: #0a84ff; transform: translateY(-2px); }
+        .nav-button:active { transform: scale(0.92); }
     </style>
 </head>
 <body>
@@ -424,7 +374,7 @@
         <div class="status-footer">⚡ Учебный семестр идет полным ходом</div>
     </div>
 
-    <!-- РАЗДЕЛ: РАСПИСАНИЕ -->
+    <!-- РАЗДЕЛ 1: РАСПИСАНИЕ -->
     <div id="section-schedule" class="page-section active">
         <div class="tabs">
             <button class="tab active" onclick="switchDay('mon', this)">ПН</button>
@@ -507,9 +457,44 @@
         </div>
     </div>
 
-    <!-- РАЗДЕЛ: КАЛЕНДАРЬ -->
-    <div id="section-calendar" class="page-section">
-        <div class="content-card">
+    <!-- РАЗДЕЛ 2: СЕРВИСЫ -->
+    <div id="section-services" class="page-section">
+        
+        <!-- Окошки-плитки сервисов -->
+        <div class="services-grid">
+            <div class="service-box" onclick="openServiceSub('calendar')">
+                <div class="service-box-icon">📆</div>
+                <div class="service-box-title">Календарь</div>
+                <div class="service-box-desc">Сетка месяца и рейтинги</div>
+            </div>
+
+            <div class="service-box" onclick="openServiceSub('gpa')">
+                <div class="service-box-icon">📊</div>
+                <div class="service-box-title">Баллы GPA</div>
+                <div class="service-box-desc">Расчет среднего балла</div>
+            </div>
+
+            <div class="service-box" onclick="openServiceSub('music')">
+                <div class="service-box-icon">🎧</div>
+                <div class="service-box-title">Музыка</div>
+                <div class="service-box-desc">Вайб под пары из SoundCloud</div>
+            </div>
+
+            <div class="service-box" onclick="openServiceSub('notif')">
+                <div class="service-box-icon">🔔</div>
+                <div class="service-box-title">Уведомления</div>
+                <div class="service-box-desc">Звуки и анонсы пар</div>
+            </div>
+
+            <div class="service-box" style="grid-column: span 2;" onclick="openServiceSub('profile')">
+                <div class="service-box-icon">👤</div>
+                <div class="service-box-title">Мой Профиль</div>
+                <div class="service-box-desc">Данные студента и уровень доступа</div>
+            </div>
+        </div>
+
+        <!-- ОКНО: КАЛЕНДАРЬ -->
+        <div id="sub-calendar" class="service-subcard content-card">
             <div class="date-title">Календарь занятий</div>
             <div class="calendar-grid">
                 <div class="cal-day-head">ПН</div><div class="cal-day-head">ВТ</div><div class="cal-day-head">СР</div><div class="cal-day-head">ЧТ</div><div class="cal-day-head">ПТ</div><div class="cal-day-head">СБ</div><div class="cal-day-head">ВС</div>
@@ -519,76 +504,55 @@
                 <div class="cal-cell">19</div><div class="cal-cell today">20</div><div class="cal-cell">21</div><div class="cal-cell">22</div><div class="cal-cell">23</div><div class="cal-cell">24</div><div class="cal-cell">25</div>
                 <div class="cal-cell">26</div><div class="cal-cell">27</div><div class="cal-cell">28</div><div class="cal-cell">29</div><div class="cal-cell">30</div><div class="cal-cell">31</div>
             </div>
-            <div style="margin-top: 18px; font-size: 12px; color: #8e8e93; line-height: 1.6;">
+            <div style="margin-top: 16px; font-size: 12px; color: #8e8e93; line-height: 1.5;">
                 📌 <strong style="color:#fff;">Рейтинговые недели:</strong> 7-я и 15-я недели.<br>
                 🔥 Синим цветом подсвечен сегодняшний день.
             </div>
         </div>
-    </div>
 
-    <!-- РАЗДЕЛ: КАЛЬКУЛЯТОР GPA -->
-    <div id="section-gpa" class="page-section">
-        <div class="gpa-card">
-            <div class="gpa-label">Твоя успеваемость</div>
-            <div class="gpa-value" id="gpa-res">3.67</div>
-            <div class="gpa-label" id="gpa-letter">Оценка: A- (Отлично)</div>
+        <!-- ОКНО: GPA БАЛЛЫ -->
+        <div id="sub-gpa" class="service-subcard">
+            <div class="gpa-card">
+                <div class="gpa-label">Твоя успеваемость</div>
+                <div class="gpa-value" id="gpa-res">3.67</div>
+                <div class="gpa-label" id="gpa-letter">Оценка: A- (Отлично)</div>
+            </div>
+
+            <div class="content-card">
+                <div class="date-title">Рассчитай средний балл (GPA)</div>
+                
+                <div class="grade-row"><span class="grade-name">Социология</span><select class="grade-select" onchange="calcGPA()"><option value="4.0">A (95-100)</option><option value="3.67" selected>A- (90-94)</option><option value="3.33">B+ (85-89)</option><option value="3.0">B (80-84)</option></select></div>
+                <div class="grade-row"><span class="grade-name">Иностранный язык</span><select class="grade-select" onchange="calcGPA()"><option value="4.0" selected>A (95-100)</option><option value="3.67">A- (90-94)</option><option value="3.33">B+ (85-89)</option></select></div>
+                <div class="grade-row"><span class="grade-name">История Казахстана</span><select class="grade-select" onchange="calcGPA()"><option value="4.0">A (95-100)</option><option value="3.67">A- (90-94)</option><option value="3.33" selected>B+ (85-89)</option></select></div>
+                <div class="grade-row"><span class="grade-name">Психология</span><select class="grade-select" onchange="calcGPA()"><option value="4.0" selected>A (95-100)</option><option value="3.67">A- (90-94)</option></select></div>
+                <div class="grade-row"><span class="grade-name">Политология</span><select class="grade-select" onchange="calcGPA()"><option value="4.0">A (95-100)</option><option value="3.67" selected>A- (90-94)</option></select></div>
+            </div>
         </div>
 
-        <div class="content-card">
-            <div class="date-title">Рассчитай средний балл (GPA)</div>
+        <!-- ОКНО: МУЗЫКА -->
+        <div id="sub-music" class="service-subcard content-card">
+            <div class="date-title">Музыка под пары 🎧</div>
             
-            <div class="grade-row">
-                <span class="grade-name">Социология</span>
-                <select class="grade-select" onchange="calcGPA()">
-                    <option value="4.0">A (95-100)</option>
-                    <option value="3.67" selected>A- (90-94)</option>
-                    <option value="3.33">B+ (85-89)</option>
-                    <option value="3.0">B (80-84)</option>
-                </select>
-            </div>
-            <div class="grade-row">
-                <span class="grade-name">Иностранный язык</span>
-                <select class="grade-select" onchange="calcGPA()">
-                    <option value="4.0" selected>A (95-100)</option>
-                    <option value="3.67">A- (90-94)</option>
-                    <option value="3.33">B+ (85-89)</option>
-                </select>
-            </div>
-            <div class="grade-row">
-                <span class="grade-name">История Казахстана</span>
-                <select class="grade-select" onchange="calcGPA()">
-                    <option value="4.0">A (95-100)</option>
-                    <option value="3.67">A- (90-94)</option>
-                    <option value="3.33" selected>B+ (85-89)</option>
-                </select>
-            </div>
-            <div class="grade-row">
-                <span class="grade-name">Психология</span>
-                <select class="grade-select" onchange="calcGPA()">
-                    <option value="4.0" selected>A (95-100)</option>
-                    <option value="3.67">A- (90-94)</option>
-                </select>
-            </div>
-            <div class="grade-row">
-                <span class="grade-name">Политология</span>
-                <select class="grade-select" onchange="calcGPA()">
-                    <option value="4.0">A (95-100)</option>
-                    <option value="3.67" selected>A- (90-94)</option>
-                </select>
+            <div class="music-card">
+                <div class="music-track-title" id="music-title">Big Baby Tape & Kizaru — Bandana</div>
+                <div class="music-artist">SoundCloud Track</div>
+                <a id="music-link" href="https://soundcloud.com/search/sounds?q=Big%20Baby%20Tape%20Kizaru%20Bandana" target="_blank" class="music-btn" onclick="triggerHaptic()">
+                    🟠 Слушать в SoundCloud
+                </a>
+                <button onclick="getRandomVibeTrack()" style="margin-top: 10px; width: 100%; padding: 10px; background: #3a3a3c; border: none; border-radius: 12px; color: #fff; font-weight: 700; cursor: pointer;">
+                    🔄 Случайный трек
+                </button>
             </div>
         </div>
-    </div>
 
-    <!-- РАЗДЕЛ: СЕРВИСЫ (Бывший "Ещё") -->
-    <div id="section-services" class="page-section">
-        <!-- Настройки звука и пушей -->
-        <div class="content-card" style="margin-bottom: 14px;">
-            <div class="date-title">Уведомления и Звуки</div>
+        <!-- ОКНО: УВЕДОМЛЕНИЯ -->
+        <div id="sub-notif" class="service-subcard content-card">
+            <div class="date-title">Настройки уведомлений</div>
 
             <div class="setting-item">
                 <div>
                     <div class="setting-title">Уведомления о парах</div>
-                    <div class="setting-desc">Получать анонсы и закрёпы сообщений</div>
+                    <div class="setting-desc">Анонсы и автозакрёпы сообщений</div>
                 </div>
                 <label class="switch">
                     <input type="checkbox" id="notif-toggle" checked onchange="toggleNotifications(this)">
@@ -599,7 +563,7 @@
             <div class="setting-item">
                 <div>
                     <div class="setting-title">Звук сообщений</div>
-                    <div class="setting-desc">Отключай звук, чтобы сообщения проходили без звука</div>
+                    <div class="setting-desc">Выключи звук, если не хочешь отвлекаться</div>
                 </div>
                 <label class="switch">
                     <input type="checkbox" id="sound-toggle" checked onchange="toggleSound(this)">
@@ -610,7 +574,7 @@
             <div class="setting-item">
                 <div>
                     <div class="setting-title">Тактильный отклик (Haptic)</div>
-                    <div class="setting-desc">Легкая вибрация при кликах</div>
+                    <div class="setting-desc">Вибрация при кликах</div>
                 </div>
                 <label class="switch">
                     <input type="checkbox" id="haptic-toggle" checked onchange="toggleHapticSetting(this)">
@@ -619,25 +583,9 @@
             </div>
         </div>
 
-        <!-- SoundCloud Музыкальный Вайб -->
-        <div class="content-card" style="margin-bottom: 14px;">
-            <div class="date-title">Музыка под пары 🎧</div>
-            
-            <div class="music-card">
-                <div class="music-track-title" id="music-title">Big Baby Tape & Kizaru — Bandana</div>
-                <div class="music-artist">SoundCloud Track</div>
-                <a id="music-link" href="https://soundcloud.com/search/sounds?q=Big%20Baby%20Tape%20Kizaru%20Bandana" target="_blank" class="music-btn" onclick="triggerHaptic()">
-                    🟠 Слушать в SoundCloud
-                </a>
-                <button onclick="getRandomVibeTrack()" style="margin-top: 8px; width: 100%; padding: 8px; background: #3a3a3c; border: none; border-radius: 10px; color: #fff; font-weight: 600; cursor: pointer;">
-                    🔄 Случайный трек
-                </button>
-            </div>
-        </div>
-
-        <!-- Карточка профиля -->
-        <div class="content-card">
-            <div class="date-title">Профиль студента</div>
+        <!-- ОКНО: ПРОФИЛЬ -->
+        <div id="sub-profile" class="service-subcard content-card">
+            <div class="date-title">Карточка студента</div>
             <div class="profile-header">
                 <div class="profile-avatar">👨‍🎓</div>
                 <div class="profile-name">Семён</div>
@@ -654,21 +602,14 @@
                 🧹 Очистить кэш
             </button>
         </div>
+
     </div>
 
-    <!-- Обновлённая нижняя навигационная панель -->
+    <!-- Главная 2-кнопочная нижняя навигация -->
     <div class="nav-bar">
         <button class="nav-button active" onclick="switchNavSection('schedule', this)">
             <span class="nav-icon">📅</span>
             <span class="nav-label">Расписание</span>
-        </button>
-        <button class="nav-button" onclick="switchNavSection('calendar', this)">
-            <span class="nav-icon">📆</span>
-            <span class="nav-label">Календарь</span>
-        </button>
-        <button class="nav-button" onclick="switchNavSection('gpa', this)">
-            <span class="nav-icon">📊</span>
-            <span class="nav-label">Баллы GPA</span>
         </button>
         <button class="nav-button" onclick="switchNavSection('services', this)">
             <span class="nav-icon">⚡</span>
@@ -711,20 +652,26 @@
             if (targetDay) targetDay.style.display = 'block';
         }
 
+        function openServiceSub(subName) {
+            triggerHaptic();
+            document.querySelectorAll('.service-subcard').forEach(sc => sc.classList.remove('active'));
+            const target = document.getElementById('sub-' + subName);
+            if (target) {
+                target.classList.add('active');
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
         function toggleNotifications(el) {
             triggerHaptic();
             localStorage.setItem('notif', el.checked);
-            if (tg) {
-                tg.showAlert(el.checked ? "🔔 Уведомления включены!" : "🔕 Уведомления отключены!");
-            }
+            if (tg) tg.showAlert(el.checked ? "🔔 Уведомления включены!" : "🔕 Уведомления отключены!");
         }
 
         function toggleSound(el) {
             triggerHaptic();
             localStorage.setItem('sound', el.checked);
-            if (tg) {
-                tg.showAlert(el.checked ? "🔊 Звук включен!" : "🔇 Сообщения будут приходить БЕЗ звука!");
-            }
+            if (tg) tg.showAlert(el.checked ? "🔊 Звук включен!" : "🔇 Сообщения будут приходить БЕЗ звука!");
         }
 
         function toggleHapticSetting(el) {
