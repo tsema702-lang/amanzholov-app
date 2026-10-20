@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Amanzholov Student Portal</title>
+    
+    <!-- Подключаем премиальные шрифты Outfit и Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
+    
     <!-- Telegram WebApp SDK -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
@@ -19,20 +25,23 @@
             --text-lecture: #64d2ff;
             --badge-spz: rgba(10, 132, 255, 0.15);
             --text-spz: #0a84ff;
+            
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+            font-family: var(--font-main);
             -webkit-tap-highlight-color: transparent;
         }
 
         body {
             background-color: var(--bg-color);
             color: var(--text-primary);
-            padding: 12px 14px 100px 14px;
+            padding: 14px 14px 100px 14px;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
@@ -41,44 +50,53 @@
             user-select: none;
         }
 
-        /* Нативный Хедер */
+        /* Премиальный Нативный Хедер с Градиентом */
         .app-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 8px 4px 16px 4px;
+            padding: 10px 4px 18px 4px;
         }
         .uni-brand {
             display: flex;
             flex-direction: column;
         }
         .uni-name {
-            font-size: 17px;
-            font-weight: 700;
-            letter-spacing: -0.4px;
-            color: var(--text-primary);
+            font-family: var(--font-display);
+            font-size: 21px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #0a84ff 0%, #64b5f6 50%, #90caf9 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0px 2px 12px rgba(10, 132, 255, 0.35));
+            line-height: 1.1;
         }
         .uni-sub {
-            font-size: 12px;
+            font-size: 11px;
             color: var(--text-secondary);
-            font-weight: 400;
+            font-weight: 500;
+            margin-top: 3px;
+            letter-spacing: 0.2px;
         }
         .status-badge {
             background: rgba(52, 199, 89, 0.12);
             color: #30d158;
             font-size: 11px;
             font-weight: 600;
-            padding: 4px 8px;
+            padding: 5px 10px;
             border-radius: 20px;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 6px;
+            border: 1px solid rgba(48, 209, 88, 0.2);
         }
         .status-dot {
             width: 6px;
             height: 6px;
             background: #30d158;
             border-radius: 50%;
+            box-shadow: 0 0 8px #30d158;
         }
 
         /* Системные Вкладки Дней */
@@ -92,13 +110,14 @@
         }
         .tabs-container::-webkit-scrollbar { display: none; }
         .tab-item {
+            font-family: var(--font-display);
             background: var(--card-bg);
             color: var(--text-secondary);
             border: 1px solid var(--border-color);
             padding: 8px 14px;
             border-radius: 12px;
             font-size: 13px;
-            font-weight: 600;
+            font-weight: 700;
             white-space: nowrap;
             cursor: pointer;
             transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -107,22 +126,24 @@
             background: var(--accent-blue);
             color: #ffffff;
             border-color: var(--accent-blue);
+            box-shadow: 0 4px 14px rgba(10, 132, 255, 0.35);
         }
 
         /* Карточка Секции */
         .card {
             background: var(--card-bg);
-            border-radius: 16px;
+            border-radius: 18px;
             padding: 16px;
             border: 1px solid var(--border-color);
             margin-bottom: 12px;
         }
         .card-header {
+            font-family: var(--font-display);
             font-size: 13px;
-            font-weight: 600;
+            font-weight: 700;
             color: var(--text-secondary);
             text-transform: uppercase;
-            letter-spacing: -0.2px;
+            letter-spacing: 0.5px;
             margin-bottom: 12px;
             display: flex;
             justify-content: space-between;
@@ -147,13 +168,15 @@
             flex-shrink: 0;
         }
         .lesson-start {
-            font-size: 14px;
+            font-family: var(--font-display);
+            font-size: 15px;
             font-weight: 700;
             color: var(--text-primary);
         }
         .lesson-end {
             font-size: 12px;
             color: var(--text-secondary);
+            font-weight: 500;
         }
         .lesson-main {
             flex-grow: 1;
@@ -175,11 +198,13 @@
             align-items: center;
         }
         .type-pill {
+            font-family: var(--font-display);
             font-size: 10px;
-            font-weight: 700;
-            padding: 2px 6px;
+            font-weight: 800;
+            padding: 2px 7px;
             border-radius: 6px;
             text-transform: uppercase;
+            letter-spacing: 0.3px;
         }
         .type-pill.lecture { background: var(--badge-lecture); color: var(--text-lecture); }
         .type-pill.spz { background: var(--badge-spz); color: var(--text-spz); }
@@ -198,8 +223,8 @@
         .widget-item {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 14px;
-            padding: 14px;
+            border-radius: 16px;
+            padding: 16px 14px;
             cursor: pointer;
             transition: background 0.15s ease, transform 0.1s ease;
         }
@@ -214,8 +239,9 @@
             color: var(--accent-blue);
         }
         .widget-title {
+            font-family: var(--font-display);
             font-size: 14px;
-            font-weight: 600;
+            font-weight: 700;
             color: var(--text-primary);
             margin-bottom: 2px;
         }
@@ -233,14 +259,20 @@
 
         /* Калькулятор GPA */
         .gpa-display {
-            background: linear-gradient(180deg, rgba(10, 132, 255, 0.12) 0%, rgba(10, 132, 255, 0.02) 100%);
-            border: 1px solid rgba(10, 132, 255, 0.3);
-            border-radius: 14px;
-            padding: 16px;
+            background: linear-gradient(180deg, rgba(10, 132, 255, 0.15) 0%, rgba(10, 132, 255, 0.02) 100%);
+            border: 1px solid rgba(10, 132, 255, 0.35);
+            border-radius: 16px;
+            padding: 18px;
             text-align: center;
             margin-bottom: 12px;
         }
-        .gpa-score { font-size: 36px; font-weight: 800; color: var(--accent-blue); letter-spacing: -1px; }
+        .gpa-score {
+            font-family: var(--font-display);
+            font-size: 40px;
+            font-weight: 800;
+            color: var(--accent-blue);
+            letter-spacing: -1px;
+        }
         .gpa-text { font-size: 12px; color: var(--text-secondary); font-weight: 500; }
         .grade-select-row {
             display: flex;
@@ -255,7 +287,7 @@
             background: var(--card-secondary);
             color: var(--accent-blue);
             border: 1px solid var(--border-color);
-            padding: 6px 8px;
+            padding: 6px 10px;
             border-radius: 8px;
             font-size: 13px;
             font-weight: 600;
@@ -292,15 +324,15 @@
         .cal-grid {
             display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; text-align: center; margin-top: 8px;
         }
-        .cal-head { font-size: 10px; color: var(--text-secondary); font-weight: 700; padding-bottom: 4px; }
-        .cal-day { padding: 8px 0; background: var(--card-secondary); border-radius: 8px; font-size: 12px; font-weight: 600; }
-        .cal-day.today { background: var(--accent-blue); color: #fff; }
+        .cal-head { font-family: var(--font-display); font-size: 11px; color: var(--text-secondary); font-weight: 700; padding-bottom: 4px; }
+        .cal-day { font-family: var(--font-display); padding: 8px 0; background: var(--card-secondary); border-radius: 8px; font-size: 13px; font-weight: 600; }
+        .cal-day.today { background: var(--accent-blue); color: #fff; font-weight: 800; box-shadow: 0 0 10px rgba(10, 132, 255, 0.5); }
 
         /* Нижняя Системная Навигация */
         .bottom-nav {
             position: fixed;
             bottom: 0; left: 0; right: 0;
-            background: rgba(28, 28, 30, 0.88);
+            background: rgba(28, 28, 30, 0.90);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             display: flex;
@@ -325,7 +357,7 @@
         }
         .nav-tab.active { color: var(--accent-blue); }
         .nav-svg { width: 22px; height: 22px; fill: currentColor; }
-        .nav-title { font-size: 11px; font-weight: 600; }
+        .nav-title { font-family: var(--font-display); font-size: 11px; font-weight: 700; }
     </style>
 </head>
 <body>
