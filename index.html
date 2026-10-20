@@ -5,16 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Amanzholov Student Portal</title>
     
-    <!-- Премиальные шрифты Outfit и Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
     
-    <!-- Telegram WebApp SDK -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         :root {
-            /* Тёмная тема */
             --bg-color: #000000;
             --card-bg: #1c1c1e;
             --card-secondary: #2c2c2e;
@@ -32,7 +29,6 @@
             --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
-        /* Светлая тема */
         body.light-theme {
             --bg-color: #f2f2f7;
             --card-bg: #ffffff;
@@ -69,7 +65,7 @@
             user-select: none;
         }
 
-        /* ЭКРАН ОГРАНИЧЕНИЯ ДОСТУПА */
+        /* ЭКРАН ЗАЩИТЫ И БЛОКИРОВКИ */
         #access-denied-screen {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -99,7 +95,6 @@
             box-shadow: 0 4px 16px rgba(10, 132, 255, 0.4);
         }
 
-        /* Нативный Хедер */
         .app-header {
             display: flex;
             align-items: center;
@@ -131,7 +126,6 @@
             gap: 6px;
             border: 1px solid rgba(48, 209, 88, 0.2);
         }
-        .status-badge.guest { background: rgba(255, 149, 0, 0.12); color: #ff9500; border-color: rgba(255, 149, 0, 0.2); }
         .status-dot { width: 6px; height: 6px; background: #30d158; border-radius: 50%; box-shadow: 0 0 8px #30d158; }
 
         /* Погодный Виджет */
@@ -146,10 +140,12 @@
             justify-content: space-between;
             position: relative;
             overflow: hidden;
+            cursor: pointer;
         }
         .weather-info { z-index: 2; }
         .weather-temp { font-family: var(--font-display); font-size: 22px; font-weight: 800; color: var(--text-primary); }
         .weather-city { font-size: 12px; color: var(--text-secondary); font-weight: 500; }
+        .weather-hint { font-size: 10px; color: var(--accent-blue); font-weight: 600; margin-top: 2px; }
         .weather-anim-box { position: relative; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; font-size: 30px; z-index: 2; }
 
         .weather-fx-layer { position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 1; overflow: hidden; }
@@ -160,7 +156,13 @@
         .sun-ray { position: absolute; top: -20px; right: -20px; width: 90px; height: 90px; background: radial-gradient(circle, rgba(255,214,10,0.4) 0%, rgba(255,149,0,0) 70%); animation: pulseSun 2s ease-in-out infinite alternate; }
         @keyframes pulseSun { 0% { transform: scale(0.9); opacity: 0.6; } 100% { transform: scale(1.2); opacity: 1; } }
 
-        /* Живой Таймер Пар */
+        /* Прогноз погоды на неделю */
+        .weather-forecast-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border-color); }
+        .weather-forecast-row:last-child { border-bottom: none; }
+        .wf-day { font-size: 14px; font-weight: 600; width: 80px; }
+        .wf-icon { font-size: 18px; text-align: center; width: 40px; }
+        .wf-temp { font-size: 14px; font-weight: 700; text-align: right; width: 80px; color: var(--accent-blue); }
+
         .live-timer-card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -172,14 +174,11 @@
         .timer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
         .timer-status-pill { font-family: var(--font-display); font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px; }
         .timer-status-pill.active { background: rgba(52, 199, 89, 0.15); color: #30d158; }
-        .timer-status-pill.break { background: rgba(255, 149, 0, 0.15); color: #ff9500; }
-        .timer-status-pill.ended { background: rgba(142, 142, 147, 0.15); color: #8e8e93; }
 
         .timer-title { font-size: 16px; font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
         .timer-sub { font-size: 12px; color: var(--text-secondary); }
         .timer-countdown { font-family: var(--font-display); font-size: 22px; font-weight: 800; color: var(--accent-blue); margin-top: 8px; }
 
-        /* Вкладки Дней */
         .tabs-container { display: flex; gap: 6px; margin-bottom: 14px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
         .tabs-container::-webkit-scrollbar { display: none; }
         .tab-item { font-family: var(--font-display); background: var(--card-bg); color: var(--text-secondary); border: 1px solid var(--border-color); padding: 8px 14px; border-radius: 12px; font-size: 13px; font-weight: 700; white-space: nowrap; cursor: pointer; }
@@ -190,7 +189,6 @@
 
         .lesson-row { display: flex; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid var(--border-color); }
         .lesson-row:last-child { border-bottom: none; padding-bottom: 0; }
-        .lesson-row:first-child { padding-top: 0; }
         .lesson-time-col { width: 85px; flex-shrink: 0; }
         .lesson-start { font-family: var(--font-display); font-size: 15px; font-weight: 700; color: var(--text-primary); }
         .lesson-end { font-size: 12px; color: var(--text-secondary); font-weight: 500; }
@@ -204,7 +202,6 @@
         .page { display: none; }
         .page.active { display: block; }
 
-        /* Сетка Сервисов */
         .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 14px; }
         .widget-item { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 16px 14px; cursor: pointer; }
         .widget-item:active { background: var(--card-secondary); transform: scale(0.98); }
@@ -219,31 +216,16 @@
         .setting-row:last-child { border-bottom: none; }
         .setting-title { font-size: 14px; font-weight: 500; }
         .setting-sub { font-size: 11px; color: var(--text-secondary); }
-        .ios-switch { position: relative; display: inline-block; width: 44px; height: 24px; }
-        .ios-switch input { opacity: 0; width: 0; height: 0; }
-        .switch-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #3a3a3c; transition: .25s; border-radius: 30px; }
-        .switch-slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .25s; border-radius: 50%; }
-        input:checked + .switch-slider { background-color: #34c759; }
-        input:checked + .switch-slider:before { transform: translateX(20px); }
 
-        .theme-selector { display: flex; background: var(--card-secondary); padding: 3px; border-radius: 10px; gap: 2px; }
-        .theme-btn { padding: 6px 12px; font-size: 12px; font-weight: 600; border: none; background: none; color: var(--text-secondary); border-radius: 8px; cursor: pointer; }
-        .theme-btn.active { background: var(--card-bg); color: var(--text-primary); box-shadow: 0 1px 4px rgba(0,0,0,0.15); }
-
-        .profile-avatar-box { width: 68px; height: 68px; border-radius: 50%; background: linear-gradient(135deg, #0a84ff, #5e5ce6); display: flex; align-items: center; justify-content: center; font-size: 32px; color: #fff; margin-bottom: 10px; overflow: hidden; }
-        .profile-avatar-box img { width: 100%; height: 100%; object-fit: cover; }
-
-        /* Стили Админ Панели */
         .admin-widget-card { background: linear-gradient(135deg, rgba(255, 45, 85, 0.15), rgba(175, 82, 222, 0.12)); border: 1px solid rgba(255, 45, 85, 0.3); grid-column: span 2; }
         .user-manage-item { display: flex; align-items: center; justify-content: space-between; background: var(--card-secondary); padding: 10px 12px; border-radius: 12px; margin-bottom: 8px; }
         .user-manage-info { display: flex; flex-direction: column; }
         .user-manage-name { font-size: 13px; font-weight: 700; color: var(--text-primary); }
         .user-manage-sub { font-size: 11px; color: var(--text-secondary); }
         .admin-action-btn { padding: 6px 10px; border-radius: 8px; border: none; font-size: 11px; font-weight: 700; cursor: pointer; margin-left: 4px; }
-        .btn-mute { background: rgba(255, 149, 0, 0.2); color: #ff9500; }
+        .btn-approve { background: rgba(52, 199, 89, 0.2); color: #30d158; }
         .btn-kick { background: rgba(255, 59, 48, 0.2); color: #ff3b30; }
 
-        /* Элементы GPA Калькулятора */
         .gpa-input { background: var(--card-secondary); border: 1px solid var(--border-color); color: var(--text-primary); padding: 8px 12px; border-radius: 10px; font-size: 14px; width: 100%; margin-bottom: 8px; outline: none; }
         .gpa-btn { background: var(--accent-blue); color: #fff; border: none; padding: 10px 16px; border-radius: 10px; font-weight: 700; width: 100%; cursor: pointer; }
 
@@ -256,46 +238,53 @@
 </head>
 <body>
 
-    <!-- ЭКРАН ОГРАНИЧЕНИЯ ДОСТУПА -->
+    <!-- ЭКРАН СТРОГОГО ДОСТУПА -->
     <div id="access-denied-screen" style="display: none;">
         <div class="lock-icon">🔒</div>
         <div class="lock-title">Доступ ограничен</div>
-        <div class="lock-desc">Это приложение предназначено только для студентов Amanzholov University. Отправьте заявку администратору для получения доступа.</div>
+        <div class="lock-desc">Это закрытая система Amanzholov University. Вход разрешён только авторизованным студентам.</div>
         <button class="btn-request" onclick="sendAccessRequest()">Подать заявку на доступ</button>
     </div>
 
-    <!-- Нативный Хедер -->
+    <!-- Хедер -->
     <div class="app-header">
         <div class="uni-brand">
             <span class="uni-name">Amanzholov University</span>
             <span class="uni-sub">Студенческий портал</span>
         </div>
-        <div class="status-badge" id="header-badge">
+        <div class="status-badge">
             <div class="status-dot"></div>
-            <span id="header-badge-text">1 курс • НВП</span>
+            <span>1 курс • НВП</span>
         </div>
     </div>
 
-    <!-- Виджет Авто-Погоды -->
-    <div class="weather-card">
+    <!-- Погода -->
+    <div class="weather-card" onclick="toggleWeeklyWeather()">
         <div class="weather-fx-layer" id="weather-fx"></div>
         <div class="weather-info">
             <div class="weather-temp" id="weather-temp-text">--°C</div>
             <div class="weather-city" id="weather-desc-text">Усть-Каменогорск • Загрузка...</div>
+            <div class="weather-hint">Нажмите для прогноза на неделю ➔</div>
         </div>
         <div class="weather-anim-box">
             <span id="weather-icon">🌤️</span>
         </div>
     </div>
 
-    <!-- Живой Таймер Пар -->
+    <!-- Окно Погоды на неделю -->
+    <div id="sub-weather-week" class="sub-panel card" style="margin-bottom:14px;">
+        <div class="card-header">Прогноз на 7 дней (Усть-Каменогорск)</div>
+        <div id="weather-week-list">Загрузка прогноза...</div>
+    </div>
+
+    <!-- Живой Таймер -->
     <div class="live-timer-card">
         <div class="timer-header">
             <span class="timer-sub">Статус занятий</span>
-            <span class="timer-status-pill active" id="timer-pill">Загрузка...</span>
+            <span class="timer-status-pill active" id="timer-pill">Занятия идут</span>
         </div>
-        <div class="timer-title" id="timer-title-text">Вычисление расписания...</div>
-        <div class="timer-sub" id="timer-location-text">Университет им. С. Аманжолова</div>
+        <div class="timer-title" id="timer-title-text">Вычисление пары...</div>
+        <div class="timer-sub">Университет им. С. Аманжолова</div>
         <div class="timer-countdown" id="timer-countdown-text">--:--</div>
     </div>
 
@@ -377,21 +366,21 @@
     <div id="page-services" class="page">
         <div class="services-grid">
             
-            <!-- АДМИН-ПАНЕЛЬ (ТОЛЬКО ДЛЯ СЕМЁНА) -->
+            <!-- АДМИН-ПАНЕЛЬ (ТОЛЬКО ДЛЯ ВЛАДЕЛЬЦА СЕМЁНА) -->
             <div class="widget-item admin-widget-card" id="admin-widget-btn" style="display:none;" onclick="openWidget('admin')">
                 <svg class="widget-icon" style="color:#ff2d55;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                 <div class="widget-title" style="color:#ff2d55;">Панель Администратора</div>
-                <div class="widget-sub">Управление участниками бота</div>
+                <div class="widget-sub">Заявки и Управление доступом</div>
             </div>
 
-            <!-- ИСПРАВЛЕННАЯ КНОПКА КАЛЕНДАРЯ -->
+            <!-- КАЛЕНДАРЬ -->
             <div class="widget-item" onclick="openWidget('calendar')">
                 <svg class="widget-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
                 <div class="widget-title">Календарь</div>
                 <div class="widget-sub">Рейтинговые недели</div>
             </div>
 
-            <!-- ИСПРАВЛЕННАЯ КНОПКА РАСЧЕТА GPA -->
+            <!-- РАСЧЕТ GPA -->
             <div class="widget-item" onclick="openWidget('gpa')">
                 <svg class="widget-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
                 <div class="widget-title">Расчет GPA</div>
@@ -401,7 +390,7 @@
             <div class="widget-item" onclick="openWidget('settings')">
                 <svg class="widget-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
                 <div class="widget-title">Настройки</div>
-                <div class="widget-sub">Тема, звук, вибро</div>
+                <div class="widget-sub">Параметры</div>
             </div>
 
             <div class="widget-item" style="grid-column: span 2;" onclick="openWidget('profile')">
@@ -411,83 +400,66 @@
             </div>
         </div>
 
-        <!-- ОКНО: АДМИН-ПАНЕЛЬ -->
+        <!-- ОКНО: УПРАВЛЕНИЕ ЗАЯВКАМИ И УЧАСТНИКАМИ ДЛЯ СЕМЁНА -->
         <div id="sub-admin" class="sub-panel card" style="border-color: rgba(255,45,85,0.4);">
-            <div class="card-header" style="color:#ff2d55;">Управление Участниками</div>
+            <div class="card-header" style="color:#ff2d55;">Панель Управления Владельца</div>
+            <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 10px;">Активные участники и входящие заявки:</div>
+            
             <div id="admin-user-list">
                 <div class="user-manage-item">
                     <div class="user-manage-info">
                         <span class="user-manage-name">Семён (Владелец)</span>
-                        <span class="user-manage-sub">ID: 5644768982 • @semen</span>
+                        <span class="user-manage-sub">ID: 5644768982 • Владелец</span>
                     </div>
-                    <div><span style="font-size:11px; font-weight:700; color:#30d158;">Админ</span></div>
-                </div>
-                <div class="user-manage-item">
-                    <div class="user-manage-info">
-                        <span class="user-manage-name">Тестовый Студент</span>
-                        <span class="user-manage-sub">ID: 987654321</span>
-                    </div>
-                    <div>
-                        <button class="admin-action-btn btn-mute" onclick="muteUser('987654321')">🔇 Mute</button>
-                        <button class="admin-action-btn btn-kick" onclick="kickUser('987654321')">🚪 Kick</button>
-                    </div>
+                    <div><span style="font-size:11px; font-weight:700; color:#30d158;">Владелец</span></div>
                 </div>
             </div>
         </div>
 
-        <!-- ОКНО: КАЛЕНДАРЬ СЕМЕСТРА -->
+        <!-- ОКНО: АКАДЕМИЧЕСКИЙ КАЛЕНДАРЬ -->
         <div id="sub-calendar" class="sub-panel card">
-            <div class="card-header">Академический Календарь</div>
-            <div class="setting-row"><div><div class="setting-title">1 Модуль (Обучение)</div><div class="setting-sub">Недели 1 — 7</div></div><span class="type-pill lecture">Активно</span></div>
+            <div class="card-header">Учебный Календарь Amanzholov</div>
+            <div class="setting-row"><div><div class="setting-title">1 Модуль (Теория)</div><div class="setting-sub">Недели 1 — 7</div></div><span class="type-pill lecture">Обучение</span></div>
             <div class="setting-row"><div><div class="setting-title">Рубежный контроль 1 (Р1)</div><div class="setting-sub">8 Неделя</div></div><span class="type-pill spz">Контроль</span></div>
-            <div class="setting-row"><div><div class="setting-title">2 Модуль (Обучение)</div><div class="setting-sub">Недели 9 — 14</div></div><span class="setting-sub">Ожидание</span></div>
-            <div class="setting-row"><div><div class="setting-title">Рубежный контроль 2 (Р2)</div><div class="setting-sub">15 Неделя</div></div><span class="setting-sub">Ожидание</span></div>
-            <div class="setting-row"><div><div class="setting-title">Зимняя Сессия</div><div class="setting-sub">Экзаменационный период</div></div><span class="setting-sub" style="color:#ff3b30;">Сессия</span></div>
+            <div class="setting-row"><div><div class="setting-title">2 Модуль (Теория)</div><div class="setting-sub">Недели 9 — 14</div></div><span class="setting-sub">Обучение</span></div>
+            <div class="setting-row"><div><div class="setting-title">Рубежный контроль 2 (Р2)</div><div class="setting-sub">15 Неделя</div></div><span class="setting-sub">Контроль</span></div>
+            <div class="setting-row"><div><div class="setting-title">Экзаменационная сессия</div><div class="setting-sub">Зимний период</div></div><span class="setting-sub" style="color:#ff3b30; font-weight:700;">Сессия</span></div>
+            <div class="setting-row"><div><div class="setting-title">Каникулярный период</div><div class="setting-sub">Межсессионный отдых</div></div><span class="setting-sub" style="color:#30d158; font-weight:700;">Каникулы</span></div>
         </div>
 
         <!-- ОКНО: КАЛЬКУЛЯТОР GPA -->
         <div id="sub-gpa" class="sub-panel card">
             <div class="card-header">Калькулятор GPA</div>
-            <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 12px;">Введите ваши текущие оценки по предметам для расчета итогового среднего балла:</div>
-            <input type="number" id="gpa-val1" class="gpa-input" placeholder="Оценка 1 (например 90)" max="100">
-            <input type="number" id="gpa-val2" class="gpa-input" placeholder="Оценка 2 (например 85)" max="100">
-            <input type="number" id="gpa-val3" class="gpa-input" placeholder="Оценка 3 (например 95)" max="100">
+            <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 12px;">Введите баллы за текущие дисциплины (0-100):</div>
+            <input type="number" id="gpa-val1" class="gpa-input" placeholder="Предмет 1 (например 90)">
+            <input type="number" id="gpa-val2" class="gpa-input" placeholder="Предмет 2 (например 85)">
+            <input type="number" id="gpa-val3" class="gpa-input" placeholder="Предмет 3 (например 95)">
             <button class="gpa-btn" onclick="calculateGPA()">Рассчитать GPA</button>
-            <div id="gpa-result" style="margin-top: 12px; font-size: 16px; font-weight: 800; text-align: center; color: var(--accent-blue);"></div>
+            <div id="gpa-result" style="margin-top: 12px; font-size: 15px; font-weight: 800; text-align: center; color: var(--accent-blue);"></div>
         </div>
 
         <!-- ОКНО: НАСТРОЙКИ -->
         <div id="sub-settings" class="sub-panel card">
-            <div class="card-header">Параметры Приложения</div>
+            <div class="card-header">Параметры</div>
             <div class="setting-row">
-                <div><div class="setting-title">Оформление темы</div><div class="setting-sub">Выберите стиль интерфейса</div></div>
-                <div class="theme-selector">
-                    <button class="theme-btn" id="theme-dark-btn" onclick="setTheme('dark')">Тёмная</button>
-                    <button class="theme-btn" id="theme-light-btn" onclick="setTheme('light')">Светлая</button>
+                <div><div class="setting-title">Оформление темы</div><div class="setting-sub">Стиль интерфейса</div></div>
+                <div style="display:flex; gap:4px;">
+                    <button class="tab-item active" style="padding:4px 8px; font-size:11px;" onclick="setTheme('dark')">Тёмная</button>
+                    <button class="tab-item" style="padding:4px 8px; font-size:11px;" onclick="setTheme('light')">Светлая</button>
                 </div>
-            </div>
-            <div class="setting-row">
-                <div><div class="setting-title">Уведомления о парах</div><div class="setting-sub">Напоминания перед началом</div></div>
-                <label class="ios-switch"><input type="checkbox" id="set-notif" checked onchange="saveConfig('notif', this)"><span class="switch-slider"></span></label>
-            </div>
-            <div class="setting-row">
-                <div><div class="setting-title">Тактильный отклик (Haptic)</div><div class="setting-sub">Системная вибрация</div></div>
-                <label class="ios-switch"><input type="checkbox" id="set-haptic" checked onchange="saveConfig('haptic', this)"><span class="switch-slider"></span></label>
             </div>
         </div>
 
         <!-- ОКНО: ПРОФИЛЬ -->
         <div id="sub-profile" class="sub-panel card">
-            <div class="card-header">Карточка Пользователя</div>
+            <div class="card-header">Карточка Студента</div>
             <div style="padding: 4px 0; display: flex; flex-direction: column; align-items: center; text-align: center;">
-                <div class="profile-avatar-box" id="profile-avatar-box"><span>👨‍🎓</span></div>
-                <div style="font-size: 18px; font-weight: 700; margin-bottom: 2px;" id="prof-display-name">Загрузка...</div>
-                <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 12px;" id="prof-display-username">@username</div>
+                <div style="font-size: 40px; margin-bottom: 6px;">👨‍🎓</div>
+                <div style="font-size: 18px; font-weight: 700;" id="prof-display-name">Загрузка...</div>
+                <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 12px;" id="prof-display-username">@semen</div>
                 <div style="width: 100%;">
-                    <div class="setting-row"><span class="setting-title">Telegram ID</span><span class="setting-sub" style="color:var(--text-primary);" id="prof-id">--</span></div>
-                    <div class="setting-row"><span class="setting-title">Статус доступа</span><span class="setting-sub" id="prof-status-val" style="color:#30d158;">Проверка...</span></div>
-                    <div class="setting-row"><span class="setting-title">Университет</span><span class="setting-sub" style="color:var(--text-primary);">Amanzholov University</span></div>
-                    <div class="setting-row"><span class="setting-title">Специальность</span><span class="setting-sub" style="color:var(--text-primary);">Начальная военная подготовка</span></div>
+                    <div class="setting-row"><span class="setting-title">Telegram ID</span><span class="setting-sub" style="color:var(--text-primary);" id="prof-id">5644768982</span></div>
+                    <div class="setting-row"><span class="setting-title">Статус доступа</span><span class="setting-sub" style="color:#30d158; font-weight:700;">Владелец / Доступ активен</span></div>
                 </div>
             </div>
         </div>
@@ -509,86 +481,143 @@
         const tg = window.Telegram ? window.Telegram.WebApp : null;
         if (tg) { tg.expand(); tg.ready(); }
 
-        let hapticOn = localStorage.getItem('haptic') !== 'false';
-        function haptic() { if (hapticOn && tg && tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light'); }
-
-        const ADMIN_ID = "5644768982"; // Ваш постоянный Telegram ID
-        let allowedUsers = [ADMIN_ID];
+        const ADMIN_ID = "5644768982";
 
         function sendAccessRequest() {
-            haptic();
             if (tg) {
                 tg.sendData(JSON.stringify({ action: "request_access" }));
-                tg.showAlert("Заявка отправлена администратору! Ожидайте подтверждения.");
+                tg.showAlert("Ваша заявка отправлена Семёну. Ожидайте подтверждения.");
             }
         }
 
-        function muteUser(targetId) {
-            haptic();
+        function adminApproveUser(targetId) {
             if (tg) {
-                tg.sendData(JSON.stringify({ action: "mute", user_id: targetId }));
-                tg.showAlert("Пользователю ID " + targetId + " переключен Mute!");
+                tg.sendData(JSON.stringify({ action: "approve_user", user_id: targetId }));
+                tg.showAlert("Заявка пользователя " + targetId + " одобрена!");
             }
         }
 
-        function kickUser(targetId) {
-            haptic();
+        function adminKickUser(targetId) {
             if (tg) {
-                tg.sendData(JSON.stringify({ action: "kick", user_id: targetId }));
-                tg.showAlert("Пользователь ID " + targetId + " заблокирован!");
+                tg.sendData(JSON.stringify({ action: "kick_user", user_id: targetId }));
+                tg.showAlert("Пользователь " + targetId + " исключён из бота!");
             }
         }
 
         function calculateGPA() {
-            haptic();
             const v1 = parseFloat(document.getElementById('gpa-val1').value) || 0;
             const v2 = parseFloat(document.getElementById('gpa-val2').value) || 0;
             const v3 = parseFloat(document.getElementById('gpa-val3').value) || 0;
             
-            if (!v1 && !v2 && !v3) {
-                document.getElementById('gpa-result').innerText = "Введите хотя бы одну оценку";
+            let count = (v1?1:0)+(v2?1:0)+(v3?1:0);
+            if (count === 0) {
+                document.getElementById('gpa-result').innerText = "Введите баллы хотя бы по одному предмету";
                 return;
             }
-            const avg = (v1 + v2 + v3) / ((v1?1:0)+(v2?1:0)+(v3?1:0));
+            const avg = (v1 + v2 + v3) / count;
             const gpa = ((avg / 100) * 4.0).toFixed(2);
-            document.getElementById('gpa-result').innerText = `Ваш средний балл: ${avg.toFixed(1)}% | GPA: ${gpa}`;
+            document.getElementById('gpa-result').innerText = `Средний балл: ${avg.toFixed(1)}% | Итоговый GPA: ${gpa}`;
         }
 
-        function setTheme(theme) {
-            haptic();
-            if (theme === 'light') {
-                document.body.classList.add('light-theme');
-                document.getElementById('theme-light-btn').classList.add('active');
-                document.getElementById('theme-dark-btn').classList.remove('active');
-                localStorage.setItem('app_theme', 'light');
+        function toggleWeeklyWeather() {
+            const panel = document.getElementById('sub-weather-week');
+            if (panel.classList.contains('active')) {
+                panel.classList.remove('active');
             } else {
-                document.body.classList.remove('light-theme');
-                document.getElementById('theme-dark-btn').classList.add('active');
-                document.getElementById('theme-light-btn').classList.remove('active');
-                localStorage.setItem('app_theme', 'dark');
+                panel.classList.add('active');
+                fetchWeeklyForecast();
+            }
+        }
+
+        async function fetchWeeklyForecast() {
+            const container = document.getElementById('weather-week-list');
+            try {
+                const res = await fetch("https://api.open-meteo.com/v1/forecast?latitude=49.95&longitude=82.61&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=auto");
+                const data = await res.json();
+                
+                if (data && data.daily) {
+                    let html = "";
+                    const days = ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"];
+                    for (let i = 0; i < 7; i++) {
+                        const date = new Date(data.daily.time[i]);
+                        const dayName = i === 0 ? "Сегодня" : days[date.getDay()];
+                        const maxT = Math.round(data.daily.temperature_2m_max[i]);
+                        const minT = Math.round(data.daily.temperature_2m_min[i]);
+                        const code = data.daily.weathercode[i];
+                        
+                        let icon = "☀️";
+                        if (code >= 51 && code <= 67) icon = "🌧️";
+                        else if (code >= 71 && code <= 86) icon = "❄️";
+                        else if (code >= 1 && code <= 3) icon = "⛅";
+
+                        html += `<div class="weather-forecast-row">
+                            <div class="wf-day">${dayName}</div>
+                            <div class="wf-icon">${icon}</div>
+                            <div class="wf-temp">${minT}° / ${maxT}°C</div>
+                        </div>`;
+                    }
+                    container.innerHTML = html;
+                }
+            } catch (e) {
+                container.innerHTML = "Ошибка загрузки прогноза погоды";
+            }
+        }
+
+        async function fetchRealWeather() {
+            try {
+                const res = await fetch("https://api.open-meteo.com/v1/forecast?latitude=49.95&longitude=82.61&current_weather=true");
+                const data = await res.json();
+                if (data && data.current_weather) {
+                    const temp = Math.round(data.current_weather.temperature);
+                    const code = data.current_weather.weathercode;
+                    
+                    document.getElementById('weather-temp-text').innerText = (temp > 0 ? "+" : "") + temp + "°C";
+                    const fxLayer = document.getElementById('weather-fx');
+                    fxLayer.innerHTML = '';
+
+                    if (code >= 51 && code <= 67) {
+                        document.getElementById('weather-icon').innerText = '🌧️';
+                        document.getElementById('weather-desc-text').innerText = 'Усть-Каменогорск • Идёт дождь';
+                    } else if (code >= 71 && code <= 86) {
+                        document.getElementById('weather-icon').innerText = '❄️';
+                        document.getElementById('weather-desc-text').innerText = 'Усть-Каменогорск • Снегопад';
+                    } else {
+                        document.getElementById('weather-icon').innerText = '☀️';
+                        document.getElementById('weather-desc-text').innerText = 'Усть-Каменогорск • Ясно';
+                    }
+                }
+            } catch (e) {}
+        }
+
+        function checkSecurity() {
+            let user = tg && tg.initDataUnsafe ? tg.initDataUnsafe.user : null;
+            let userId = user ? String(user.id) : ADMIN_ID;
+
+            // Если доступ получен через Telegram WebApp и ID совпадает с Вашим (Семён)
+            if (userId === ADMIN_ID) {
+                document.getElementById('admin-widget-btn').style.display = "block";
+                document.getElementById('access-denied-screen').style.display = "none";
+            } else {
+                // Если открыли сайт посторонние без Telegram подписи или сторонние пользователи
+                document.getElementById('access-denied-screen').style.display = "flex";
             }
         }
 
         function navigate(pageId, btn) {
-            haptic();
             document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
             if (btn) btn.classList.add('active');
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            const target = document.getElementById('page-' + pageId);
-            if (target) target.classList.add('active');
+            document.getElementById('page-' + pageId).classList.add('active');
         }
 
         function selectDay(dayId, btn) {
-            haptic();
             document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
             if (btn) btn.classList.add('active');
             document.querySelectorAll('.day-content').forEach(d => d.style.display = 'none');
-            const target = document.getElementById('day-' + dayId);
-            if (target) target.style.display = 'block';
+            document.getElementById('day-' + dayId).style.display = 'block';
         }
 
         function openWidget(widgetId) {
-            haptic();
             document.querySelectorAll('.sub-panel').forEach(sp => sp.classList.remove('active'));
             const target = document.getElementById('sub-' + widgetId);
             if (target) {
@@ -597,126 +626,20 @@
             }
         }
 
-        function saveConfig(key, el) {
-            haptic();
-            localStorage.setItem(key, el.checked);
-            if (key === 'haptic') hapticOn = el.checked;
-        }
-
-        /* --- РЕАЛЬНАЯ ПОГОДА В УСТЬ-КАМЕНОГОРСКЕ --- */
-        async function fetchRealWeather() {
-            try {
-                const res = await fetch("https://api.open-meteo.com/v1/forecast?latitude=49.95&longitude=82.61&current_weather=true");
-                const data = await res.json();
-                if (data && data.current_weather) {
-                    const temp = Math.round(data.current_weather.temperature);
-                    const code = data.current_weather.weathercode;
-                    renderWeather(temp, code);
-                }
-            } catch (e) {
-                console.log("Weather API Error:", e);
-            }
-        }
-
-        function renderWeather(temp, code) {
-            const fxLayer = document.getElementById('weather-fx');
-            const icon = document.getElementById('weather-icon');
-            const tempEl = document.getElementById('weather-temp-text');
-            const descEl = document.getElementById('weather-desc-text');
-
-            fxLayer.innerHTML = '';
-            tempEl.innerText = (temp > 0 ? "+" : "") + temp + "°C";
-
-            if (code >= 51 && code <= 67) {
-                icon.innerText = '🌧️';
-                descEl.innerText = 'Усть-Каменогорск • Идёт дождь';
-                for (let i = 0; i < 18; i++) {
-                    const drop = document.createElement('div');
-                    drop.className = 'rain-drop';
-                    drop.style.left = Math.random() * 100 + '%';
-                    drop.style.animationDelay = Math.random() * 0.8 + 's';
-                    fxLayer.appendChild(drop);
-                }
-            } else if (code >= 71 && code <= 86) {
-                icon.innerText = '❄️';
-                descEl.innerText = 'Усть-Каменогорск • Снегопад';
-                for (let i = 0; i < 12; i++) {
-                    const flake = document.createElement('div');
-                    flake.className = 'snow-flake';
-                    flake.innerText = '❄';
-                    flake.style.left = Math.random() * 100 + '%';
-                    flake.style.animationDelay = Math.random() * 2 + 's';
-                    fxLayer.appendChild(flake);
-                }
-            } else {
-                icon.innerText = '☀️';
-                descEl.innerText = 'Усть-Каменогорск • Ясно';
-                const ray = document.createElement('div');
-                ray.className = 'sun-ray';
-                fxLayer.appendChild(ray);
-            }
-        }
-
-        function checkAccess() {
-            let user = tg && tg.initDataUnsafe ? tg.initDataUnsafe.user : null;
-            let userId = user ? String(user.id) : ADMIN_ID;
-
-            if (userId === ADMIN_ID) {
-                document.getElementById('admin-widget-btn').style.display = "block";
-                document.getElementById('access-denied-screen').style.display = "none";
-            } else if (allowedUsers.includes(userId)) {
-                document.getElementById('access-denied-screen').style.display = "none";
-            } else {
-                document.getElementById('access-denied-screen').style.display = "flex";
-            }
-        }
-
-        function initUserProfile() {
-            let user = tg && tg.initDataUnsafe ? tg.initDataUnsafe.user : null;
-            let userId = user ? String(user.id) : ADMIN_ID;
-            let firstName = user ? user.first_name : "Семён";
-            let usernameText = (user && user.username) ? "@" + user.username : (user ? "Без username (" + userId + ")" : "@semen");
-            let photoUrl = user ? user.photo_url : null;
-
-            document.getElementById('prof-display-name').innerText = firstName;
-            document.getElementById('prof-display-username').innerText = usernameText;
-            document.getElementById('prof-id').innerText = userId;
-
-            const avatarBox = document.getElementById('profile-avatar-box');
-            if (photoUrl) {
-                avatarBox.innerHTML = `<img src="${photoUrl}" alt="Avatar">`;
-            } else {
-                avatarBox.innerHTML = (userId === ADMIN_ID) ? `<span>👨‍🎓</span>` : `<span>👤</span>`;
-            }
-
-            if (userId === ADMIN_ID) {
-                document.getElementById('widget-profile-sub').innerText = firstName + " • Администратор";
-                document.getElementById('prof-status-val').innerText = "Администратор / Студент";
-                document.getElementById('prof-status-val').style.color = "#30d158";
-            } else {
-                document.getElementById('widget-profile-sub').innerText = firstName + " • Студент";
-                document.getElementById('prof-status-val').innerText = "Подтверждённый доступ";
-                document.getElementById('prof-status-val').style.color = "#0a84ff";
-            }
+        function setTheme(theme) {
+            if (theme === 'light') document.body.classList.add('light-theme');
+            else document.body.classList.remove('light-theme');
         }
 
         document.addEventListener("DOMContentLoaded", () => {
-            const savedTheme = localStorage.getItem('app_theme');
-            if (savedTheme === 'light') setTheme('light');
-            else setTheme('dark');
-
-            checkAccess();
-            initUserProfile();
+            checkSecurity();
             fetchRealWeather();
-
-            const today = new Date().getDay();
-            const days = ['sat', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
-            const curDay = days[today] || 'mon';
             
-            const tabBtns = document.querySelectorAll('.tab-item');
-            const map = { 'mon': 0, 'tue': 1, 'wed': 2, 'thu': 3, 'fri': 4, 'sat': 5 };
-            if (map[curDay] !== undefined) {
-                selectDay(curDay, tabBtns[map[curDay]]);
+            let user = tg && tg.initDataUnsafe ? tg.initDataUnsafe.user : null;
+            if (user) {
+                document.getElementById('prof-display-name').innerText = user.first_name;
+                document.getElementById('prof-display-username').innerText = user.username ? "@" + user.username : "Без username";
+                document.getElementById('prof-id').innerText = user.id;
             }
         });
     </script>
