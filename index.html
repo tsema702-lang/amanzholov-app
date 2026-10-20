@@ -102,7 +102,7 @@
             padding: 8px 4px 14px 4px;
         }
         .uni-brand-wrap { display: flex; align-items: center; gap: 10px; }
-        .uni-logo-img { width: 38px; height: 38px; border-radius: 8px; object-fit: contain; }
+        .uni-logo-box { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
         .uni-brand { display: flex; flex-direction: column; }
         .uni-name {
             font-family: var(--font-display);
@@ -156,7 +156,7 @@
         .wf-icon { font-size: 18px; text-align: center; width: 40px; }
         .wf-temp { font-size: 14px; font-weight: 700; text-align: right; width: 80px; color: var(--accent-blue); }
 
-        /* Таймер Пар (БЕЗ 00:00) */
+        /* Таймер Пар (Без 00:00) */
         .live-timer-card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -255,10 +255,16 @@
         <button class="btn-request" onclick="sendAccessRequest()">Подать заявку на доступ</button>
     </div>
 
-    <!-- Хедер с официальным логотипом -->
+    <!-- Хедер со встроенным гербом Amanzholov University -->
     <div class="app-header">
         <div class="uni-brand-wrap">
-            <img src="https://i.ibb.co/L89V5K6/amanzholov-logo.png" alt="Amanzholov Logo" class="uni-logo-img" onerror="this.onerror=null; this.src='https://amanzholov.edu.kz/wp-content/uploads/2021/11/logo_amanzholov.png';">
+            <div class="uni-logo-box">
+                <svg viewBox="0 0 100 100" width="38" height="38">
+                    <path d="M 10 10 L 10 60 C 10 85 30 95 50 95 C 70 95 90 85 90 60 L 90 10 L 70 30 C 60 15 50 25 50 25 C 50 25 40 15 30 30 Z" fill="#0080ff"/>
+                    <path d="M 50 25 L 20 80 L 35 80 L 50 50 L 65 80 L 80 80 Z" fill="#ffffff"/>
+                    <text x="50" y="90" font-family="'Outfit', sans-serif" font-size="14" font-weight="900" fill="#ffffff" text-anchor="middle">1952</text>
+                </svg>
+            </div>
             <div class="uni-brand">
                 <span class="uni-name">Amanzholov University</span>
                 <span class="uni-sub">Студенческий портал</span>
@@ -447,7 +453,6 @@
             <div id="gpa-result" style="margin-top: 12px; font-size: 15px; font-weight: 800; text-align: center; color: var(--accent-blue);"></div>
         </div>
 
-        <!-- НАСТРОЙКИ С ОТОБРАЖЕНИЕМ АКТИВНОГО РЕЖИМА И УВЕДОМЛЕНИЯМИ -->
         <div id="sub-settings" class="sub-panel card">
             <div class="card-header">Параметры</div>
             
@@ -557,7 +562,6 @@
             return parseInt(parts[0], 10) * 60 + parseInt(parts[1], 10);
         }
 
-        // СТАТУС ПАР БЕЗ 00:00
         function updateLiveTimer() {
             const now = new Date();
             const day = now.getDay();
