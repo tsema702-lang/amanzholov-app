@@ -65,7 +65,7 @@
             user-select: none;
         }
 
-        /* ЭКРАН ЗАЩИТЫ И БЛОКИРОВКИ */
+        /* ЭКРАН СТРОГОГО ДОСТУПА */
         #access-denied-screen {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -128,7 +128,7 @@
         }
         .status-dot { width: 6px; height: 6px; background: #30d158; border-radius: 50%; box-shadow: 0 0 8px #30d158; }
 
-        /* Погодный Виджет */
+        /* Погода */
         .weather-card {
             background: linear-gradient(135deg, rgba(10, 132, 255, 0.18), rgba(94, 92, 230, 0.12));
             border: 1px solid rgba(10, 132, 255, 0.25);
@@ -147,22 +147,15 @@
         .weather-city { font-size: 12px; color: var(--text-secondary); font-weight: 500; }
         .weather-hint { font-size: 10px; color: var(--accent-blue); font-weight: 600; margin-top: 2px; }
         .weather-anim-box { position: relative; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; font-size: 30px; z-index: 2; }
-
         .weather-fx-layer { position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 1; overflow: hidden; }
-        .rain-drop { position: absolute; background: linear-gradient(transparent, rgba(10, 132, 255, 0.8)); width: 1.5px; height: 12px; animation: fallRain 0.8s linear infinite; }
-        @keyframes fallRain { 0% { transform: translateY(-15px); opacity: 1; } 100% { transform: translateY(60px); opacity: 0; } }
-        .snow-flake { position: absolute; color: #ffffff; font-size: 10px; opacity: 0.8; animation: fallSnow 2.5s linear infinite; }
-        @keyframes fallSnow { 0% { transform: translateY(-10px) rotate(0deg); opacity: 1; } 100% { transform: translateY(60px) rotate(360deg); opacity: 0.2; } }
-        .sun-ray { position: absolute; top: -20px; right: -20px; width: 90px; height: 90px; background: radial-gradient(circle, rgba(255,214,10,0.4) 0%, rgba(255,149,0,0) 70%); animation: pulseSun 2s ease-in-out infinite alternate; }
-        @keyframes pulseSun { 0% { transform: scale(0.9); opacity: 0.6; } 100% { transform: scale(1.2); opacity: 1; } }
 
-        /* Прогноз погоды на неделю */
         .weather-forecast-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border-color); }
         .weather-forecast-row:last-child { border-bottom: none; }
         .wf-day { font-size: 14px; font-weight: 600; width: 80px; }
         .wf-icon { font-size: 18px; text-align: center; width: 40px; }
         .wf-temp { font-size: 14px; font-weight: 700; text-align: right; width: 80px; color: var(--accent-blue); }
 
+        /* Живой Таймер Пар */
         .live-timer-card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -174,6 +167,8 @@
         .timer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
         .timer-status-pill { font-family: var(--font-display); font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px; }
         .timer-status-pill.active { background: rgba(52, 199, 89, 0.15); color: #30d158; }
+        .timer-status-pill.break { background: rgba(255, 149, 0, 0.15); color: #ff9500; }
+        .timer-status-pill.ended { background: rgba(142, 142, 147, 0.15); color: #8e8e93; }
 
         .timer-title { font-size: 16px; font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
         .timer-sub { font-size: 12px; color: var(--text-secondary); }
@@ -223,7 +218,6 @@
         .user-manage-name { font-size: 13px; font-weight: 700; color: var(--text-primary); }
         .user-manage-sub { font-size: 11px; color: var(--text-secondary); }
         .admin-action-btn { padding: 6px 10px; border-radius: 8px; border: none; font-size: 11px; font-weight: 700; cursor: pointer; margin-left: 4px; }
-        .btn-approve { background: rgba(52, 199, 89, 0.2); color: #30d158; }
         .btn-kick { background: rgba(255, 59, 48, 0.2); color: #ff3b30; }
 
         .gpa-input { background: var(--card-secondary); border: 1px solid var(--border-color); color: var(--text-primary); padding: 8px 12px; border-radius: 10px; font-size: 14px; width: 100%; margin-bottom: 8px; outline: none; }
@@ -277,14 +271,14 @@
         <div id="weather-week-list">Загрузка прогноза...</div>
     </div>
 
-    <!-- Живой Таймер -->
+    <!-- Живой Таймер Пар -->
     <div class="live-timer-card">
         <div class="timer-header">
             <span class="timer-sub">Статус занятий</span>
-            <span class="timer-status-pill active" id="timer-pill">Занятия идут</span>
+            <span class="timer-status-pill active" id="timer-pill">Определяем...</span>
         </div>
-        <div class="timer-title" id="timer-title-text">Вычисление пары...</div>
-        <div class="timer-sub">Университет им. С. Аманжолова</div>
+        <div class="timer-title" id="timer-title-text">Загрузка пары...</div>
+        <div class="timer-sub" id="timer-location-text">Университет им. С. Аманжолова</div>
         <div class="timer-countdown" id="timer-countdown-text">--:--</div>
     </div>
 
@@ -365,22 +359,18 @@
     <!-- РАЗДЕЛ 2: СЕРВИСЫ -->
     <div id="page-services" class="page">
         <div class="services-grid">
-            
-            <!-- АДМИН-ПАНЕЛЬ (ТОЛЬКО ДЛЯ ВЛАДЕЛЬЦА СЕМЁНА) -->
             <div class="widget-item admin-widget-card" id="admin-widget-btn" style="display:none;" onclick="openWidget('admin')">
                 <svg class="widget-icon" style="color:#ff2d55;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                 <div class="widget-title" style="color:#ff2d55;">Панель Администратора</div>
                 <div class="widget-sub">Заявки и Управление доступом</div>
             </div>
 
-            <!-- КАЛЕНДАРЬ -->
             <div class="widget-item" onclick="openWidget('calendar')">
                 <svg class="widget-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
                 <div class="widget-title">Календарь</div>
                 <div class="widget-sub">Рейтинговые недели</div>
             </div>
 
-            <!-- РАСЧЕТ GPA -->
             <div class="widget-item" onclick="openWidget('gpa')">
                 <svg class="widget-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
                 <div class="widget-title">Расчет GPA</div>
@@ -400,11 +390,9 @@
             </div>
         </div>
 
-        <!-- ОКНО: УПРАВЛЕНИЕ ЗАЯВКАМИ И УЧАСТНИКАМИ ДЛЯ СЕМЁНА -->
         <div id="sub-admin" class="sub-panel card" style="border-color: rgba(255,45,85,0.4);">
             <div class="card-header" style="color:#ff2d55;">Панель Управления Владельца</div>
             <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 10px;">Активные участники и входящие заявки:</div>
-            
             <div id="admin-user-list">
                 <div class="user-manage-item">
                     <div class="user-manage-info">
@@ -416,7 +404,6 @@
             </div>
         </div>
 
-        <!-- ОКНО: АКАДЕМИЧЕСКИЙ КАЛЕНДАРЬ -->
         <div id="sub-calendar" class="sub-panel card">
             <div class="card-header">Учебный Календарь Amanzholov</div>
             <div class="setting-row"><div><div class="setting-title">1 Модуль (Теория)</div><div class="setting-sub">Недели 1 — 7</div></div><span class="type-pill lecture">Обучение</span></div>
@@ -424,13 +411,11 @@
             <div class="setting-row"><div><div class="setting-title">2 Модуль (Теория)</div><div class="setting-sub">Недели 9 — 14</div></div><span class="setting-sub">Обучение</span></div>
             <div class="setting-row"><div><div class="setting-title">Рубежный контроль 2 (Р2)</div><div class="setting-sub">15 Неделя</div></div><span class="setting-sub">Контроль</span></div>
             <div class="setting-row"><div><div class="setting-title">Экзаменационная сессия</div><div class="setting-sub">Зимний период</div></div><span class="setting-sub" style="color:#ff3b30; font-weight:700;">Сессия</span></div>
-            <div class="setting-row"><div><div class="setting-title">Каникулярный период</div><div class="setting-sub">Межсессионный отдых</div></div><span class="setting-sub" style="color:#30d158; font-weight:700;">Каникулы</span></div>
         </div>
 
-        <!-- ОКНО: КАЛЬКУЛЯТОР GPA -->
         <div id="sub-gpa" class="sub-panel card">
             <div class="card-header">Калькулятор GPA</div>
-            <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 12px;">Введите баллы за текущие дисциплины (0-100):</div>
+            <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 12px;">Введите баллы за дисциплины (0-100):</div>
             <input type="number" id="gpa-val1" class="gpa-input" placeholder="Предмет 1 (например 90)">
             <input type="number" id="gpa-val2" class="gpa-input" placeholder="Предмет 2 (например 85)">
             <input type="number" id="gpa-val3" class="gpa-input" placeholder="Предмет 3 (например 95)">
@@ -438,7 +423,6 @@
             <div id="gpa-result" style="margin-top: 12px; font-size: 15px; font-weight: 800; text-align: center; color: var(--accent-blue);"></div>
         </div>
 
-        <!-- ОКНО: НАСТРОЙКИ -->
         <div id="sub-settings" class="sub-panel card">
             <div class="card-header">Параметры</div>
             <div class="setting-row">
@@ -450,7 +434,6 @@
             </div>
         </div>
 
-        <!-- ОКНО: ПРОФИЛЬ -->
         <div id="sub-profile" class="sub-panel card">
             <div class="card-header">Карточка Студента</div>
             <div style="padding: 4px 0; display: flex; flex-direction: column; align-items: center; text-align: center;">
@@ -483,24 +466,121 @@
 
         const ADMIN_ID = "5644768982";
 
+        // Расписание университета для вычисления Живого Таймера
+        const fullSchedule = {
+            1: [ // ПН
+                { name: "Социология", start: "09:50", end: "10:40", room: "Корп. №1, ауд. 111" },
+                { name: "Иностранный язык", start: "11:00", end: "11:50", room: "Корп. №7, ауд. 219" },
+                { name: "Иностранный язык", start: "11:55", end: "12:45", room: "Корп. №7, ауд. 219" },
+                { name: "Иностранный язык", start: "12:50", end: "13:40", room: "Корп. №7, ауд. 112" },
+                { name: "Гигиена, медицина и первая помощь", start: "13:45", end: "14:35", room: "Корп. №2, ауд. 31" },
+                { name: "Гигиена, медицина и первая помощь", start: "14:40", end: "15:30", room: "Корп. №2, ауд. 31" }
+            ],
+            2: [ // ВТ
+                { name: "Политология", start: "08:00", end: "08:50", room: "Корп. №1, ауд. 305" },
+                { name: "Политология", start: "09:50", end: "10:40", room: "Корп. №1, ауд. 311" },
+                { name: "Культурология", start: "11:00", end: "11:50", room: "Корп. №1, ауд. 111" },
+                { name: "История Казахстана", start: "11:55", end: "12:45", room: "Корп. №1, ауд. 111" },
+                { name: "Социология", start: "12:50", end: "13:40", room: "Корп. №1, ауд. 252" }
+            ],
+            3: [ // СР
+                { name: "Казахский (русский) язык", start: "08:00", end: "08:50", room: "Корп. №1, ауд. 406" },
+                { name: "Психология", start: "08:55", end: "09:45", room: "Корп. №1, ауд. 111" },
+                { name: "Культурология", start: "11:00", end: "11:50", room: "Корп. №1, ауд. 327а" },
+                { name: "История Казахстана", start: "11:55", end: "12:45", room: "Корп. №1, Зал 257" },
+                { name: "История Казахстана", start: "12:50", end: "13:40", room: "Корп. №1, ауд. 316" }
+            ],
+            4: [ // ЧТ
+                { name: "Психология", start: "08:00", end: "08:50", room: "Корп. №9, ауд. 301" },
+                { name: "Казахский (русский) язык", start: "12:50", end: "13:40", room: "Корп. №9, ауд. 304" },
+                { name: "Гигиена, медицина и первая помощь", start: "13:45", end: "14:35", room: "Корп. №2, ауд. 32" }
+            ],
+            5: [ // ПТ
+                { name: "Физическая культура", start: "09:50", end: "10:40", room: "Спортзал" },
+                { name: "Физическая культура", start: "11:00", end: "11:50", room: "Спортзал" },
+                { name: "Казахский (русский) язык", start: "12:50", end: "13:40", room: "Корп. №9, ауд. 304" }
+            ]
+        };
+
+        function timeToMinutes(timeStr) {
+            const parts = timeStr.split(':');
+            return parseInt(parts[0], 10) * 60 + parseInt(parts[1], 10);
+        }
+
+        // АЛГОРИТМ ЖИВОГО ТАЙМЕРА
+        function updateLiveTimer() {
+            const now = new Date();
+            const day = now.getDay(); // 0 = Воскресенье, 1 = ПН, ..., 6 = СБ
+            const currentMins = now.getHours() * 60 + now.getMinutes();
+            const currentSecs = now.getSeconds();
+
+            const pill = document.getElementById('timer-pill');
+            const title = document.getElementById('timer-title-text');
+            const loc = document.getElementById('timer-location-text');
+            const countdown = document.getElementById('timer-countdown-text');
+
+            if (day === 0 || day === 6 || !fullSchedule[day]) {
+                pill.className = "timer-status-pill ended";
+                pill.innerText = "Выходной";
+                title.innerText = "Занятий сегодня нет";
+                loc.innerText = "Университет им. С. Аманжолова";
+                countdown.innerText = "--:--";
+                return;
+            }
+
+            const todayLessons = fullSchedule[day];
+            let activeLesson = null;
+            let nextLesson = null;
+
+            for (let i = 0; i < todayLessons.length; i++) {
+                const startM = timeToMinutes(todayLessons[i].start);
+                const endM = timeToMinutes(todayLessons[i].end);
+
+                if (currentMins >= startM && currentMins < endM) {
+                    activeLesson = { ...todayLessons[i], endM };
+                    break;
+                } else if (currentMins < startM) {
+                    nextLesson = { ...todayLessons[i], startM };
+                    break;
+                }
+            }
+
+            if (activeLesson) {
+                // Идёт пара
+                pill.className = "timer-status-pill active";
+                pill.innerText = "Пара идет";
+                title.innerText = activeLesson.name;
+                loc.innerText = activeLesson.room;
+
+                const leftSecs = (activeLesson.endM - currentMins) * 60 - currentSecs;
+                const m = Math.floor(leftSecs / 60);
+                const s = leftSecs % 60;
+                countdown.innerText = `До конца: ${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
+            } else if (nextLesson) {
+                // Идёт перемена или пара ещё не началась
+                pill.className = "timer-status-pill break";
+                pill.innerText = "Перемена / Ожидание";
+                title.innerText = "Следующая: " + nextLesson.name;
+                loc.innerText = nextLesson.room;
+
+                const leftSecs = (nextLesson.startM - currentMins) * 60 - currentSecs;
+                const m = Math.floor(leftSecs / 60);
+                const s = leftSecs % 60;
+                countdown.innerText = `До начала: ${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
+            } else {
+                // Все пары на сегодня завершились
+                pill.className = "timer-status-pill ended";
+                pill.innerText = "Завершено";
+                title.innerText = "Все пары на сегодня окончены";
+                loc.innerText = "Университет им. С. Аманжолова";
+                countdown.innerText = "00:00";
+            }
+        }
+
         function sendAccessRequest() {
             if (tg) {
                 tg.sendData(JSON.stringify({ action: "request_access" }));
                 tg.showAlert("Ваша заявка отправлена Семёну. Ожидайте подтверждения.");
-            }
-        }
-
-        function adminApproveUser(targetId) {
-            if (tg) {
-                tg.sendData(JSON.stringify({ action: "approve_user", user_id: targetId }));
-                tg.showAlert("Заявка пользователя " + targetId + " одобрена!");
-            }
-        }
-
-        function adminKickUser(targetId) {
-            if (tg) {
-                tg.sendData(JSON.stringify({ action: "kick_user", user_id: targetId }));
-                tg.showAlert("Пользователь " + targetId + " исключён из бота!");
             }
         }
 
@@ -593,12 +673,10 @@
             let user = tg && tg.initDataUnsafe ? tg.initDataUnsafe.user : null;
             let userId = user ? String(user.id) : ADMIN_ID;
 
-            // Если доступ получен через Telegram WebApp и ID совпадает с Вашим (Семён)
             if (userId === ADMIN_ID) {
                 document.getElementById('admin-widget-btn').style.display = "block";
                 document.getElementById('access-denied-screen').style.display = "none";
             } else {
-                // Если открыли сайт посторонние без Telegram подписи или сторонние пользователи
                 document.getElementById('access-denied-screen').style.display = "flex";
             }
         }
@@ -634,12 +712,27 @@
         document.addEventListener("DOMContentLoaded", () => {
             checkSecurity();
             fetchRealWeather();
-            
+
+            // Запускаем расчёт таймера сразу и обновляем каждую секунду
+            updateLiveTimer();
+            setInterval(updateLiveTimer, 1000);
+
             let user = tg && tg.initDataUnsafe ? tg.initDataUnsafe.user : null;
             if (user) {
                 document.getElementById('prof-display-name').innerText = user.first_name;
                 document.getElementById('prof-display-username').innerText = user.username ? "@" + user.username : "Без username";
                 document.getElementById('prof-id').innerText = user.id;
+            }
+
+            // Автоматически открываем текущий день недели
+            const today = new Date().getDay();
+            const days = ['sat', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+            const curDay = days[today] || 'mon';
+            
+            const tabBtns = document.querySelectorAll('.tab-item');
+            const map = { 'mon': 0, 'tue': 1, 'wed': 2, 'thu': 3, 'fri': 4, 'sat': 5 };
+            if (map[curDay] !== undefined) {
+                selectDay(curDay, tabBtns[map[curDay]]);
             }
         });
     </script>
