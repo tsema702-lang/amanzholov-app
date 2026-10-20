@@ -17,7 +17,7 @@
         body {
             background-color: #0f0f11;
             color: #ffffff;
-            padding: 14px 12px 90px 12px;
+            padding: 14px 12px 95px 12px;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
@@ -26,12 +26,12 @@
             user-select: none;
         }
 
-        /* Хедер */
+        /* Шапка */
         .header {
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 6px 0 16px 0;
+            padding: 6px 0 14px 0;
             border-bottom: 1px solid #2c2c2e;
             margin-bottom: 14px;
         }
@@ -39,7 +39,7 @@
             text-align: center;
         }
         .header-title {
-            font-size: 18px;
+            font-size: 19px;
             font-weight: 800;
             letter-spacing: 0.3px;
             background: linear-gradient(135deg, #64b5f6, #0a84ff);
@@ -120,6 +120,7 @@
             padding: 16px;
             border: 1px solid #2c2c2e;
             flex-grow: 1;
+            margin-bottom: 10px;
         }
         .date-title {
             font-size: 14px;
@@ -131,7 +132,7 @@
             align-items: center;
         }
 
-        /* Карточка пары */
+        /* Элемент расписания */
         .lesson-item {
             display: flex;
             align-items: center;
@@ -173,7 +174,7 @@
             color: #a1a1a6;
         }
 
-        /* Разделы */
+        /* Разделы страниц */
         .page-section {
             display: none;
         }
@@ -181,37 +182,118 @@
             display: block;
         }
 
+        /* Калькулятор среднего балла (GPA) */
+        .gpa-card {
+            background: linear-gradient(135deg, #0a84ff, #5e5ce6);
+            border-radius: 18px;
+            padding: 18px;
+            text-align: center;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 16px rgba(10, 132, 255, 0.3);
+        }
+        .gpa-value {
+            font-size: 38px;
+            font-weight: 900;
+            margin: 4px 0;
+        }
+        .gpa-label {
+            font-size: 13px;
+            opacity: 0.9;
+            font-weight: 600;
+        }
+        .grade-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #2c2c2e;
+            padding: 10px 12px;
+            border-radius: 12px;
+            margin-bottom: 8px;
+        }
+        .grade-name {
+            font-size: 13px;
+            font-weight: 600;
+            max-width: 200px;
+        }
+        .grade-select {
+            background: #1c1c1e;
+            color: #64b5f6;
+            border: 1px solid #3a3a3c;
+            padding: 6px 10px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 13px;
+            outline: none;
+        }
+
+        /* Музыкальный блок */
+        .music-card {
+            background: #2c2c2e;
+            border-radius: 16px;
+            padding: 14px;
+            margin-top: 10px;
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+        .music-track-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 4px;
+        }
+        .music-artist {
+            font-size: 12px;
+            color: #ff7700;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .music-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            width: 100%;
+            padding: 10px;
+            background: #ff5500;
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
         /* Профиль */
         .profile-header {
             text-align: center;
-            padding: 10px 0 16px 0;
+            padding: 8px 0 14px 0;
         }
         .profile-avatar {
-            width: 70px;
-            height: 70px;
+            width: 64px;
+            height: 64px;
             background: linear-gradient(135deg, #0a84ff, #5e5ce6);
             border-radius: 50%;
-            margin: 0 auto 10px auto;
+            margin: 0 auto 8px auto;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 32px;
+            font-size: 30px;
         }
         .profile-name {
-            font-size: 20px;
+            font-size: 19px;
             font-weight: 800;
         }
         .profile-sub {
-            font-size: 13px;
+            font-size: 12px;
             color: #8e8e93;
             margin-top: 2px;
         }
         .info-row {
             display: flex;
             justify-content: space-between;
-            padding: 12px 0;
+            padding: 10px 0;
             border-bottom: 1px solid #2c2c2e;
-            font-size: 14px;
+            font-size: 13px;
         }
         .info-label { color: #8e8e93; }
         .info-value { font-weight: 600; color: #ffffff; text-align: right; }
@@ -244,28 +326,28 @@
             box-shadow: 0 2px 8px rgba(10,132,255,0.5);
         }
 
-        /* Настройки в Ещё */
+        /* Переключатели в Сервисах */
         .setting-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 14px 0;
+            padding: 12px 0;
             border-bottom: 1px solid #2c2c2e;
         }
         .setting-title {
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 600;
         }
         .setting-desc {
-            font-size: 12px;
+            font-size: 11px;
             color: #8e8e93;
             margin-top: 2px;
         }
         .switch {
             position: relative;
             display: inline-block;
-            width: 48px;
-            height: 26px;
+            width: 46px;
+            height: 24px;
         }
         .switch input { opacity: 0; width: 0; height: 0; }
         .slider {
@@ -273,23 +355,23 @@
             background-color: #3a3a3c; transition: .3s; border-radius: 34px;
         }
         .slider:before {
-            position: absolute; content: ""; height: 20px; width: 20px; left: 3px; bottom: 3px;
+            position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px;
             background-color: white; transition: .3s; border-radius: 50%;
         }
         input:checked + .slider { background-color: #34c759; }
         input:checked + .slider:before { transform: translateX(22px); }
 
-        /* Увеличенная нижняя панель навигации */
+        /* Нижняя навигационная панель */
         .nav-bar {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(22, 22, 24, 0.95);
+            background: rgba(22, 22, 24, 0.96);
             backdrop-filter: blur(25px);
             display: flex;
             justify-content: space-around;
-            padding: 12px 6px 16px 6px;
+            padding: 10px 4px 14px 4px;
             border-top: 1px solid #2c2c2e;
             max-width: 480px;
             margin: 0 auto;
@@ -303,14 +385,14 @@
             color: #8e8e93;
             background: none;
             border: none;
-            gap: 4px;
+            gap: 3px;
             cursor: pointer;
             flex: 1;
-            padding: 4px 0;
+            padding: 3px 0;
             transition: all 0.15s ease;
         }
         .nav-icon {
-            font-size: 22px;
+            font-size: 20px;
         }
         .nav-label {
             font-size: 11px;
@@ -331,20 +413,19 @@
     <div class="header">
         <div class="header-title-box">
             <div class="header-title">Amanzholov University</div>
-            <div class="header-sub">Расписание & Студенческий портал</div>
+            <div class="header-sub">Студенческий портал</div>
         </div>
     </div>
 
     <!-- Статус-карточка -->
     <div class="status-card">
-        <div class="status-title" id="status-icon">🎓 ВГУ им. С. Аманжолова</div>
-        <div class="status-desc" id="status-text">Специальность: Начальная военная подготовка</div>
-        <div class="status-footer" id="status-time">⚡ Учебный семестр идет полным ходом</div>
+        <div class="status-title">🎓 ВГУ им. С. Аманжолова</div>
+        <div class="status-desc">Специальность: Начальная военная подготовка</div>
+        <div class="status-footer">⚡ Учебный семестр идет полным ходом</div>
     </div>
 
     <!-- РАЗДЕЛ: РАСПИСАНИЕ -->
     <div id="section-schedule" class="page-section active">
-        <!-- Вкладки дней -->
         <div class="tabs">
             <button class="tab active" onclick="switchDay('mon', this)">ПН</button>
             <button class="tab" onclick="switchDay('tue', this)">ВТ</button>
@@ -429,49 +510,85 @@
     <!-- РАЗДЕЛ: КАЛЕНДАРЬ -->
     <div id="section-calendar" class="page-section">
         <div class="content-card">
-            <div class="date-title" id="cal-month-title">Октябрь 2026</div>
+            <div class="date-title">Календарь занятий</div>
             <div class="calendar-grid">
                 <div class="cal-day-head">ПН</div><div class="cal-day-head">ВТ</div><div class="cal-day-head">СР</div><div class="cal-day-head">ЧТ</div><div class="cal-day-head">ПТ</div><div class="cal-day-head">СБ</div><div class="cal-day-head">ВС</div>
-                <!-- Дни месяца -->
                 <div class="cal-cell" style="opacity: 0.3;">28</div><div class="cal-cell" style="opacity: 0.3;">29</div><div class="cal-cell" style="opacity: 0.3;">30</div><div class="cal-cell">1</div><div class="cal-cell">2</div><div class="cal-cell">3</div><div class="cal-cell">4</div>
                 <div class="cal-cell">5</div><div class="cal-cell">6</div><div class="cal-cell">7</div><div class="cal-cell">8</div><div class="cal-cell">9</div><div class="cal-cell">10</div><div class="cal-cell">11</div>
                 <div class="cal-cell">12</div><div class="cal-cell">13</div><div class="cal-cell">14</div><div class="cal-cell">15</div><div class="cal-cell">16</div><div class="cal-cell">17</div><div class="cal-cell">18</div>
                 <div class="cal-cell">19</div><div class="cal-cell today">20</div><div class="cal-cell">21</div><div class="cal-cell">22</div><div class="cal-cell">23</div><div class="cal-cell">24</div><div class="cal-cell">25</div>
                 <div class="cal-cell">26</div><div class="cal-cell">27</div><div class="cal-cell">28</div><div class="cal-cell">29</div><div class="cal-cell">30</div><div class="cal-cell">31</div>
             </div>
-            <div style="margin-top: 20px; font-size: 13px; color: #8e8e93; line-height: 1.6;">
-                📌 <strong style="color:#fff;">Рейтинговые недели:</strong> 7-я и 15-я недели семестра.<br>
+            <div style="margin-top: 18px; font-size: 12px; color: #8e8e93; line-height: 1.6;">
+                📌 <strong style="color:#fff;">Рейтинговые недели:</strong> 7-я и 15-я недели.<br>
                 🔥 Синим цветом подсвечен сегодняшний день.
             </div>
         </div>
     </div>
 
-    <!-- РАЗДЕЛ: ПРОФИЛЬ -->
-    <div id="section-profile" class="page-section">
-        <div class="content-card">
-            <div class="profile-header">
-                <div class="profile-avatar">👨‍🎓</div>
-                <div class="profile-name">Семён</div>
-                <div class="profile-sub">Студент 1 курса</div>
-            </div>
+    <!-- РАЗДЕЛ: КАЛЬКУЛЯТОР GPA -->
+    <div id="section-gpa" class="page-section">
+        <div class="gpa-card">
+            <div class="gpa-label">Твоя успеваемость</div>
+            <div class="gpa-value" id="gpa-res">3.67</div>
+            <div class="gpa-label" id="gpa-letter">Оценка: A- (Отлично)</div>
+        </div>
 
-            <div class="info-row"><span class="info-label">ВУЗ</span><span class="info-value">ВГУ им. С. Аманжолова</span></div>
-            <div class="info-row"><span class="info-label">Специальность</span><span class="info-value">Начальная военная подготовка</span></div>
-            <div class="info-row"><span class="info-label">Город</span><span class="info-value">Усть-Каменогорск</span></div>
-            <div class="info-row"><span class="info-label">Статус доступа</span><span class="info-value" style="color: #30d158;">Администратор (VIP)</span></div>
-            <div class="info-row"><span class="info-label">Telegram ID</span><span class="info-value">5644768982</span></div>
+        <div class="content-card">
+            <div class="date-title">Рассчитай средний балл (GPA)</div>
+            
+            <div class="grade-row">
+                <span class="grade-name">Социология</span>
+                <select class="grade-select" onchange="calcGPA()">
+                    <option value="4.0">A (95-100)</option>
+                    <option value="3.67" selected>A- (90-94)</option>
+                    <option value="3.33">B+ (85-89)</option>
+                    <option value="3.0">B (80-84)</option>
+                </select>
+            </div>
+            <div class="grade-row">
+                <span class="grade-name">Иностранный язык</span>
+                <select class="grade-select" onchange="calcGPA()">
+                    <option value="4.0" selected>A (95-100)</option>
+                    <option value="3.67">A- (90-94)</option>
+                    <option value="3.33">B+ (85-89)</option>
+                </select>
+            </div>
+            <div class="grade-row">
+                <span class="grade-name">История Казахстана</span>
+                <select class="grade-select" onchange="calcGPA()">
+                    <option value="4.0">A (95-100)</option>
+                    <option value="3.67">A- (90-94)</option>
+                    <option value="3.33" selected>B+ (85-89)</option>
+                </select>
+            </div>
+            <div class="grade-row">
+                <span class="grade-name">Психология</span>
+                <select class="grade-select" onchange="calcGPA()">
+                    <option value="4.0" selected>A (95-100)</option>
+                    <option value="3.67">A- (90-94)</option>
+                </select>
+            </div>
+            <div class="grade-row">
+                <span class="grade-name">Политология</span>
+                <select class="grade-select" onchange="calcGPA()">
+                    <option value="4.0">A (95-100)</option>
+                    <option value="3.67" selected>A- (90-94)</option>
+                </select>
+            </div>
         </div>
     </div>
 
-    <!-- РАЗДЕЛ: ЕЩЁ / НАСТРОЙКИ -->
-    <div id="section-more" class="page-section">
-        <div class="content-card">
-            <div class="date-title">Уведомления и звук</div>
+    <!-- РАЗДЕЛ: СЕРВИСЫ (Бывший "Ещё") -->
+    <div id="section-services" class="page-section">
+        <!-- Настройки звука и пушей -->
+        <div class="content-card" style="margin-bottom: 14px;">
+            <div class="date-title">Уведомления и Звуки</div>
 
             <div class="setting-item">
                 <div>
                     <div class="setting-title">Уведомления о парах</div>
-                    <div class="setting-desc">Получать анонсы и закрёпы перед парами</div>
+                    <div class="setting-desc">Получать анонсы и закрёпы сообщений</div>
                 </div>
                 <label class="switch">
                     <input type="checkbox" id="notif-toggle" checked onchange="toggleNotifications(this)">
@@ -481,8 +598,8 @@
 
             <div class="setting-item">
                 <div>
-                    <div class="setting-title">Звук уведомлений</div>
-                    <div class="setting-desc">Звуковое сопровождение сообщений</div>
+                    <div class="setting-title">Звук сообщений</div>
+                    <div class="setting-desc">Отключай звук, чтобы сообщения проходили без звука</div>
                 </div>
                 <label class="switch">
                     <input type="checkbox" id="sound-toggle" checked onchange="toggleSound(this)">
@@ -492,24 +609,54 @@
 
             <div class="setting-item">
                 <div>
-                    <div class="setting-title">Виброотклик (Haptic)</div>
-                    <div class="setting-desc">Тактильная отдача при нажатии кнопок</div>
+                    <div class="setting-title">Тактильный отклик (Haptic)</div>
+                    <div class="setting-desc">Легкая вибрация при кликах</div>
                 </div>
                 <label class="switch">
                     <input type="checkbox" id="haptic-toggle" checked onchange="toggleHapticSetting(this)">
                     <span class="slider"></span>
                 </label>
             </div>
+        </div>
 
-            <div style="margin-top: 24px;">
-                <button onclick="triggerHaptic(); alert('Кэш успешно очищен!');" style="width: 100%; padding: 12px; background: #2c2c2e; border: 1px solid #3a3a3c; border-radius: 12px; color: #ff453a; font-weight: 700; cursor: pointer;">
-                    🧹 Очистить кэш приложения
+        <!-- SoundCloud Музыкальный Вайб -->
+        <div class="content-card" style="margin-bottom: 14px;">
+            <div class="date-title">Музыка под пары 🎧</div>
+            
+            <div class="music-card">
+                <div class="music-track-title" id="music-title">Big Baby Tape & Kizaru — Bandana</div>
+                <div class="music-artist">SoundCloud Track</div>
+                <a id="music-link" href="https://soundcloud.com/search/sounds?q=Big%20Baby%20Tape%20Kizaru%20Bandana" target="_blank" class="music-btn" onclick="triggerHaptic()">
+                    🟠 Слушать в SoundCloud
+                </a>
+                <button onclick="getRandomVibeTrack()" style="margin-top: 8px; width: 100%; padding: 8px; background: #3a3a3c; border: none; border-radius: 10px; color: #fff; font-weight: 600; cursor: pointer;">
+                    🔄 Случайный трек
                 </button>
             </div>
         </div>
+
+        <!-- Карточка профиля -->
+        <div class="content-card">
+            <div class="date-title">Профиль студента</div>
+            <div class="profile-header">
+                <div class="profile-avatar">👨‍🎓</div>
+                <div class="profile-name">Семён</div>
+                <div class="profile-sub">1 курс | НВП</div>
+            </div>
+
+            <div class="info-row"><span class="info-label">ВУЗ</span><span class="info-value">ВГУ им. С. Аманжолова</span></div>
+            <div class="info-row"><span class="info-label">Специальность</span><span class="info-value">Начальная военная подготовка</span></div>
+            <div class="info-row"><span class="info-label">Город</span><span class="info-value">Усть-Каменогорск</span></div>
+            <div class="info-row"><span class="info-label">Статус</span><span class="info-value" style="color: #30d158;">Администратор</span></div>
+            <div class="info-row"><span class="info-label">Telegram ID</span><span class="info-value">5644768982</span></div>
+
+            <button onclick="triggerHaptic(); alert('Кэш приложения сброшен!');" style="margin-top: 14px; width: 100%; padding: 10px; background: #2c2c2e; border: 1px solid #3a3a3c; border-radius: 12px; color: #ff453a; font-weight: 700; cursor: pointer;">
+                🧹 Очистить кэш
+            </button>
+        </div>
     </div>
 
-    <!-- Нижняя увеличенная навигационная панель -->
+    <!-- Обновлённая нижняя навигационная панель -->
     <div class="nav-bar">
         <button class="nav-button active" onclick="switchNavSection('schedule', this)">
             <span class="nav-icon">📅</span>
@@ -519,13 +666,13 @@
             <span class="nav-icon">📆</span>
             <span class="nav-label">Календарь</span>
         </button>
-        <button class="nav-button" onclick="switchNavSection('profile', this)">
-            <span class="nav-icon">👤</span>
-            <span class="nav-label">Профиль</span>
+        <button class="nav-button" onclick="switchNavSection('gpa', this)">
+            <span class="nav-icon">📊</span>
+            <span class="nav-label">Баллы GPA</span>
         </button>
-        <button class="nav-button" onclick="switchNavSection('more', this)">
-            <span class="nav-icon">⚙️</span>
-            <span class="nav-label">Ещё</span>
+        <button class="nav-button" onclick="switchNavSection('services', this)">
+            <span class="nav-icon">⚡</span>
+            <span class="nav-label">Сервисы</span>
         </button>
     </div>
 
@@ -576,7 +723,7 @@
             triggerHaptic();
             localStorage.setItem('sound', el.checked);
             if (tg) {
-                tg.showAlert(el.checked ? "🔊 Звук включен!" : "🔇 Звук отключен!");
+                tg.showAlert(el.checked ? "🔊 Звук включен!" : "🔇 Сообщения будут приходить БЕЗ звука!");
             }
         }
 
@@ -585,7 +732,36 @@
             localStorage.setItem('haptic', el.checked);
         }
 
-        // Загрузка сохраненных настроек
+        function calcGPA() {
+            triggerHaptic();
+            const selects = document.querySelectorAll('.grade-select');
+            let total = 0;
+            selects.forEach(s => total += parseFloat(s.value));
+            const avg = (total / selects.length).toFixed(2);
+            document.getElementById('gpa-res').innerText = avg;
+
+            let letter = "A (Отлично)";
+            if (avg < 3.0) letter = "B (Хорошо)";
+            else if (avg < 3.67) letter = "A- (Отлично)";
+
+            document.getElementById('gpa-letter').innerText = "Оценка: " + letter;
+        }
+
+        const vibeTracks = [
+            { title: "Big Baby Tape & Kizaru — Bandana", url: "https://soundcloud.com/search/sounds?q=Big%20Baby%20Tape%20Kizaru%20Bandana" },
+            { title: "Big Baby Tape & Kizaru — Million", url: "https://soundcloud.com/search/sounds?q=Big%20Baby%20Tape%20Kizaru%20Million" },
+            { title: "Big Baby Tape & Kizaru — 99 Problems", url: "https://soundcloud.com/search/sounds?q=Big%20Baby%20Tape%20Kizaru%2099%20Problems" },
+            { title: "Kizaru — Narcos", url: "https://soundcloud.com/search/sounds?q=Kizaru%20Narcos" },
+            { title: "Big Baby Tape — Gimme The Loot", url: "https://soundcloud.com/search/sounds?q=Big%20Baby%20Tape%20Gimme%20The%20Loot" }
+        ];
+
+        function getRandomVibeTrack() {
+            triggerHaptic();
+            const randomItem = vibeTracks[Math.floor(Math.random() * vibeTracks.length)];
+            document.getElementById('music-title').innerText = randomItem.title;
+            document.getElementById('music-link').href = randomItem.url;
+        }
+
         document.addEventListener("DOMContentLoaded", () => {
             const savedNotif = localStorage.getItem('notif');
             if (savedNotif !== null) document.getElementById('notif-toggle').checked = (savedNotif === 'true');
@@ -596,8 +772,7 @@
             const savedHaptic = localStorage.getItem('haptic');
             if (savedHaptic !== null) document.getElementById('haptic-toggle').checked = (savedHaptic === 'true');
 
-            // Выбор текущего дня недели по умолчанию
-            const currentDay = new Date().getDay(); // 0 - ВС, 1 - ПН, 2 - ВТ...
+            const currentDay = new Date().getDay();
             const daysArr = ['sat', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
             const dayKey = daysArr[currentDay] || 'mon';
             
