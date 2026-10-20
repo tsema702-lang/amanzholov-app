@@ -147,7 +147,6 @@
         .weather-city { font-size: 12px; color: var(--text-secondary); font-weight: 500; }
         .weather-hint { font-size: 10px; color: var(--accent-blue); font-weight: 600; margin-top: 2px; }
         .weather-anim-box { position: relative; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; font-size: 30px; z-index: 2; }
-        .weather-fx-layer { position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 1; overflow: hidden; }
 
         .weather-forecast-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border-color); }
         .weather-forecast-row:last-child { border-bottom: none; }
@@ -217,11 +216,19 @@
         .user-manage-info { display: flex; flex-direction: column; }
         .user-manage-name { font-size: 13px; font-weight: 700; color: var(--text-primary); }
         .user-manage-sub { font-size: 11px; color: var(--text-secondary); }
-        .admin-action-btn { padding: 6px 10px; border-radius: 8px; border: none; font-size: 11px; font-weight: 700; cursor: pointer; margin-left: 4px; }
-        .btn-kick { background: rgba(255, 59, 48, 0.2); color: #ff3b30; }
 
         .gpa-input { background: var(--card-secondary); border: 1px solid var(--border-color); color: var(--text-primary); padding: 8px 12px; border-radius: 10px; font-size: 14px; width: 100%; margin-bottom: 8px; outline: none; }
         .gpa-btn { background: var(--accent-blue); color: #fff; border: none; padding: 10px 16px; border-radius: 10px; font-weight: 700; width: 100%; cursor: pointer; }
+
+        /* ОБЫЧНЫЙ СТИЛЬНЫЙ КАЛЕНДАРЬ МЕСЯЦА */
+        .calendar-header-box { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+        .calendar-month-title { font-family: var(--font-display); font-size: 16px; font-weight: 800; color: var(--text-primary); }
+        .calendar-nav-btn { background: var(--card-secondary); color: var(--text-primary); border: 1px solid var(--border-color); width: 32px; height: 32px; border-radius: 8px; font-weight: 800; cursor: pointer; }
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; text-align: center; }
+        .cal-day-name { font-size: 11px; font-weight: 700; color: var(--text-secondary); padding-bottom: 6px; }
+        .cal-date-cell { font-size: 13px; font-weight: 600; padding: 8px 0; border-radius: 10px; color: var(--text-primary); background: var(--card-secondary); }
+        .cal-date-cell.empty { background: transparent; }
+        .cal-date-cell.today { background: var(--accent-blue); color: #ffffff; font-weight: 800; box-shadow: 0 2px 8px rgba(10,132,255,0.4); }
 
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--nav-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); display: flex; justify-content: space-around; padding: 8px 16px 20px 16px; border-top: 1px solid var(--border-color); max-width: 440px; margin: 0 auto; z-index: 1000; }
         .nav-tab { display: flex; flex-direction: column; align-items: center; color: var(--text-secondary); background: none; border: none; gap: 3px; cursor: pointer; flex: 1; }
@@ -254,7 +261,6 @@
 
     <!-- Погода -->
     <div class="weather-card" onclick="toggleWeeklyWeather()">
-        <div class="weather-fx-layer" id="weather-fx"></div>
         <div class="weather-info">
             <div class="weather-temp" id="weather-temp-text">--°C</div>
             <div class="weather-city" id="weather-desc-text">Усть-Каменогорск • Загрузка...</div>
@@ -275,9 +281,9 @@
     <div class="live-timer-card">
         <div class="timer-header">
             <span class="timer-sub">Статус занятий</span>
-            <span class="timer-status-pill active" id="timer-pill">Определяем...</span>
+            <span class="timer-status-pill active" id="timer-pill">Загрузка...</span>
         </div>
-        <div class="timer-title" id="timer-title-text">Загрузка пары...</div>
+        <div class="timer-title" id="timer-title-text">Определяем расписание...</div>
         <div class="timer-sub" id="timer-location-text">Университет им. С. Аманжолова</div>
         <div class="timer-countdown" id="timer-countdown-text">--:--</div>
     </div>
@@ -365,10 +371,11 @@
                 <div class="widget-sub">Заявки и Управление доступом</div>
             </div>
 
+            <!-- ОБЫЧНЫЙ КАЛЕНДАРЬ -->
             <div class="widget-item" onclick="openWidget('calendar')">
                 <svg class="widget-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
                 <div class="widget-title">Календарь</div>
-                <div class="widget-sub">Рейтинговые недели</div>
+                <div class="widget-sub">Календарь месяца</div>
             </div>
 
             <div class="widget-item" onclick="openWidget('gpa')">
@@ -392,7 +399,7 @@
 
         <div id="sub-admin" class="sub-panel card" style="border-color: rgba(255,45,85,0.4);">
             <div class="card-header" style="color:#ff2d55;">Панель Управления Владельца</div>
-            <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 10px;">Активные участники и входящие заявки:</div>
+            <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 10px;">Управление доступом пользователей:</div>
             <div id="admin-user-list">
                 <div class="user-manage-item">
                     <div class="user-manage-info">
@@ -404,13 +411,22 @@
             </div>
         </div>
 
+        <!-- ОКНО ОБЫЧНОГО ИНТЕРАКТИВНОГО КАЛЕНДАРЯ -->
         <div id="sub-calendar" class="sub-panel card">
-            <div class="card-header">Учебный Календарь Amanzholov</div>
-            <div class="setting-row"><div><div class="setting-title">1 Модуль (Теория)</div><div class="setting-sub">Недели 1 — 7</div></div><span class="type-pill lecture">Обучение</span></div>
-            <div class="setting-row"><div><div class="setting-title">Рубежный контроль 1 (Р1)</div><div class="setting-sub">8 Неделя</div></div><span class="type-pill spz">Контроль</span></div>
-            <div class="setting-row"><div><div class="setting-title">2 Модуль (Теория)</div><div class="setting-sub">Недели 9 — 14</div></div><span class="setting-sub">Обучение</span></div>
-            <div class="setting-row"><div><div class="setting-title">Рубежный контроль 2 (Р2)</div><div class="setting-sub">15 Неделя</div></div><span class="setting-sub">Контроль</span></div>
-            <div class="setting-row"><div><div class="setting-title">Экзаменационная сессия</div><div class="setting-sub">Зимний период</div></div><span class="setting-sub" style="color:#ff3b30; font-weight:700;">Сессия</span></div>
+            <div class="calendar-header-box">
+                <button class="calendar-nav-btn" onclick="changeMonth(-1)">‹</button>
+                <span class="calendar-month-title" id="cal-month-title">Октябрь 2026</span>
+                <button class="calendar-nav-btn" onclick="changeMonth(1)">›</button>
+            </div>
+            <div class="calendar-grid" id="cal-grid">
+                <div class="cal-day-name">Пн</div>
+                <div class="cal-day-name">Вт</div>
+                <div class="cal-day-name">Ср</div>
+                <div class="cal-day-name">Чт</div>
+                <div class="cal-day-name">Пт</div>
+                <div class="cal-day-name">Сб</div>
+                <div class="cal-day-name">Вс</div>
+            </div>
         </div>
 
         <div id="sub-gpa" class="sub-panel card">
@@ -434,15 +450,16 @@
             </div>
         </div>
 
+        <!-- ПРОФИЛЬ ПОЛЬЗОВАТЕЛЯ -->
         <div id="sub-profile" class="sub-panel card">
             <div class="card-header">Карточка Студента</div>
             <div style="padding: 4px 0; display: flex; flex-direction: column; align-items: center; text-align: center;">
-                <div style="font-size: 40px; margin-bottom: 6px;">👨‍🎓</div>
-                <div style="font-size: 18px; font-weight: 700;" id="prof-display-name">Загрузка...</div>
+                <div style="font-size: 44px; margin-bottom: 6px;">👨‍🎓</div>
+                <div style="font-size: 18px; font-weight: 700;" id="prof-display-name">Семён</div>
                 <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 12px;" id="prof-display-username">@semen</div>
                 <div style="width: 100%;">
                     <div class="setting-row"><span class="setting-title">Telegram ID</span><span class="setting-sub" style="color:var(--text-primary);" id="prof-id">5644768982</span></div>
-                    <div class="setting-row"><span class="setting-title">Статус доступа</span><span class="setting-sub" style="color:#30d158; font-weight:700;">Владелец / Доступ активен</span></div>
+                    <div class="setting-row"><span class="setting-title">Статус доступа</span><span class="setting-sub" style="color:#30d158; font-weight:700;" id="prof-status-val">Владелец / Доступ активен</span></div>
                 </div>
             </div>
         </div>
@@ -466,9 +483,8 @@
 
         const ADMIN_ID = "5644768982";
 
-        // Расписание университета для вычисления Живого Таймера
         const fullSchedule = {
-            1: [ // ПН
+            1: [
                 { name: "Социология", start: "09:50", end: "10:40", room: "Корп. №1, ауд. 111" },
                 { name: "Иностранный язык", start: "11:00", end: "11:50", room: "Корп. №7, ауд. 219" },
                 { name: "Иностранный язык", start: "11:55", end: "12:45", room: "Корп. №7, ауд. 219" },
@@ -476,26 +492,26 @@
                 { name: "Гигиена, медицина и первая помощь", start: "13:45", end: "14:35", room: "Корп. №2, ауд. 31" },
                 { name: "Гигиена, медицина и первая помощь", start: "14:40", end: "15:30", room: "Корп. №2, ауд. 31" }
             ],
-            2: [ // ВТ
+            2: [
                 { name: "Политология", start: "08:00", end: "08:50", room: "Корп. №1, ауд. 305" },
                 { name: "Политология", start: "09:50", end: "10:40", room: "Корп. №1, ауд. 311" },
                 { name: "Культурология", start: "11:00", end: "11:50", room: "Корп. №1, ауд. 111" },
                 { name: "История Казахстана", start: "11:55", end: "12:45", room: "Корп. №1, ауд. 111" },
                 { name: "Социология", start: "12:50", end: "13:40", room: "Корп. №1, ауд. 252" }
             ],
-            3: [ // СР
+            3: [
                 { name: "Казахский (русский) язык", start: "08:00", end: "08:50", room: "Корп. №1, ауд. 406" },
                 { name: "Психология", start: "08:55", end: "09:45", room: "Корп. №1, ауд. 111" },
                 { name: "Культурология", start: "11:00", end: "11:50", room: "Корп. №1, ауд. 327а" },
                 { name: "История Казахстана", start: "11:55", end: "12:45", room: "Корп. №1, Зал 257" },
                 { name: "История Казахстана", start: "12:50", end: "13:40", room: "Корп. №1, ауд. 316" }
             ],
-            4: [ // ЧТ
+            4: [
                 { name: "Психология", start: "08:00", end: "08:50", room: "Корп. №9, ауд. 301" },
                 { name: "Казахский (русский) язык", start: "12:50", end: "13:40", room: "Корп. №9, ауд. 304" },
                 { name: "Гигиена, медицина и первая помощь", start: "13:45", end: "14:35", room: "Корп. №2, ауд. 32" }
             ],
-            5: [ // ПТ
+            5: [
                 { name: "Физическая культура", start: "09:50", end: "10:40", room: "Спортзал" },
                 { name: "Физическая культура", start: "11:00", end: "11:50", room: "Спортзал" },
                 { name: "Казахский (русский) язык", start: "12:50", end: "13:40", room: "Корп. №9, ауд. 304" }
@@ -507,10 +523,10 @@
             return parseInt(parts[0], 10) * 60 + parseInt(parts[1], 10);
         }
 
-        // АЛГОРИТМ ЖИВОГО ТАЙМЕРА
+        // ЖИВОЙ ТАЙМЕР
         function updateLiveTimer() {
             const now = new Date();
-            const day = now.getDay(); // 0 = Воскресенье, 1 = ПН, ..., 6 = СБ
+            const day = now.getDay();
             const currentMins = now.getHours() * 60 + now.getMinutes();
             const currentSecs = now.getSeconds();
 
@@ -518,6 +534,8 @@
             const title = document.getElementById('timer-title-text');
             const loc = document.getElementById('timer-location-text');
             const countdown = document.getElementById('timer-countdown-text');
+
+            if (!pill || !title) return;
 
             if (day === 0 || day === 6 || !fullSchedule[day]) {
                 pill.className = "timer-status-pill ended";
@@ -546,7 +564,6 @@
             }
 
             if (activeLesson) {
-                // Идёт пара
                 pill.className = "timer-status-pill active";
                 pill.innerText = "Пара идет";
                 title.innerText = activeLesson.name;
@@ -557,7 +574,6 @@
                 const s = leftSecs % 60;
                 countdown.innerText = `До конца: ${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
             } else if (nextLesson) {
-                // Идёт перемена или пара ещё не началась
                 pill.className = "timer-status-pill break";
                 pill.innerText = "Перемена / Ожидание";
                 title.innerText = "Следующая: " + nextLesson.name;
@@ -568,7 +584,6 @@
                 const s = leftSecs % 60;
                 countdown.innerText = `До начала: ${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
             } else {
-                // Все пары на сегодня завершились
                 pill.className = "timer-status-pill ended";
                 pill.innerText = "Завершено";
                 title.innerText = "Все пары на сегодня окончены";
@@ -577,10 +592,64 @@
             }
         }
 
+        // ГЕНЕРАТОР ОБЫЧНОГО КАЛЕНДАРЯ МЕСЯЦА
+        let calCurrentDate = new Date();
+
+        function renderCalendar() {
+            const grid = document.getElementById('cal-grid');
+            const title = document.getElementById('cal-month-title');
+            if (!grid || !title) return;
+
+            const year = calCurrentDate.getFullYear();
+            const month = calCurrentDate.getMonth();
+
+            const monthNames = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
+            title.innerText = `${monthNames[month]} ${year}`;
+
+            // Очищаем старые дни, оставляя дни недели
+            grid.innerHTML = `
+                <div class="cal-day-name">Пн</div>
+                <div class="cal-day-name">Вт</div>
+                <div class="cal-day-name">Ср</div>
+                <div class="cal-day-name">Чт</div>
+                <div class="cal-day-name">Пт</div>
+                <div class="cal-day-name">Сб</div>
+                <div class="cal-day-name">Вс</div>
+            `;
+
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+            let shift = firstDay === 0 ? 6 : firstDay - 1;
+
+            for (let i = 0; i < shift; i++) {
+                const emptyCell = document.createElement('div');
+                emptyCell.className = 'cal-date-cell empty';
+                grid.appendChild(emptyCell);
+            }
+
+            const today = new Date();
+            for (let day = 1; day <= daysInMonth; day++) {
+                const cell = document.createElement('div');
+                cell.className = 'cal-date-cell';
+                cell.innerText = day;
+
+                if (day === today.getDate() && month === today.getMonth() && year === today.getFullYear()) {
+                    cell.classList.add('today');
+                }
+                grid.appendChild(cell);
+            }
+        }
+
+        function changeMonth(delta) {
+            calCurrentDate.setMonth(calCurrentDate.getMonth() + delta);
+            renderCalendar();
+        }
+
         function sendAccessRequest() {
             if (tg) {
                 tg.sendData(JSON.stringify({ action: "request_access" }));
-                tg.showAlert("Ваша заявка отправлена Семёну. Ожидайте подтверждения.");
+                tg.showAlert("Заявка отправлена Семёну. Ожидайте подтверждения.");
             }
         }
 
@@ -652,8 +721,6 @@
                     const code = data.current_weather.weathercode;
                     
                     document.getElementById('weather-temp-text').innerText = (temp > 0 ? "+" : "") + temp + "°C";
-                    const fxLayer = document.getElementById('weather-fx');
-                    fxLayer.innerHTML = '';
 
                     if (code >= 51 && code <= 67) {
                         document.getElementById('weather-icon').innerText = '🌧️';
@@ -678,6 +745,21 @@
                 document.getElementById('access-denied-screen').style.display = "none";
             } else {
                 document.getElementById('access-denied-screen').style.display = "flex";
+            }
+        }
+
+        function setupProfile() {
+            let user = tg && tg.initDataUnsafe ? tg.initDataUnsafe.user : null;
+            if (user) {
+                document.getElementById('prof-display-name').innerText = user.first_name || "Семён";
+                document.getElementById('prof-display-username').innerText = user.username ? "@" + user.username : "Без username";
+                document.getElementById('prof-id').innerText = user.id;
+                document.getElementById('widget-profile-sub').innerText = user.first_name + " • Студент";
+            } else {
+                document.getElementById('prof-display-name').innerText = "Семён";
+                document.getElementById('prof-display-username').innerText = "@semen";
+                document.getElementById('prof-id').innerText = ADMIN_ID;
+                document.getElementById('widget-profile-sub').innerText = "Семён • Владелец";
             }
         }
 
@@ -711,20 +793,13 @@
 
         document.addEventListener("DOMContentLoaded", () => {
             checkSecurity();
+            setupProfile();
             fetchRealWeather();
+            renderCalendar();
 
-            // Запускаем расчёт таймера сразу и обновляем каждую секунду
             updateLiveTimer();
             setInterval(updateLiveTimer, 1000);
 
-            let user = tg && tg.initDataUnsafe ? tg.initDataUnsafe.user : null;
-            if (user) {
-                document.getElementById('prof-display-name').innerText = user.first_name;
-                document.getElementById('prof-display-username').innerText = user.username ? "@" + user.username : "Без username";
-                document.getElementById('prof-id').innerText = user.id;
-            }
-
-            // Автоматически открываем текущий день недели
             const today = new Date().getDay();
             const days = ['sat', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
             const curDay = days[today] || 'mon';
