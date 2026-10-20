@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Amanzholov Student Portal</title>
     
-    <!-- Подключаем премиальные шрифты Outfit и Inter -->
+    <!-- Премиальные шрифты Outfit и Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
@@ -14,6 +14,7 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         :root {
+            /* Тёмная тема по умолчанию */
             --bg-color: #000000;
             --card-bg: #1c1c1e;
             --card-secondary: #2c2c2e;
@@ -21,6 +22,7 @@
             --text-primary: #ffffff;
             --text-secondary: #8e8e93;
             --border-color: rgba(255, 255, 255, 0.08);
+            --nav-bg: rgba(28, 28, 30, 0.90);
             --badge-lecture: rgba(48, 176, 199, 0.15);
             --text-lecture: #64d2ff;
             --badge-spz: rgba(10, 132, 255, 0.15);
@@ -30,12 +32,29 @@
             --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
+        /* Светлая тема */
+        body.light-theme {
+            --bg-color: #f2f2f7;
+            --card-bg: #ffffff;
+            --card-secondary: #e5e5ea;
+            --accent-blue: #007aff;
+            --text-primary: #000000;
+            --text-secondary: #6c6c70;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --nav-bg: rgba(249, 249, 249, 0.92);
+            --badge-lecture: rgba(0, 122, 255, 0.1);
+            --text-lecture: #007aff;
+            --badge-spz: rgba(52, 199, 89, 0.12);
+            --text-spz: #28cd41;
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
             font-family: var(--font-main);
             -webkit-tap-highlight-color: transparent;
+            transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
         }
 
         body {
@@ -50,7 +69,7 @@
             user-select: none;
         }
 
-        /* Премиальный Нативный Хедер с Градиентом */
+        /* Премиальный Нативный Хедер */
         .app-header {
             display: flex;
             align-items: center;
@@ -91,12 +110,21 @@
             gap: 6px;
             border: 1px solid rgba(48, 209, 88, 0.2);
         }
+        .status-badge.guest {
+            background: rgba(255, 149, 0, 0.12);
+            color: #ff9500;
+            border-color: rgba(255, 149, 0, 0.2);
+        }
         .status-dot {
             width: 6px;
             height: 6px;
             background: #30d158;
             border-radius: 50%;
             box-shadow: 0 0 8px #30d158;
+        }
+        .status-badge.guest .status-dot {
+            background: #ff9500;
+            box-shadow: 0 0 8px #ff9500;
         }
 
         /* Системные Вкладки Дней */
@@ -120,7 +148,6 @@
             font-weight: 700;
             white-space: nowrap;
             cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
         .tab-item.active {
             background: var(--accent-blue);
@@ -136,6 +163,7 @@
             padding: 16px;
             border: 1px solid var(--border-color);
             margin-bottom: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
         }
         .card-header {
             font-family: var(--font-display);
@@ -226,7 +254,6 @@
             border-radius: 16px;
             padding: 16px 14px;
             cursor: pointer;
-            transition: background 0.15s ease, transform 0.1s ease;
         }
         .widget-item:active {
             background: var(--card-secondary);
@@ -320,6 +347,61 @@
         input:checked + .switch-slider { background-color: #34c759; }
         input:checked + .switch-slider:before { transform: translateX(20px); }
 
+        /* Переключатель темы (Светлая / Тёмная) */
+        .theme-selector {
+            display: flex;
+            background: var(--card-secondary);
+            padding: 3px;
+            border-radius: 10px;
+            gap: 2px;
+        }
+        .theme-btn {
+            padding: 6px 12px;
+            font-size: 12px;
+            font-weight: 600;
+            border: none;
+            background: none;
+            color: var(--text-secondary);
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .theme-btn.active {
+            background: var(--card-bg);
+            color: var(--text-primary);
+            box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+        }
+
+        /* Аватарка Профиля */
+        .profile-avatar-box {
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #0a84ff, #5e5ce6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: #fff;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+        .profile-avatar-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .guest-warning-card {
+            background: rgba(255, 59, 48, 0.1);
+            border: 1px solid rgba(255, 59, 48, 0.25);
+            color: #ff3b30;
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            line-height: 1.4;
+            margin-top: 10px;
+        }
+
         /* Календарная сетка */
         .cal-grid {
             display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; text-align: center; margin-top: 8px;
@@ -332,7 +414,7 @@
         .bottom-nav {
             position: fixed;
             bottom: 0; left: 0; right: 0;
-            background: rgba(28, 28, 30, 0.90);
+            background: var(--nav-bg);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             display: flex;
@@ -353,7 +435,6 @@
             gap: 3px;
             cursor: pointer;
             flex: 1;
-            transition: color 0.15s ease;
         }
         .nav-tab.active { color: var(--accent-blue); }
         .nav-svg { width: 22px; height: 22px; fill: currentColor; }
@@ -368,9 +449,9 @@
             <span class="uni-name">Amanzholov University</span>
             <span class="uni-sub">Студенческий портал</span>
         </div>
-        <div class="status-badge">
+        <div class="status-badge" id="header-badge">
             <div class="status-dot"></div>
-            <span>1 курс • НВП</span>
+            <span id="header-badge-text">1 курс • НВП</span>
         </div>
     </div>
 
@@ -523,13 +604,13 @@
             <div class="widget-item" onclick="openWidget('settings')">
                 <svg class="widget-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
                 <div class="widget-title">Настройки</div>
-                <div class="widget-sub">Уведомления и звук</div>
+                <div class="widget-sub">Тема, уведомления, звук</div>
             </div>
 
             <div class="widget-item" style="grid-column: span 2;" onclick="openWidget('profile')">
                 <svg class="widget-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                <div class="widget-title">Профиль Студента</div>
-                <div class="widget-sub">Семён • Университет Сарсена Аманжолова</div>
+                <div class="widget-title">Мой Профиль</div>
+                <div class="widget-sub" id="widget-profile-sub">Загрузка профиля...</div>
             </div>
         </div>
 
@@ -573,7 +654,7 @@
                 <a id="track-url" href="https://soundcloud.com/search/sounds?q=Big%20Baby%20Tape%20Kizaru%20Bandana" target="_blank" style="display: block; width: 100%; text-align: center; padding: 10px; background: #ff5500; color: #fff; border-radius: 10px; font-weight: 600; font-size: 13px; text-decoration: none;">
                     Слушать в SoundCloud
                 </a>
-                <button onclick="nextRandomTrack()" style="width: 100%; margin-top: 8px; padding: 10px; background: var(--card-secondary); color: #fff; border: none; border-radius: 10px; font-weight: 600; font-size: 12px; cursor: pointer;">
+                <button onclick="nextRandomTrack()" style="width: 100%; margin-top: 8px; padding: 10px; background: var(--card-secondary); color: var(--text-primary); border: none; border-radius: 10px; font-weight: 600; font-size: 12px; cursor: pointer;">
                     Переключить трек
                 </button>
             </div>
@@ -581,7 +662,17 @@
 
         <!-- ОКНО: НАСТРОЙКИ -->
         <div id="sub-settings" class="sub-panel card">
-            <div class="card-header">Параметры Уведомлений</div>
+            <div class="card-header">Параметры Приложения</div>
+            
+            <!-- Переключатель Темы -->
+            <div class="setting-row">
+                <div><div class="setting-title">Оформление темы</div><div class="setting-sub">Выберите стиль интерфейса</div></div>
+                <div class="theme-selector">
+                    <button class="theme-btn" id="theme-dark-btn" onclick="setTheme('dark')">Тёмная</button>
+                    <button class="theme-btn" id="theme-light-btn" onclick="setTheme('light')">Светлая</button>
+                </div>
+            </div>
+
             <div class="setting-row">
                 <div><div class="setting-title">Уведомления о парах</div><div class="setting-sub">Напоминания перед началом</div></div>
                 <label class="ios-switch"><input type="checkbox" id="set-notif" checked onchange="saveConfig('notif', this)"><span class="switch-slider"></span></label>
@@ -599,13 +690,27 @@
         <!-- ОКНО: ПРОФИЛЬ -->
         <div id="sub-profile" class="sub-panel card">
             <div class="card-header">Карточка Студента</div>
-            <div style="padding: 4px 0;">
-                <div style="font-size: 18px; font-weight: 700; margin-bottom: 2px;">Семён</div>
-                <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 12px;">Университет Сарсена Аманжолова</div>
-                <div class="setting-row"><span class="setting-title">Специальность</span><span class="setting-sub" style="color:#fff;">Начальная военная подготовка</span></div>
-                <div class="setting-row"><span class="setting-title">Курс</span><span class="setting-sub" style="color:#fff;">1 курс</span></div>
-                <div class="setting-row"><span class="setting-title">Город</span><span class="setting-sub" style="color:#fff;">Усть-Каменогорск</span></div>
-                <div class="setting-row"><span class="setting-title">Права доступа</span><span class="setting-sub" style="color:#30d158;">Администратор</span></div>
+            <div style="padding: 4px 0; display: flex; flex-direction: column; align-items: center; text-align: center;">
+                
+                <div class="profile-avatar-box" id="profile-avatar-box">
+                    <span>👨‍🎓</span>
+                </div>
+
+                <div style="font-size: 18px; font-weight: 700; margin-bottom: 2px;" id="prof-display-name">Семён</div>
+                <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 12px;" id="prof-display-username">@username</div>
+                
+                <div style="width: 100%;">
+                    <div class="setting-row"><span class="setting-title">Telegram ID</span><span class="setting-sub" style="color:var(--text-primary);" id="prof-id">5644768982</span></div>
+                    <div class="setting-row"><span class="setting-title">Статус доступа</span><span class="setting-sub" id="prof-status-val" style="color:#30d158;">Студент / Админ</span></div>
+                    <div class="setting-row"><span class="setting-title">Университет</span><span class="setting-sub" style="color:var(--text-primary);" id="prof-uni-val">Amanzholov University</span></div>
+                    <div class="setting-row"><span class="setting-title">Специальность</span><span class="setting-sub" style="color:var(--text-primary);" id="prof-spec-val">Начальная военная подготовка</span></div>
+                </div>
+
+                <!-- Блок предупреждения для гостей -->
+                <div class="guest-warning-card" id="guest-warning" style="display: none; width: 100%;">
+                    ⚠️ Данный пользователь не является студентом университета Amanzholov University.
+                </div>
+
             </div>
         </div>
     </div>
@@ -634,6 +739,22 @@
         function haptic() {
             if (hapticOn && tg && tg.HapticFeedback) {
                 tg.HapticFeedback.impactOccurred('light');
+            }
+        }
+
+        /* Переключение темы */
+        function setTheme(theme) {
+            haptic();
+            if (theme === 'light') {
+                document.body.classList.add('light-theme');
+                document.getElementById('theme-light-btn').classList.add('active');
+                document.getElementById('theme-dark-btn').classList.remove('active');
+                localStorage.setItem('app_theme', 'light');
+            } else {
+                document.body.classList.remove('light-theme');
+                document.getElementById('theme-dark-btn').classList.add('active');
+                document.getElementById('theme-light-btn').classList.remove('active');
+                localStorage.setItem('app_theme', 'dark');
             }
         }
 
@@ -695,7 +816,64 @@
             document.getElementById('track-url').href = t.url;
         }
 
+        /* Загрузка и проверка Telegram пользователя */
+        function initUserProfile() {
+            let user = tg && tg.initDataUnsafe ? tg.initDataUnsafe.user : null;
+            
+            const adminId = "5644768982";
+            let userId = user ? String(user.id) : adminId;
+            let firstName = user ? user.first_name : "Семён";
+            let username = user && user.username ? "@" + user.username : "@semen";
+            let photoUrl = user ? user.photo_url : null;
+
+            // Проверка: Ты (Администратор/Студент) или Другой пользователь
+            let isStudentAdmin = (userId === adminId) || (firstName.toLowerCase().includes("семён"));
+
+            document.getElementById('prof-display-name').innerText = firstName;
+            document.getElementById('prof-display-username').innerText = username;
+            document.getElementById('prof-id').innerText = userId;
+
+            const avatarBox = document.getElementById('profile-avatar-box');
+            if (photoUrl) {
+                avatarBox.innerHTML = `<img src="${photoUrl}" alt="Avatar">`;
+            } else {
+                avatarBox.innerHTML = isStudentAdmin ? `<span>👨‍🎓</span>` : `<span>👤</span>`;
+            }
+
+            if (isStudentAdmin) {
+                document.getElementById('widget-profile-sub').innerText = firstName + " • Amanzholov University";
+                document.getElementById('prof-status-val').innerText = "Администратор / Студент";
+                document.getElementById('prof-status-val').style.color = "#30d158";
+                document.getElementById('prof-uni-val').innerText = "Amanzholov University";
+                document.getElementById('prof-spec-val').innerText = "Начальная военная подготовка";
+                document.getElementById('guest-warning').style.display = "none";
+                
+                document.getElementById('header-badge-text').innerText = "1 курс • НВП";
+                document.getElementById('header-badge').classList.remove('guest');
+            } else {
+                document.getElementById('widget-profile-sub').innerText = firstName + " • Гость";
+                document.getElementById('prof-status-val').innerText = "Гость";
+                document.getElementById('prof-status-val').style.color = "#ff9500";
+                document.getElementById('prof-uni-val').innerText = "—";
+                document.getElementById('prof-spec-val').innerText = "—";
+                document.getElementById('guest-warning').style.display = "block";
+                
+                document.getElementById('header-badge-text').innerText = "Гость";
+                document.getElementById('header-badge').classList.add('guest');
+            }
+        }
+
         document.addEventListener("DOMContentLoaded", () => {
+            // Восстановление темы из памяти
+            const savedTheme = localStorage.getItem('app_theme');
+            if (savedTheme === 'light') {
+                setTheme('light');
+            } else {
+                setTheme('dark');
+            }
+
+            initUserProfile();
+
             const today = new Date().getDay();
             const days = ['sat', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
             const curDay = days[today] || 'mon';
