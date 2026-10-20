@@ -5,25 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Amanzholov Student Portal</title>
     
-    <!-- Премиальные шрифты Outfit и Inter -->
+    <!-- Premium Fonts: Outfit & Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
     
     <!-- Telegram WebApp SDK -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    
     <style>
         :root {
-            /* Тёмная тема */
+            /* Dark Theme Variables */
             --bg-color: #000000;
             --card-bg: #1c1c1e;
             --card-secondary: #2c2c2e;
             --accent-blue: #0a84ff;
+            --accent-cyan: #64d2ff;
             --text-primary: #ffffff;
             --text-secondary: #8e8e93;
             --border-color: rgba(255, 255, 255, 0.08);
-            --nav-bg: rgba(28, 28, 30, 0.90);
-            --badge-lecture: rgba(48, 176, 199, 0.15);
+            --nav-bg: rgba(28, 28, 30, 0.88);
+            --badge-lecture: rgba(100, 210, 255, 0.15);
             --text-lecture: #64d2ff;
             --badge-spz: rgba(10, 132, 255, 0.15);
             --text-spz: #0a84ff;
@@ -32,12 +34,13 @@
             --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
-        /* Светлая тема */
+        /* Light Theme Overrides */
         body.light-theme {
             --bg-color: #f2f2f7;
             --card-bg: #ffffff;
             --card-secondary: #e5e5ea;
             --accent-blue: #007aff;
+            --accent-cyan: #32ade6;
             --text-primary: #000000;
             --text-secondary: #6c6c70;
             --border-color: rgba(0, 0, 0, 0.08);
@@ -67,14 +70,15 @@
             max-width: 440px;
             margin: 0 auto;
             user-select: none;
+            overflow-x: hidden;
         }
 
-        /* Нативный Хедер */
+        /* Header UI */
         .app-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 8px 4px 14px 4px;
+            padding: 6px 4px 14px 4px;
         }
         .uni-brand {
             display: flex;
@@ -88,7 +92,7 @@
             background: linear-gradient(135deg, #0a84ff 0%, #64b5f6 50%, #90caf9 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0px 2px 12px rgba(10, 132, 255, 0.35));
+            filter: drop-shadow(0px 2px 10px rgba(10, 132, 255, 0.3));
             line-height: 1.1;
         }
         .uni-sub {
@@ -108,12 +112,12 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            border: 1px solid rgba(48, 209, 88, 0.2);
+            border: 1px solid rgba(48, 209, 88, 0.25);
         }
         .status-badge.guest {
             background: rgba(255, 149, 0, 0.12);
             color: #ff9500;
-            border-color: rgba(255, 149, 0, 0.2);
+            border-color: rgba(255, 149, 0, 0.25);
         }
         .status-dot {
             width: 6px;
@@ -122,61 +126,181 @@
             border-radius: 50%;
             box-shadow: 0 0 8px #30d158;
         }
+        .status-badge.guest .status-dot {
+            background: #ff9500;
+            box-shadow: 0 0 8px #ff9500;
+        }
 
-        /* Виджет Погоды с Анимацией */
+        /* Weather Card Container with Dynamic Effects */
         .weather-card {
-            background: linear-gradient(135deg, rgba(10, 132, 255, 0.18), rgba(94, 92, 230, 0.12));
+            position: relative;
+            background: linear-gradient(135deg, #1c2430 0%, #0d131d 100%);
             border: 1px solid rgba(10, 132, 255, 0.25);
-            border-radius: 18px;
-            padding: 12px 16px;
+            border-radius: 20px;
+            padding: 16px;
             margin-bottom: 12px;
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: relative;
+            flex-direction: column;
             overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
         }
-        .weather-info {
+        body.light-theme .weather-card {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border-color: rgba(0, 122, 255, 0.2);
+        }
+
+        .weather-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 2;
+        }
+        .weather-city {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+        body.light-theme .weather-city {
+            color: #007aff;
+        }
+        .weather-main {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            margin-top: 4px;
             z-index: 2;
         }
         .weather-temp {
             font-family: var(--font-display);
-            font-size: 22px;
+            font-size: 32px;
             font-weight: 800;
+            line-height: 1;
             color: var(--text-primary);
         }
-        .weather-city {
-            font-size: 12px;
+        .weather-condition {
+            font-size: 13px;
             color: var(--text-secondary);
             font-weight: 500;
         }
-        .weather-anim-box {
-            position: relative;
-            width: 44px;
-            height: 44px;
+
+        /* Controls for testing/switching weather mode */
+        .weather-modes-selector {
+            display: flex;
+            gap: 6px;
+            margin-top: 12px;
+            z-index: 2;
+        }
+        .mode-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: var(--text-primary);
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 12px;
+            cursor: pointer;
+            backdrop-filter: blur(8px);
+        }
+        body.light-theme .mode-btn {
+            background: rgba(255, 255, 255, 0.6);
+            border-color: rgba(0, 0, 0, 0.1);
+            color: #000000;
+        }
+        .mode-btn.active {
+            background: var(--accent-blue);
+            color: #ffffff;
+            border-color: var(--accent-blue);
+        }
+
+        /* Canvas Overlay for Weather Animations */
+        .weather-canvas-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+            border-radius: 20px;
+        }
+
+        /* 1. RAIN ANIMATION (Falling Drop Strips) */
+        .rain-drop {
+            position: absolute;
+            background: linear-gradient(to bottom, rgba(100, 210, 255, 0), rgba(100, 210, 255, 0.75));
+            width: 1.5px;
+            height: 18px;
+            opacity: 0.7;
+            animation: fallRain linear infinite;
+        }
+        @keyframes fallRain {
+            0% { transform: translateY(-20px); }
+            100% { transform: translateY(140px); }
+        }
+
+        /* 2. SNOW ANIMATION (Gentle Flakes) */
+        .snowflake {
+            position: absolute;
+            color: #ffffff;
+            font-size: 10px;
+            opacity: 0.8;
+            pointer-events: none;
+            animation: fallSnow linear infinite;
+        }
+        @keyframes fallSnow {
+            0% { transform: translateY(-10px) rotate(0deg); opacity: 0.9; }
+            50% { transform: translateY(60px) translateX(12px) rotate(180deg); }
+            100% { transform: translateY(130px) translateX(-6px) rotate(360deg); opacity: 0.2; }
+        }
+
+        /* 3. SUNNY ANIMATION (Radiant Pulsing Rays) */
+        .sun-ray-box {
+            position: absolute;
+            right: -20px;
+            top: -20px;
+            width: 120px;
+            height: 120px;
+            pointer-events: none;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 28px;
-            z-index: 2;
         }
-        /* Анимация парения облачка */
-        .cloud-anim {
-            animation: floatCloud 3s ease-in-out infinite alternate;
+        .sun-core {
+            width: 45px;
+            height: 45px;
+            background: radial-gradient(circle, #ffcc00 0%, #ff9500 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 25px #ffcc00, 0 0 50px rgba(255, 149, 0, 0.6);
+            animation: pulseSun 3s infinite alternate ease-in-out;
         }
-        @keyframes floatCloud {
-            0% { transform: translateY(0px) scale(1); }
-            100% { transform: translateY(-5px) scale(1.05); }
+        .sun-rays {
+            position: absolute;
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: repeating-conic-gradient(from 0deg, rgba(255, 204, 0, 0.3) 0deg 15deg, transparent 15deg 30deg);
+            animation: rotateRays 12s linear infinite;
+        }
+        @keyframes rotateRays {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes pulseSun {
+            0% { transform: scale(0.9); box-shadow: 0 0 20px #ffcc00; }
+            100% { transform: scale(1.1); box-shadow: 0 0 35px #ffcc00, 0 0 60px rgba(255, 149, 0, 0.8); }
         }
 
-        /* Виджет Живого Таймера Пар */
+        /* Live Real-Time Lesson Timer Widget */
         .live-timer-card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 18px;
+            border-radius: 20px;
             padding: 16px;
             margin-bottom: 14px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.12);
         }
         .timer-header {
             display: flex;
@@ -193,9 +317,9 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
-        .timer-status-pill.active { background: rgba(52, 199, 89, 0.15); color: #30d158; }
-        .timer-status-pill.break { background: rgba(255, 149, 0, 0.15); color: #ff9500; }
-        .timer-status-pill.ended { background: rgba(142, 142, 147, 0.15); color: #8e8e93; }
+        .timer-status-pill.active { background: rgba(52, 199, 89, 0.15); color: #30d158; border: 1px solid rgba(48, 209, 88, 0.25); }
+        .timer-status-pill.break { background: rgba(255, 149, 0, 0.15); color: #ff9500; border: 1px solid rgba(255, 149, 0, 0.25); }
+        .timer-status-pill.ended { background: rgba(142, 142, 147, 0.15); color: #8e8e93; border: 1px solid rgba(142, 142, 147, 0.2); }
 
         .timer-title {
             font-size: 16px;
@@ -215,7 +339,7 @@
             margin-top: 8px;
         }
 
-        /* Вкладки Дней */
+        /* Day Selection Tabs */
         .tabs-container {
             display: flex;
             gap: 6px;
@@ -244,10 +368,10 @@
             box-shadow: 0 4px 14px rgba(10, 132, 255, 0.35);
         }
 
-        /* Карточки */
+        /* Content Cards */
         .card {
             background: var(--card-bg);
-            border-radius: 18px;
+            border-radius: 20px;
             padding: 16px;
             border: 1px solid var(--border-color);
             margin-bottom: 12px;
@@ -264,7 +388,7 @@
             justify-content: space-between;
         }
 
-        /* Строка Занятия */
+        /* Lesson Item Row */
         .lesson-row {
             display: flex;
             align-items: flex-start;
@@ -273,7 +397,7 @@
         }
         .lesson-row:last-child { border-bottom: none; padding-bottom: 0; }
         .lesson-row:first-child { padding-top: 0; }
-        .lesson-time-col { width: 85px; flex-shrink: 0; }
+        .lesson-time-col { width: 82px; flex-shrink: 0; }
         .lesson-start { font-family: var(--font-display); font-size: 15px; font-weight: 700; color: var(--text-primary); }
         .lesson-end { font-size: 12px; color: var(--text-secondary); font-weight: 500; }
         .lesson-main { flex-grow: 1; padding-left: 8px; }
@@ -283,13 +407,13 @@
         .type-pill.lecture { background: var(--badge-lecture); color: var(--text-lecture); }
         .type-pill.spz { background: var(--badge-spz); color: var(--text-spz); }
 
-        /* Разделы */
+        /* Pages */
         .page { display: none; }
         .page.active { display: block; }
 
-        /* Сервисы */
+        /* Services Grid */
         .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 14px; }
-        .widget-item { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 16px 14px; cursor: pointer; }
+        .widget-item { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 18px; padding: 16px 14px; cursor: pointer; }
         .widget-item:active { background: var(--card-secondary); transform: scale(0.98); }
         .widget-icon { width: 28px; height: 28px; margin-bottom: 10px; color: var(--accent-blue); }
         .widget-title { font-family: var(--font-display); font-size: 14px; font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
@@ -298,11 +422,12 @@
         .sub-panel { display: none; margin-top: 8px; }
         .sub-panel.active { display: block; }
 
-        /* Настройки темы */
+        /* Settings Rows & Switch */
         .setting-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border-color); }
         .setting-row:last-child { border-bottom: none; }
         .setting-title { font-size: 14px; font-weight: 500; }
         .setting-sub { font-size: 11px; color: var(--text-secondary); }
+        
         .ios-switch { position: relative; display: inline-block; width: 44px; height: 24px; }
         .ios-switch input { opacity: 0; width: 0; height: 0; }
         .switch-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #3a3a3c; transition: .25s; border-radius: 30px; }
@@ -314,12 +439,17 @@
         .theme-btn { padding: 6px 12px; font-size: 12px; font-weight: 600; border: none; background: none; color: var(--text-secondary); border-radius: 8px; cursor: pointer; }
         .theme-btn.active { background: var(--card-bg); color: var(--text-primary); box-shadow: 0 1px 4px rgba(0,0,0,0.15); }
 
-        /* Аватарка */
+        /* Profile Styles */
         .profile-avatar-box { width: 68px; height: 68px; border-radius: 50%; background: linear-gradient(135deg, #0a84ff, #5e5ce6); display: flex; align-items: center; justify-content: center; font-size: 32px; color: #fff; margin-bottom: 10px; overflow: hidden; }
         .profile-avatar-box img { width: 100%; height: 100%; object-fit: cover; }
-        .guest-warning-card { background: rgba(255, 59, 48, 0.1); border: 1px solid rgba(255, 59, 48, 0.25); color: #ff3b30; padding: 12px; border-radius: 12px; font-size: 12px; font-weight: 600; line-height: 1.4; margin-top: 10px; }
+        .guest-warning-card { background: rgba(255, 59, 48, 0.1); border: 1px solid rgba(255, 59, 48, 0.25); color: #ff3b30; padding: 12px; border-radius: 12px; font-size: 12px; font-weight: 600; line-height: 1.4; margin-top: 10px; text-align: left; }
 
-        /* Нижняя Навигация */
+        /* Interactive GPA & Sound Modules */
+        .calc-box { display: flex; flex-direction: column; gap: 10px; }
+        .grade-item { display: flex; justify-content: space-between; align-items: center; }
+        .grade-select { background: var(--card-secondary); color: var(--text-primary); border: 1px solid var(--border-color); padding: 6px 10px; border-radius: 8px; font-size: 13px; font-weight: 600; }
+        
+        /* Bottom Glassmorphic Navigation */
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--nav-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); display: flex; justify-content: space-around; padding: 8px 16px 20px 16px; border-top: 1px solid var(--border-color); max-width: 440px; margin: 0 auto; z-index: 1000; }
         .nav-tab { display: flex; flex-direction: column; align-items: center; color: var(--text-secondary); background: none; border: none; gap: 3px; cursor: pointer; flex: 1; }
         .nav-tab.active { color: var(--accent-blue); }
@@ -329,11 +459,11 @@
 </head>
 <body>
 
-    <!-- Нативный Хедер -->
+    <!-- Header UI -->
     <div class="app-header">
         <div class="uni-brand">
             <span class="uni-name">Amanzholov University</span>
-            <span class="uni-sub">Студенческий портал</span>
+            <span class="uni-sub">Студенческий портал • Усть-Каменогорск</span>
         </div>
         <div class="status-badge" id="header-badge">
             <div class="status-dot"></div>
@@ -341,18 +471,31 @@
         </div>
     </div>
 
-    <!-- Анимированный Виджет Погоды -->
-    <div class="weather-card">
-        <div class="weather-info">
-            <div class="weather-temp" id="weather-temp-text">+16°C</div>
-            <div class="weather-city">Усть-Каменогорск • Переменная облачность</div>
+    <!-- DYNAMIC ANIMATED WEATHER WIDGET -->
+    <div class="weather-card" id="weather-card-box">
+        <div class="weather-canvas-container" id="weather-effects-layer">
+            <!-- Animated raindrops, snowflakes, or sunrays injected via JS -->
         </div>
-        <div class="weather-anim-box">
-            <span class="cloud-anim" id="weather-icon">⛅</span>
+
+        <div class="weather-top">
+            <div class="weather-city">Усть-Каменогорск (ВКО)</div>
+            <div style="font-size: 11px; color: var(--text-secondary); z-index: 2;" id="weather-time-label">Погода сегодня</div>
+        </div>
+
+        <div class="weather-main">
+            <div class="weather-temp" id="weather-temp-val">+14°C</div>
+            <div class="weather-condition" id="weather-cond-val">Дождь • Влажность 84%</div>
+        </div>
+
+        <!-- Mode selector buttons for Weather Animations -->
+        <div class="weather-modes-selector">
+            <button class="mode-btn active" id="btn-mode-rain" onclick="setWeatherMode('rain')">🌧️ Дождь</button>
+            <button class="mode-btn" id="btn-mode-snow" onclick="setWeatherMode('snow')">❄️ Снег</button>
+            <button class="mode-btn" id="btn-mode-sun" onclick="setWeatherMode('sun')">☀️ Солнечно</button>
         </div>
     </div>
 
-    <!-- Живой Таймер До Начала/Конца Пары -->
+    <!-- LIVE REAL-TIME LESSON TIMER WIDGET -->
     <div class="live-timer-card">
         <div class="timer-header">
             <span class="timer-sub">Статус занятий</span>
@@ -363,7 +506,7 @@
         <div class="timer-countdown" id="timer-countdown-text">--:--</div>
     </div>
 
-    <!-- РАЗДЕЛ 1: РАСПИСАНИЕ -->
+    <!-- SECTION 1: SCHEDULE VIEW -->
     <div id="page-schedule" class="page active">
         <div class="tabs-container">
             <button class="tab-item active" onclick="selectDay('mon', this)">ПН</button>
@@ -376,7 +519,7 @@
         </div>
 
         <div class="card">
-            <!-- ПОНЕДЕЛЬНИК -->
+            <!-- MONDAY -->
             <div id="day-mon" class="day-content">
                 <div class="card-header"><span>Понедельник</span><span>6 пар</span></div>
                 
@@ -429,7 +572,7 @@
                 </div>
             </div>
 
-            <!-- ВТОРНИК -->
+            <!-- TUESDAY -->
             <div id="day-tue" class="day-content" style="display:none;">
                 <div class="card-header"><span>Вторник</span><span>5 пар</span></div>
                 <div class="lesson-row"><div class="lesson-time-col"><div class="lesson-start">08:00</div><div class="lesson-end">08:50</div></div><div class="lesson-main"><div class="lesson-title">Политология</div><div class="lesson-meta"><span class="type-pill lecture">Лекция</span><span>Жиренова А.Т.</span>•<span>Корп. №1, ауд. 305</span></div></div></div>
@@ -439,7 +582,7 @@
                 <div class="lesson-row"><div class="lesson-time-col"><div class="lesson-start">12:50</div><div class="lesson-end">13:40</div></div><div class="lesson-main"><div class="lesson-title">Социология</div><div class="lesson-meta"><span class="type-pill spz">СПЗ</span><span>Рякова Е.Г.</span>•<span>Корп. №1, ауд. 252</span></div></div></div>
             </div>
 
-            <!-- СРЕДА -->
+            <!-- WEDNESDAY -->
             <div id="day-wed" class="day-content" style="display:none;">
                 <div class="card-header"><span>Среда</span><span>5 пар</span></div>
                 <div class="lesson-row"><div class="lesson-time-col"><div class="lesson-start">08:00</div><div class="lesson-end">08:50</div></div><div class="lesson-main"><div class="lesson-title">Казахский (русский) язык</div><div class="lesson-meta"><span class="type-pill spz">СПЗ</span><span>Апышева К.А.</span>•<span>Корп. №1, ауд. 406</span></div></div></div>
@@ -449,7 +592,7 @@
                 <div class="lesson-row"><div class="lesson-time-col"><div class="lesson-start">12:50</div><div class="lesson-end">13:40</div></div><div class="lesson-main"><div class="lesson-title">История Казахстана</div><div class="lesson-meta"><span class="type-pill spz">СПЗ</span><span>Омарканова А.О.</span>•<span>Корп. №1, ауд. 316</span></div></div></div>
             </div>
 
-            <!-- ЧЕТВЕРГ -->
+            <!-- THURSDAY -->
             <div id="day-thu" class="day-content" style="display:none;">
                 <div class="card-header"><span>Четверг</span><span>3 пары</span></div>
                 <div class="lesson-row"><div class="lesson-time-col"><div class="lesson-start">08:00</div><div class="lesson-end">08:50</div></div><div class="lesson-main"><div class="lesson-title">Психология</div><div class="lesson-meta"><span class="type-pill spz">СПЗ</span><span>Ахаева А.Ш.</span>•<span>Корп. №9, ауд. 301</span></div></div></div>
@@ -457,7 +600,7 @@
                 <div class="lesson-row"><div class="lesson-time-col"><div class="lesson-start">13:45</div><div class="lesson-end">14:35</div></div><div class="lesson-main"><div class="lesson-title">Гигиена, медицина и первая помощь</div><div class="lesson-meta"><span class="type-pill spz">СПЗ</span><span>Куленова Г.Б.</span>•<span>Корп. №2, ауд. 32</span></div></div></div>
             </div>
 
-            <!-- ПЯТНИЦА -->
+            <!-- FRIDAY -->
             <div id="day-fri" class="day-content" style="display:none;">
                 <div class="card-header"><span>Пятница</span><span>3 пары</span></div>
                 <div class="lesson-row"><div class="lesson-time-col"><div class="lesson-start">09:50</div><div class="lesson-end">10:40</div></div><div class="lesson-main"><div class="lesson-title">Физическая культура</div><div class="lesson-meta"><span class="type-pill spz">СПЗ</span><span>Зуев А.С.</span>•<span>Спортзал</span></div></div></div>
@@ -465,7 +608,7 @@
                 <div class="lesson-row"><div class="lesson-time-col"><div class="lesson-start">12:50</div><div class="lesson-end">13:40</div></div><div class="lesson-main"><div class="lesson-title">Казахский (русский) язык</div><div class="lesson-meta"><span class="type-pill spz">СПЗ</span><span>Апышева К.А.</span>•<span>Корп. №9, ауд. 304</span></div></div></div>
             </div>
 
-            <!-- СУББОТА -->
+            <!-- SATURDAY -->
             <div id="day-sat" class="day-content" style="display:none;">
                 <div class="card-header"><span>Суббота</span></div>
                 <div style="text-align: center; padding: 24px 0; color: var(--text-secondary); font-size: 14px;">
@@ -473,7 +616,7 @@
                 </div>
             </div>
 
-            <!-- ЗВОНКИ -->
+            <!-- CALLS SCHEDULE -->
             <div id="day-calls" class="day-content" style="display:none;">
                 <div class="card-header"><span>Расписание звонков</span></div>
                 <div class="lesson-row"><div class="lesson-time-col"><div class="lesson-start">08:00</div><div class="lesson-end">08:50</div></div><div class="lesson-main"><div class="lesson-title">1 пара</div></div></div>
@@ -488,7 +631,7 @@
         </div>
     </div>
 
-    <!-- РАЗДЕЛ 2: СЕРВИСЫ -->
+    <!-- SECTION 2: SERVICES SECTION -->
     <div id="page-services" class="page">
         <div class="services-grid">
             <div class="widget-item" onclick="openWidget('calendar')">
@@ -522,7 +665,51 @@
             </div>
         </div>
 
-        <!-- Настройки темы и профиля ниже... -->
+        <!-- Dynamic Sub-Panels -->
+        <!-- 1. CALENDAR PANEL -->
+        <div id="sub-calendar" class="sub-panel card">
+            <div class="card-header">Академический Календарь</div>
+            <div style="font-size: 13px; line-height: 1.5; color: var(--text-primary);">
+                <div style="margin-bottom: 8px;"><b>🗓️ Рубежный контроль 1 (РК1):</b> 7-я неделя семестра</div>
+                <div style="margin-bottom: 8px;"><b>🗓️ Рубежный контроль 2 (РК2):</b> 15-я неделя семестра</div>
+                <div><b>🎓 Экзаменационная сессия:</b> Декабрь — Январь</div>
+            </div>
+        </div>
+
+        <!-- 2. GPA CALCULATOR PANEL -->
+        <div id="sub-gpa" class="sub-panel card">
+            <div class="card-header">Калькулятор GPA</div>
+            <div class="calc-box">
+                <div class="grade-item">
+                    <span style="font-size: 13px;">Социология</span>
+                    <select class="grade-select" onchange="calculateGPA()"><option value="4.0">A (95-100)</option><option value="3.67">A- (90-94)</option><option value="3.33">B+ (85-89)</option><option value="3.0">B (80-84)</option></select>
+                </div>
+                <div class="grade-item">
+                    <span style="font-size: 13px;">Иностранный язык</span>
+                    <select class="grade-select" onchange="calculateGPA()"><option value="4.0">A (95-100)</option><option value="3.67">A- (90-94)</option><option value="3.33">B+ (85-89)</option><option value="3.0">B (80-84)</option></select>
+                </div>
+                <div class="grade-item">
+                    <span style="font-size: 13px;">История Казахстана</span>
+                    <select class="grade-select" onchange="calculateGPA()"><option value="4.0">A (95-100)</option><option value="3.67" selected>A- (90-94)</option><option value="3.33">B+ (85-89)</option></select>
+                </div>
+                <div style="margin-top: 10px; font-family: var(--font-display); font-size: 16px; font-weight: 800; color: var(--accent-blue);">
+                    Итоговый GPA: <span id="gpa-result-val">3.89</span> / 4.0
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. SOUNDCLOUD PLAYER PANEL -->
+        <div id="sub-music" class="sub-panel card">
+            <div class="card-header">Университетский Вайб</div>
+            <div style="font-size: 13px; color: var(--text-secondary); margin-bottom: 10px;">
+                Слушай хиты во время перерывов между парами!
+            </div>
+            <a href="https://soundcloud.com" target="_blank" style="display: block; width: 100%; text-align: center; background: #ff5500; color: #fff; text-decoration: none; font-weight: 700; padding: 10px; border-radius: 12px; font-size: 13px;">
+                🎧 Открыть SoundCloud Плейлист
+            </a>
+        </div>
+
+        <!-- 4. SETTINGS PANEL -->
         <div id="sub-settings" class="sub-panel card">
             <div class="card-header">Параметры Приложения</div>
             <div class="setting-row">
@@ -546,6 +733,7 @@
             </div>
         </div>
 
+        <!-- 5. PROFILE PANEL -->
         <div id="sub-profile" class="sub-panel card">
             <div class="card-header">Карточка Студента</div>
             <div style="padding: 4px 0; display: flex; flex-direction: column; align-items: center; text-align: center;">
@@ -565,7 +753,7 @@
         </div>
     </div>
 
-    <!-- Нижняя Панель Навигации -->
+    <!-- Bottom Glassmorphic Navigation -->
     <div class="bottom-nav">
         <button class="nav-tab active" onclick="navigate('schedule', this)">
             <svg class="nav-svg" viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/></svg>
@@ -633,7 +821,70 @@
             if (key === 'haptic') hapticOn = el.checked;
         }
 
-        /* --- БАЗА ДАННЫХ РАСПИСАНИЯ ДЛЯ ЖИВОГО ТАЙМЕРА --- */
+        function calculateGPA() {
+            const selects = document.querySelectorAll('.grade-select');
+            let sum = 0;
+            selects.forEach(s => sum += parseFloat(s.value));
+            const avg = (sum / selects.length).toFixed(2);
+            document.getElementById('gpa-result-val').innerText = avg;
+        }
+
+        /* --- WEATHER ANIMATION SYSTEM --- */
+        let currentWeatherMode = 'rain';
+
+        function setWeatherMode(mode) {
+            haptic();
+            currentWeatherMode = mode;
+            
+            document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(`btn-mode-${mode}`).classList.add('active');
+
+            const container = document.getElementById('weather-effects-layer');
+            const tempText = document.getElementById('weather-temp-val');
+            const condText = document.getElementById('weather-cond-val');
+            container.innerHTML = '';
+
+            if (mode === 'rain') {
+                tempText.innerText = "+14°C";
+                condText.innerText = "Дождь • Влажность 84%";
+                // Generate falling raindrops
+                for (let i = 0; i < 28; i++) {
+                    const drop = document.createElement('div');
+                    drop.className = 'rain-drop';
+                    drop.style.left = Math.random() * 100 + '%';
+                    drop.style.animationDuration = (0.5 + Math.random() * 0.4) + 's';
+                    drop.style.animationDelay = (Math.random() * 1) + 's';
+                    container.appendChild(drop);
+                }
+            } else if (mode === 'snow') {
+                tempText.innerText = "-2°C";
+                condText.innerText = "Снегопад • Ветер 3 м/с";
+                // Generate falling snowflakes
+                for (let i = 0; i < 20; i++) {
+                    const flake = document.createElement('div');
+                    flake.className = 'snowflake';
+                    flake.innerText = '❄';
+                    flake.style.left = Math.random() * 100 + '%';
+                    flake.style.animationDuration = (2.5 + Math.random() * 2) + 's';
+                    flake.style.animationDelay = (Math.random() * 2) + 's';
+                    flake.style.fontSize = (8 + Math.random() * 8) + 'px';
+                    container.appendChild(flake);
+                }
+            } else if (mode === 'sun') {
+                tempText.innerText = "+22°C";
+                condText.innerText = "Ясно • Яркое солнце";
+                // Generate radiant sun rays
+                const sunBox = document.createElement('div');
+                sunBox.className = 'sun-ray-box';
+                sunBox.innerHTML = `
+                    <div class="sun-rays"></div>
+                    <div class="sun-core"></div>
+                `;
+                container.appendChild(sunBox);
+            }
+        }
+
+        /* --- SCHEDULE & REAL-TIME TIMER DATABASE --- */
         const scheduleDB = {
             1: [ // Понедельник
                 { name: "Социология", type: "Лекция", room: "Корп. №1, ауд. 111", start: "09:50", end: "10:40" },
@@ -674,10 +925,9 @@
             return h * 60 + m;
         }
 
-        /* Расчёт статуса пар и обратного отсчёта */
         function updateLiveTimer() {
             const now = new Date();
-            const day = now.getDay(); // 0-ВС, 1-ПН...
+            const day = now.getDay(); // 0-Sun, 1-Mon...
             const currentMin = now.getHours() * 60 + now.getMinutes();
             const secLeft = 59 - now.getSeconds();
 
@@ -699,7 +949,6 @@
             const firstLessonStart = timeToMin(todayLessons[0].start);
             const lastLessonEnd = timeToMin(todayLessons[todayLessons.length - 1].end);
 
-            // 1. Утро — пары ещё не начались
             if (currentMin < firstLessonStart) {
                 const diffMin = firstLessonStart - currentMin - 1;
                 pill.className = "timer-status-pill break";
@@ -710,7 +959,6 @@
                 return;
             }
 
-            // 2. Вечер — пары на сегодня закончились
             if (currentMin >= lastLessonEnd) {
                 pill.className = "timer-status-pill ended";
                 pill.innerText = "Окончено";
@@ -720,13 +968,11 @@
                 return;
             }
 
-            // 3. Проверяем текущие пары и перемены
             for (let i = 0; i < todayLessons.length; i++) {
                 const l = todayLessons[i];
                 const startM = timeToMin(l.start);
                 const endM = timeToMin(l.end);
 
-                // Идет пара
                 if (currentMin >= startM && currentMin < endM) {
                     const remMin = endM - currentMin - 1;
                     pill.className = "timer-status-pill active";
@@ -737,7 +983,6 @@
                     return;
                 }
 
-                // Перемена между парами
                 if (i < todayLessons.length - 1) {
                     const nextL = todayLessons[i+1];
                     const nextStartM = timeToMin(nextL.start);
@@ -754,7 +999,7 @@
             }
         }
 
-        /* Пользовательский профиль */
+        /* User Profile Initialization */
         function initUserProfile() {
             let user = tg && tg.initDataUnsafe ? tg.initDataUnsafe.user : null;
             const adminId = "5644768982";
@@ -803,8 +1048,10 @@
             else setTheme('dark');
 
             initUserProfile();
+            setWeatherMode('rain'); // Default to rain effect
+            
             updateLiveTimer();
-            setInterval(updateLiveTimer, 1000); // Секундный обсчет обратного отсчета
+            setInterval(updateLiveTimer, 1000);
 
             const today = new Date().getDay();
             const days = ['sat', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
