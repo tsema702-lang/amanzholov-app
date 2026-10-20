@@ -80,6 +80,8 @@
             font-size: 14px;
             font-weight: 500;
             white-space: nowrap;
+            cursor: pointer;
+            transition: 0.2s;
         }
         .tab.active {
             background: #0a84ff;
@@ -90,7 +92,7 @@
             border-radius: 24px;
             padding: 16px;
             flex-grow: 1;
-            margin-bottom: 60px;
+            margin-bottom: 70px;
         }
         .date-title {
             font-size: 14px;
@@ -151,15 +153,24 @@
             font-size: 10px;
             text-decoration: none;
             gap: 4px;
+            cursor: pointer;
+            background: none;
+            border: none;
         }
         .nav-item.active {
             color: #0a84ff;
+        }
+        .section-content {
+            display: none;
+        }
+        .section-content.active {
+            display: block;
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <div style="color: #0a84ff; font-size: 15px;">Закрыть</div>
+        <div style="color: #0a84ff; font-size: 15px; cursor: pointer;" onclick="Telegram.WebApp.close()">Закрыть</div>
         <div>
             <div class="header-title" style="font-weight:700;">AMANZHOLOVbot</div>
             <div class="header-sub">мини-приложение</div>
@@ -167,45 +178,143 @@
         <div style="font-size: 18px; font-weight: bold;">•••</div>
     </div>
 
+    <!-- Карточка статуса -->
     <div class="status-card">
-        <div class="status-title">☕ Перемена</div>
-        <div class="status-desc">Далее: Физическая культура<br>Начало в 07:30</div>
-        <div class="status-footer">
-            ⏳ До начала пары осталось 35 мин
+        <div class="status-title" id="status-title">☕ Перемена</div>
+        <div class="status-desc" id="status-desc">Университет Сарсена Аманжолова<br>Актуальное расписание пар</div>
+        <div class="status-footer" id="status-footer">
+            🚀 Всё работает стабильно
         </div>
     </div>
 
+    <!-- Верхние вкладки -->
     <div class="tabs">
-        <button class="tab active">📅 Сегодня</button>
-        <button class="tab">📅 Завтра</button>
-        <button class="tab">🔔 Звонки</button>
+        <button class="tab active" onclick="switchTab('today', this)">📅 Сегодня</button>
+        <button class="tab" onclick="switchTab('tomorrow', this)">📅 Завтра</button>
+        <button class="tab" onclick="switchTab('calls', this)">🔔 Звонки</button>
     </div>
 
-    <div class="content-card">
-        <div class="date-title">Сегодня, понедельник</div>
+    <!-- КОНТЕНТ: СЕГОДНЯ -->
+    <div id="content-today" class="section-content active content-card">
+        <div class="date-title">Расписание на сегодня</div>
         
         <div class="lesson-item">
             <div class="lesson-badge">1</div>
             <div class="lesson-info">
                 <div class="lesson-name">Социология (Лекция)</div>
-                <div class="lesson-time">09:50–10:40</div>
+                <div class="lesson-time">09:50 – 10:40 | ауд. 111</div>
             </div>
         </div>
-
         <div class="lesson-item">
             <div class="lesson-badge" style="background: #30b0c7;">2</div>
             <div class="lesson-info">
                 <div class="lesson-name">Иностранный язык (СПЗ)</div>
-                <div class="lesson-time">11:00–11:50</div>
+                <div class="lesson-time">11:00 – 11:50 | ауд. 219</div>
+            </div>
+        </div>
+        <div class="lesson-item">
+            <div class="lesson-badge" style="background: #30b0c7;">3</div>
+            <div class="lesson-info">
+                <div class="lesson-name">Иностранный язык (СПЗ)</div>
+                <div class="lesson-time">11:55 – 12:45 | ауд. 219</div>
+            </div>
+        </div>
+        <div class="lesson-item">
+            <div class="lesson-badge" style="background: #30b0c7;">4</div>
+            <div class="lesson-info">
+                <div class="lesson-name">Иностранный язык (СПЗ)</div>
+                <div class="lesson-time">12:50 – 13:40 | ауд. 112</div>
             </div>
         </div>
     </div>
 
-    <div class="nav-bar">
-        <a href="#" class="nav-item active">🏠 Главная</a>
-        <a href="#" class="nav-item">📝 ДЗ</a>
-        <a href="#" class="nav-item">⏰ Напоминания</a>
-        <a href="#" class="nav-item">🧩 Ещё</a>
+    <!-- КОНТЕНТ: ЗАВТРА -->
+    <div id="content-tomorrow" class="section-content content-card">
+        <div class="date-title">Расписание на завтра (Вторник)</div>
+        
+        <div class="lesson-item">
+            <div class="lesson-badge">1</div>
+            <div class="lesson-info">
+                <div class="lesson-name">Политология (Лекция)</div>
+                <div class="lesson-time">08:00 – 08:50 | ауд. 305</div>
+            </div>
+        </div>
+        <div class="lesson-item">
+            <div class="lesson-badge" style="background: #30b0c7;">2</div>
+            <div class="lesson-info">
+                <div class="lesson-name">Политология (СПЗ)</div>
+                <div class="lesson-time">09:50 – 10:40 | ауд. 311</div>
+            </div>
+        </div>
+        <div class="lesson-item">
+            <div class="lesson-badge" style="background: #30b0c7;">3</div>
+            <div class="lesson-info">
+                <div class="lesson-name">Культурология (Лекция)</div>
+                <div class="lesson-time">11:00 – 11:50 | ауд. 111</div>
+            </div>
+        </div>
     </div>
+
+    <!-- КОНТЕНТ: ЗВОНКИ -->
+    <div id="content-calls" class="section-content content-card">
+        <div class="date-title">⏰ Расписание звонков</div>
+        
+        <div class="lesson-item">
+            <div class="lesson-badge">1</div>
+            <div class="lesson-info"><div class="lesson-name">1 пара</div><div class="lesson-time">08:00 — 08:50</div></div>
+        </div>
+        <div class="lesson-item">
+            <div class="lesson-badge">2</div>
+            <div class="lesson-info"><div class="lesson-name">2 пара</div><div class="lesson-time">08:55 — 09:45</div></div>
+        </div>
+        <div class="lesson-item">
+            <div class="lesson-badge">3</div>
+            <div class="lesson-info"><div class="lesson-name">3 пара</div><div class="lesson-time">09:50 — 10:40</div></div>
+        </div>
+        <div class="lesson-item">
+            <div class="lesson-badge">4</div>
+            <div class="lesson-info"><div class="lesson-name">4 пара</div><div class="lesson-time">11:00 — 11:50</div></div>
+        </div>
+        <div class="lesson-item">
+            <div class="lesson-badge">5</div>
+            <div class="lesson-info"><div class="lesson-name">5 пара</div><div class="lesson-time">11:55 — 12:45</div></div>
+        </div>
+        <div class="lesson-item">
+            <div class="lesson-badge">6</div>
+            <div class="lesson-info"><div class="lesson-name">6 пара</div><div class="lesson-time">12:50 — 13:40</div></div>
+        </div>
+    </div>
+
+    <!-- Нижняя панель навигации -->
+    <div class="nav-bar">
+        <button class="nav-item active" onclick="switchTab('today', document.querySelector('.tab'))">🏠 Главная</button>
+        <button class="nav-item" onclick="alert('Раздел в разработке!')">📝 ДЗ</button>
+        <button class="nav-item" onclick="switchTab('calls', document.querySelectorAll('.tab')[2])">⏰ Звонки</button>
+        <button class="nav-item" onclick="alert('AMANZHOLOVbot v1.0')">🧩 Ещё</button>
+    </div>
+
+    <script>
+        function switchTab(tabName, element) {
+            // Убираем активный класс со всех верхних кнопок
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            
+            // Если переключали через верхние вкладки, подсветим нужную
+            if(element && element.classList.contains('tab')) {
+                element.classList.add('active');
+            }
+
+            // Скрываем все блоки контента
+            document.querySelectorAll('.section-content').forEach(c => c.classList.remove('active'));
+
+            // Показываем нужный блок
+            if (tabName === 'today') {
+                document.getElementById('content-today').classList.add('active');
+            } else if (tabName === 'tomorrow') {
+                document.getElementById('content-tomorrow').classList.add('active');
+            } else if (tabName === 'calls') {
+                document.getElementById('content-calls').classList.add('active');
+            }
+        }
+    </script>
 </body>
 </html>
