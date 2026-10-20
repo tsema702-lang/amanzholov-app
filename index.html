@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+\<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -185,14 +185,15 @@
             font-weight: 500;
         }
 
-        /* Controls for testing/switching weather mode */
-        .weather-modes-selector {
+        /* Controls / Live status badge */
+        .weather-status-bar {
             display: flex;
-            gap: 6px;
+            align-items: center;
+            justify-content: space-between;
             margin-top: 12px;
             z-index: 2;
         }
-        .mode-btn {
+        .weather-refresh-btn {
             background: rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.12);
             color: var(--text-primary);
@@ -202,16 +203,14 @@
             border-radius: 12px;
             cursor: pointer;
             backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            gap: 4px;
         }
-        body.light-theme .mode-btn {
+        body.light-theme .weather-refresh-btn {
             background: rgba(255, 255, 255, 0.6);
             border-color: rgba(0, 0, 0, 0.1);
             color: #000000;
-        }
-        .mode-btn.active {
-            background: var(--accent-blue);
-            color: #ffffff;
-            border-color: var(--accent-blue);
         }
 
         /* Canvas Overlay for Weather Animations */
@@ -291,6 +290,19 @@
         @keyframes pulseSun {
             0% { transform: scale(0.9); box-shadow: 0 0 20px #ffcc00; }
             100% { transform: scale(1.1); box-shadow: 0 0 35px #ffcc00, 0 0 60px rgba(255, 149, 0, 0.8); }
+        }
+
+        /* 4. CLOUDS ANIMATION */
+        .cloud-item {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50px;
+            opacity: 0.6;
+            animation: moveCloud linear infinite;
+        }
+        @keyframes moveCloud {
+            0% { transform: translateX(-100px); }
+            100% { transform: translateX(450px); }
         }
 
         /* Live Real-Time Lesson Timer Widget */
@@ -474,24 +486,25 @@
     <!-- DYNAMIC ANIMATED WEATHER WIDGET -->
     <div class="weather-card" id="weather-card-box">
         <div class="weather-canvas-container" id="weather-effects-layer">
-            <!-- Animated raindrops, snowflakes, or sunrays injected via JS -->
+            <!-- Animated raindrops, snowflakes, clouds, or sunrays injected via JS -->
         </div>
 
         <div class="weather-top">
             <div class="weather-city">Усть-Каменогорск (ВКО)</div>
-            <div style="font-size: 11px; color: var(--text-secondary); z-index: 2;" id="weather-time-label">Погода сегодня</div>
+            <div style="font-size: 11px; color: var(--text-secondary); z-index: 2;" id="weather-time-label">Загрузка погоды...</div>
         </div>
 
         <div class="weather-main">
-            <div class="weather-temp" id="weather-temp-val">+14°C</div>
-            <div class="weather-condition" id="weather-cond-val">Дождь • Влажность 84%</div>
+            <div class="weather-temp" id="weather-temp-val">--°C</div>
+            <div class="weather-condition" id="weather-cond-val">Получение данных...</div>
         </div>
 
-        <!-- Mode selector buttons for Weather Animations -->
-        <div class="weather-modes-selector">
-            <button class="mode-btn active" id="btn-mode-rain" onclick="setWeatherMode('rain')">🌧️ Дождь</button>
-            <button class="mode-btn" id="btn-mode-snow" onclick="setWeatherMode('snow')">❄️ Снег</button>
-            <button class="mode-btn" id="btn-mode-sun" onclick="setWeatherMode('sun')">☀️ Солнечно</button>
+        <div class="weather-status-bar">
+            <div style="font-size: 10px; color: var(--text-secondary); z-index: 2;" id="weather-source-tag">Источник: Open-Meteo Live API</div>
+            <button class="weather-refresh-btn" onclick="fetchLiveWeather()">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+                Обновить
+            </button>
         </div>
     </div>
 
@@ -829,25 +842,79 @@
             document.getElementById('gpa-result-val').innerText = avg;
         }
 
-        /* --- WEATHER ANIMATION SYSTEM --- */
-        let currentWeatherMode = 'rain';
+        /* --- REAL-TIME WEATHER SYSTEM (OPEN-METEO API) --- */
+        const WMO_WEATHER_CODES = {
+            0: { label: "Ясно • Солнечно", type: "sun" },
+            1: { label: "Преимущественно ясно", type: "sun" },
+            2: { label: "Переменная облачность", type: "clouds" },
+            3: { label: "Пасмурно", type: "clouds" },
+            45: { label: "Туман", type: "clouds" },
+            48: { label: "Иней / Изморось", type: "snow" },
+            51: { label: "Лёгкий моросящий дождь", type: "rain" },
+            53: { label: "Умеренный дождь", type: "rain" },
+            55: { label: "Плотный дождь", type: "rain" },
+            56: { label: "Ледяной дождь", type: "rain" },
+            57: { label: "Сильный ледяной дождь", type: "rain" },
+            61: { label: "Небольшой дождь", type: "rain" },
+            63: { label: "Умеренный дождь", type: "rain" },
+            65: { label: "Сильный дождь", type: "rain" },
+            66: { label: "Замерзающий дождь", type: "rain" },
+            67: { label: "Сильный замерзающий дождь", type: "rain" },
+            71: { label: "Небольшой снегопад", type: "snow" },
+            73: { label: "Умеренный снегопад", type: "snow" },
+            75: { label: "Сильный снегопад", type: "snow" },
+            77: { label: "Снежные зерна", type: "snow" },
+            80: { label: "Ливневый дождь", type: "rain" },
+            81: { label: "Умеренный ливень", type: "rain" },
+            82: { label: "Сильный ливень", type: "rain" },
+            85: { label: "Снегопад", type: "snow" },
+            86: { label: "Сильный снегопад", type: "snow" },
+            95: { label: "Гроза", type: "rain" },
+            96: { label: "Гроза с небольшим градом", type: "rain" },
+            99: { label: "Гроза с сильным градом", type: "rain" }
+        };
 
-        function setWeatherMode(mode) {
+        async function fetchLiveWeather() {
             haptic();
-            currentWeatherMode = mode;
-            
-            document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById(`btn-mode-${mode}`).classList.add('active');
-
-            const container = document.getElementById('weather-effects-layer');
             const tempText = document.getElementById('weather-temp-val');
             const condText = document.getElementById('weather-cond-val');
+            const timeLabel = document.getElementById('weather-time-label');
+
+            timeLabel.innerText = "Обновление...";
+
+            try {
+                // Open-Meteo API query for Ust-Kamenogorsk (lat: 49.95, lon: 82.61)
+                const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=49.95&longitude=82.61&current_weather=true');
+                if (!res.ok) throw new Error("Weather service unavailable");
+
+                const data = await res.json();
+                const current = data.current_weather;
+
+                const temp = Math.round(current.temperature);
+                const code = current.weathercode;
+                const weatherMeta = WMO_WEATHER_CODES[code] || { label: "Переменная облачность", type: "clouds" };
+
+                tempText.innerText = (temp > 0 ? `+${temp}` : `${temp}`) + "°C";
+                condText.innerText = `${weatherMeta.label} • Ветер ${Math.round(current.windspeed)} км/ч`;
+
+                const now = new Date();
+                timeLabel.innerText = `Погода в ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+
+                renderWeatherEffects(weatherMeta.type);
+            } catch (err) {
+                console.error("Failed to load live weather:", err);
+                tempText.innerText = "+14°C";
+                condText.innerText = "Облачно • Данные оффлайн";
+                timeLabel.innerText = "Оффлайн режим";
+                renderWeatherEffects("clouds");
+            }
+        }
+
+        function renderWeatherEffects(mode) {
+            const container = document.getElementById('weather-effects-layer');
             container.innerHTML = '';
 
             if (mode === 'rain') {
-                tempText.innerText = "+14°C";
-                condText.innerText = "Дождь • Влажность 84%";
-                // Generate falling raindrops
                 for (let i = 0; i < 28; i++) {
                     const drop = document.createElement('div');
                     drop.className = 'rain-drop';
@@ -857,9 +924,6 @@
                     container.appendChild(drop);
                 }
             } else if (mode === 'snow') {
-                tempText.innerText = "-2°C";
-                condText.innerText = "Снегопад • Ветер 3 м/с";
-                // Generate falling snowflakes
                 for (let i = 0; i < 20; i++) {
                     const flake = document.createElement('div');
                     flake.className = 'snowflake';
@@ -871,9 +935,6 @@
                     container.appendChild(flake);
                 }
             } else if (mode === 'sun') {
-                tempText.innerText = "+22°C";
-                condText.innerText = "Ясно • Яркое солнце";
-                // Generate radiant sun rays
                 const sunBox = document.createElement('div');
                 sunBox.className = 'sun-ray-box';
                 sunBox.innerHTML = `
@@ -881,6 +942,17 @@
                     <div class="sun-core"></div>
                 `;
                 container.appendChild(sunBox);
+            } else if (mode === 'clouds') {
+                for (let i = 0; i < 3; i++) {
+                    const cloud = document.createElement('div');
+                    cloud.className = 'cloud-item';
+                    cloud.style.width = (60 + Math.random() * 40) + 'px';
+                    cloud.style.height = (20 + Math.random() * 10) + 'px';
+                    cloud.style.top = (10 + i * 25) + 'px';
+                    cloud.style.animationDuration = (8 + Math.random() * 6) + 's';
+                    cloud.style.animationDelay = (i * 2) + 's';
+                    container.appendChild(cloud);
+                }
             }
         }
 
@@ -1048,7 +1120,7 @@
             else setTheme('dark');
 
             initUserProfile();
-            setWeatherMode('rain'); // Default to rain effect
+            fetchLiveWeather(); // Automatic live weather fetch on launch
             
             updateLiveTimer();
             setInterval(updateLiveTimer, 1000);
