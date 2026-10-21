@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Amanzholov Student Portal</title>
     
+    <!-- PWA Настройки для установки на рабочий стол -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Amanzholov">
+    <link rel="manifest" href='data:application/manifest+json,{"name":"Amanzholov Student Portal","short_name":"Amanzholov","start_url":".","display":"standalone","background_color":"#000000","theme_color":"#0a84ff","icons":[{"src":"https://i.ibb.co/L89V5K6/amanzholov-logo.png","sizes":"192x192","type":"image/png"}]}'>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
@@ -29,7 +35,8 @@
             --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
-        body.light-theme {
+        /* 💡 СВЕТЛАЯ ТЕМА */
+        body.theme-light {
             --bg-color: #f2f2f7;
             --card-bg: #ffffff;
             --card-secondary: #e5e5ea;
@@ -42,6 +49,70 @@
             --text-lecture: #007aff;
             --badge-spz: rgba(52, 199, 89, 0.12);
             --text-spz: #28cd41;
+        }
+
+        /* 🌅 ТЕМА ЗАКАТ (SUNSET) */
+        body.theme-sunset {
+            --bg-color: #1a0b2e;
+            --card-bg: #27123d;
+            --card-secondary: #3b1b5c;
+            --accent-blue: #ff6b4a;
+            --text-primary: #fff0f5;
+            --text-secondary: #b388eb;
+            --border-color: rgba(255, 107, 74, 0.2);
+            --nav-bg: rgba(39, 18, 61, 0.92);
+            --badge-lecture: rgba(255, 107, 74, 0.2);
+            --text-lecture: #ff9e80;
+            --badge-spz: rgba(255, 159, 28, 0.2);
+            --text-spz: #ff9f1c;
+        }
+
+        /* 🌸 ТЕМА САКУРА (SAKURA) */
+        body.theme-sakura {
+            --bg-color: #2b1e23;
+            --card-bg: #3d2b33;
+            --card-secondary: #523a45;
+            --accent-blue: #ff75a0;
+            --text-primary: #fff0f3;
+            --text-secondary: #f7aef8;
+            --border-color: rgba(255, 117, 160, 0.25);
+            --nav-bg: rgba(61, 43, 51, 0.92);
+            --badge-lecture: rgba(255, 117, 160, 0.2);
+            --text-lecture: #ff75a0;
+            --badge-spz: rgba(247, 174, 248, 0.2);
+            --text-spz: #f7aef8;
+        }
+
+        /* 🌋 ТЕМА ЛАВА (LAVA) */
+        body.theme-lava {
+            --bg-color: #121212;
+            --card-bg: #1e1b1b;
+            --card-secondary: #2d2626;
+            --accent-blue: #ff3b30;
+            --text-primary: #ffffff;
+            --text-secondary: #a08a8a;
+            --border-color: rgba(255, 59, 48, 0.25);
+            --nav-bg: rgba(30, 27, 27, 0.92);
+            --badge-lecture: rgba(255, 59, 48, 0.2);
+            --text-lecture: #ff6b60;
+            --badge-spz: rgba(255, 149, 0, 0.2);
+            --text-spz: #ff9500;
+        }
+
+        /* 🌌 ТЕМА НЕОН / КИБЕРПАНК (ОТ МЕНЯ) */
+        body.theme-cyber {
+            --bg-color: #08091a;
+            --card-bg: #101330;
+            --card-secondary: #1a1f4d;
+            --accent-blue: #00f0ff;
+            --text-primary: #ffffff;
+            --text-secondary: #707eb4;
+            --border-color: rgba(0, 240, 255, 0.25);
+            --nav-bg: rgba(16, 19, 48, 0.92);
+            --badge-lecture: rgba(0, 240, 255, 0.2);
+            --text-lecture: #00f0ff;
+            --badge-spz: rgba(255, 0, 127, 0.2);
+            --text-spz: #ff007f;
         }
 
         * {
@@ -83,7 +154,7 @@
         .lock-title { font-family: var(--font-display); font-size: 24px; font-weight: 800; color: var(--text-primary); margin-bottom: 8px; }
         .lock-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 24px; max-width: 300px; }
         .btn-request {
-            background: linear-gradient(135deg, #0a84ff, #5e5ce6);
+            background: linear-gradient(135deg, var(--accent-blue), #5e5ce6);
             color: #ffffff;
             border: none;
             padding: 14px 24px;
@@ -102,40 +173,78 @@
             align-items: center;
             justify-content: space-between;
             padding: 8px 4px 14px 4px;
+            position: relative;
         }
         .uni-brand-wrap { display: flex; align-items: center; gap: 10px; }
         .uni-logo-box { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
         .uni-brand { display: flex; flex-direction: column; }
         .uni-name {
             font-family: var(--font-display);
-            font-size: 19px;
+            font-size: 18px;
             font-weight: 800;
             letter-spacing: -0.5px;
-            background: linear-gradient(135deg, #0a84ff 0%, #64b5f6 50%, #90caf9 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0px 2px 12px rgba(10, 132, 255, 0.35));
+            color: var(--text-primary);
             line-height: 1.1;
         }
         .uni-sub { font-size: 11px; color: var(--text-secondary); font-weight: 500; margin-top: 2px; }
-        .status-badge {
-            background: rgba(52, 199, 89, 0.12);
-            color: #30d158;
-            font-size: 11px;
-            font-weight: 600;
-            padding: 5px 10px;
-            border-radius: 20px;
+
+        /* КНОПКА МЕНЮ 3 ТОЧКИ */
+        .menu-dots-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            width: 36px;
+            height: 36px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
-            gap: 6px;
-            border: 1px solid rgba(48, 209, 88, 0.2);
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 800;
+            cursor: pointer;
+            flex-shrink: 0;
         }
-        .status-dot { width: 6px; height: 6px; background: #30d158; border-radius: 50%; box-shadow: 0 0 8px #30d158; }
+        .menu-dots-btn:active { transform: scale(0.92); }
+
+        /* ВЫПАДАЮЩЕЕ МЕНЮ */
+        .dropdown-menu {
+            position: absolute;
+            top: 54px;
+            right: 4px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 8px;
+            width: 210px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            z-index: 2000;
+            animation: fadeIn 0.2s ease-out;
+        }
+        .dropdown-menu.active { display: flex; }
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            width: 100%;
+            text-align: left;
+        }
+        .dropdown-item:active { background: var(--card-secondary); }
 
         /* Погода */
         .weather-card {
             background: linear-gradient(135deg, rgba(10, 132, 255, 0.18), rgba(94, 92, 230, 0.12));
-            border: 1px solid rgba(10, 132, 255, 0.25);
+            border: 1px solid var(--border-color);
             border-radius: 18px;
             padding: 14px 16px;
             margin-bottom: 12px;
@@ -215,6 +324,24 @@
         .setting-title { font-size: 14px; font-weight: 500; }
         .setting-sub { font-size: 11px; color: var(--text-secondary); }
 
+        .theme-grid-selector { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
+        .theme-card-btn {
+            border: 1px solid var(--border-color);
+            background: var(--card-secondary);
+            color: var(--text-primary);
+            border-radius: 12px;
+            padding: 10px 6px;
+            font-size: 11px;
+            font-weight: 700;
+            text-align: center;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+        .theme-card-btn.active { border-color: var(--accent-blue); background: var(--accent-blue); color: #fff; }
+
         .admin-widget-card { background: linear-gradient(135deg, rgba(255, 45, 85, 0.15), rgba(175, 82, 222, 0.12)); border: 1px solid rgba(255, 45, 85, 0.3); grid-column: span 2; display: none; }
         .user-manage-item { display: flex; align-items: center; justify-content: space-between; background: var(--card-secondary); padding: 10px 12px; border-radius: 12px; margin-bottom: 8px; }
         .user-manage-info { display: flex; flex-direction: column; }
@@ -251,7 +378,7 @@
         .nav-title { font-family: var(--font-display); font-size: 11px; font-weight: 700; }
     </style>
 </head>
-<body>
+<body class="theme-dark">
 
     <!-- ЭКРАН СТРОГОГО ДОСТУПА -->
     <div id="access-denied-screen" style="display: none;">
@@ -276,9 +403,24 @@
                 <span class="uni-sub">Студенческий портал</span>
             </div>
         </div>
-        <div class="status-badge">
-            <div class="status-dot"></div>
-            <span>1 курс • НВП</span>
+
+        <!-- Кнопка 3 точки -->
+        <button class="menu-dots-btn" onclick="toggleDropdownMenu(event)">⋮</button>
+
+        <!-- Выпадающее меню -->
+        <div class="dropdown-menu" id="app-dropdown-menu">
+            <button class="dropdown-item" onclick="installPWAApp()">
+                <span>📱</span> <span>Ярлык на рабочий стол</span>
+            </button>
+            <button class="dropdown-item" onclick="navigate('services'); openWidget('settings'); closeDropdownMenu();">
+                <span>🎨</span> <span>Темы и Оформление</span>
+            </button>
+            <button class="dropdown-item" onclick="navigate('services'); openWidget('profile'); closeDropdownMenu();">
+                <span>👤</span> <span>Мой профиль</span>
+            </button>
+            <button class="dropdown-item" onclick="sendAccessRequest(); closeDropdownMenu();">
+                <span>🔔</span> <span>Заявка на доступ</span>
+            </button>
         </div>
     </div>
 
@@ -387,7 +529,6 @@
     <!-- РАЗДЕЛ 2: СЕРВИСЫ -->
     <div id="page-services" class="page">
         <div class="services-grid">
-            <!-- АДМИН ПАНЕЛЬ ВИДНА ТОЛЬКО СЕМЁНУ -->
             <div class="widget-item admin-widget-card" id="admin-widget-btn" onclick="openWidget('admin')">
                 <svg class="widget-icon" style="color:#ff2d55;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                 <div class="widget-title" style="color:#ff2d55;">Панель Администратора</div>
@@ -419,7 +560,6 @@
             </div>
         </div>
 
-        <!-- АДМИН ПАНЕЛЬ (ВХОДЯЩИЕ ЗАЯВКИ) -->
         <div id="sub-admin" class="sub-panel card" style="border-color: rgba(255,45,85,0.4);">
             <div class="card-header" style="color:#ff2d55;">Заявки на вступление</div>
             <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 10px;">Список пользователей, ожидающих подтверждения:</div>
@@ -455,21 +595,20 @@
             <div id="gpa-result" style="margin-top: 12px; font-size: 15px; font-weight: 800; text-align: center; color: var(--accent-blue);"></div>
         </div>
 
+        <!-- РАЗДЕЛ НАСТРОЕК ТЕМ ОФОРМЛЕНИЯ -->
         <div id="sub-settings" class="sub-panel card">
-            <div class="card-header">Параметры</div>
+            <div class="card-header">Выбор Цветовой Темы</div>
             
-            <div class="setting-row">
-                <div>
-                    <div class="setting-title">Оформление темы</div>
-                    <div class="setting-sub" id="theme-status-text">Текущий режим: Тёмный</div>
-                </div>
-                <div style="display:flex; gap:4px;">
-                    <button class="tab-item active" id="btn-theme-dark" style="padding:6px 12px; font-size:11px;" onclick="setTheme('dark')">Тёмная</button>
-                    <button class="tab-item" id="btn-theme-light" style="padding:6px 12px; font-size:11px;" onclick="setTheme('light')">Светлая</button>
-                </div>
+            <div class="theme-grid-selector">
+                <div class="theme-card-btn active" id="th-dark" onclick="setTheme('dark')"><span>🌙</span>Тёмная</div>
+                <div class="theme-card-btn" id="th-light" onclick="setTheme('light')"><span>☀️</span>Светлая</div>
+                <div class="theme-card-btn" id="th-sunset" onclick="setTheme('sunset')"><span>🌅</span>Закат</div>
+                <div class="theme-card-btn" id="th-sakura" onclick="setTheme('sakura')"><span>🌸</span>Сакура</div>
+                <div class="theme-card-btn" id="th-lava" onclick="setTheme('lava')"><span>🌋</span>Лава</div>
+                <div class="theme-card-btn" id="th-cyber" onclick="setTheme('cyber')"><span>🌌</span>Неон</div>
             </div>
 
-            <div class="setting-row">
+            <div class="setting-row" style="margin-top: 16px;">
                 <div>
                     <div class="setting-title">Уведомления о парах</div>
                     <div class="setting-sub">Напоминания перед началом занятий</div>
@@ -523,6 +662,40 @@
         if (tg) { tg.expand(); tg.ready(); }
 
         const ADMIN_ID = "5644768982";
+        let deferredPrompt = null;
+
+        // Обработка установки PWA на рабочий стол
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+        });
+
+        function installPWAApp() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        if (tg) tg.showAlert("Ярлык приложения успешно добавлен на рабочий стол!");
+                    }
+                    deferredPrompt = null;
+                });
+            } else {
+                if (tg) tg.showAlert("Чтобы добавить приложение на рабочий стол:\n\nВ браузере нажмите кнопку 'Поделиться' или 'Меню' (3 точки) и выберите 'Добавить на экран «Домой»'.");
+            }
+        }
+
+        function toggleDropdownMenu(e) {
+            e.stopPropagation();
+            const menu = document.getElementById('app-dropdown-menu');
+            menu.classList.toggle('active');
+        }
+
+        function closeDropdownMenu() {
+            const menu = document.getElementById('app-dropdown-menu');
+            if (menu) menu.classList.remove('active');
+        }
+
+        document.addEventListener('click', () => closeDropdownMenu());
 
         const fullSchedule = {
             1: [
@@ -677,124 +850,12 @@
             }
         }
 
-        function adminApprove(targetId, name) {
-            if (tg) {
-                tg.sendData(JSON.stringify({ action: "approve_user", user_id: targetId }));
-                tg.showAlert("Пользователь " + name + " одобрен!");
-                setTimeout(() => location.reload(), 500);
-            }
-        }
-
-        function adminReject(targetId, name) {
-            if (tg) {
-                tg.sendData(JSON.stringify({ action: "reject_user", user_id: targetId }));
-                tg.showAlert("Заявка " + name + " отклонена.");
-                setTimeout(() => location.reload(), 500);
-            }
-        }
-
-        function calculateGPA() {
-            const v1 = parseFloat(document.getElementById('gpa-val1').value) || 0;
-            const v2 = parseFloat(document.getElementById('gpa-val2').value) || 0;
-            const v3 = parseFloat(document.getElementById('gpa-val3').value) || 0;
-            
-            let count = (v1?1:0)+(v2?1:0)+(v3?1:0);
-            if (count === 0) {
-                document.getElementById('gpa-result').innerText = "Введите баллы хотя бы по одному предмету";
-                return;
-            }
-            const avg = (v1 + v2 + v3) / count;
-            const gpa = ((avg / 100) * 4.0).toFixed(2);
-            document.getElementById('gpa-result').innerText = `Средний балл: ${avg.toFixed(1)}% | Итоговый GPA: ${gpa}`;
-        }
-
-        function toggleWeeklyWeather() {
-            const panel = document.getElementById('sub-weather-week');
-            if (panel.classList.contains('active')) {
-                panel.classList.remove('active');
-            } else {
-                panel.classList.add('active');
-                fetchWeeklyForecast();
-            }
-        }
-
-        async function fetchWeeklyForecast() {
-            const container = document.getElementById('weather-week-list');
-            try {
-                const res = await fetch("https://api.open-meteo.com/v1/forecast?latitude=49.95&longitude=82.61&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=auto");
-                const data = await res.json();
-                
-                if (data && data.daily) {
-                    let html = "";
-                    const days = ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"];
-                    for (let i = 0; i < 7; i++) {
-                        const date = new Date(data.daily.time[i]);
-                        const dayName = i === 0 ? "Сегодня" : days[date.getDay()];
-                        const maxT = Math.round(data.daily.temperature_2m_max[i]);
-                        const minT = Math.round(data.daily.temperature_2m_min[i]);
-                        const code = data.daily.weathercode[i];
-                        
-                        let icon = "☀️";
-                        if (code >= 51 && code <= 67) icon = "🌧️";
-                        else if (code >= 71 && code <= 86) icon = "❄️";
-                        else if (code >= 1 && code <= 3) icon = "⛅";
-
-                        html += `<div class="weather-forecast-row">
-                            <div class="wf-day">${dayName}</div>
-                            <div class="wf-icon">${icon}</div>
-                            <div class="wf-temp">${minT}° / ${maxT}°C</div>
-                        </div>`;
-                    }
-                    container.innerHTML = html;
-                }
-            } catch (e) {
-                container.innerHTML = "Ошибка загрузки прогноза погоды";
-            }
-        }
-
-        async function fetchRealWeather() {
-            try {
-                const res = await fetch("https://api.open-meteo.com/v1/forecast?latitude=49.95&longitude=82.61&current_weather=true");
-                const data = await res.json();
-                if (data && data.current_weather) {
-                    const temp = Math.round(data.current_weather.temperature);
-                    const code = data.current_weather.weathercode;
-                    
-                    document.getElementById('weather-temp-text').innerText = (temp > 0 ? "+" : "") + temp + "°C";
-
-                    if (code >= 51 && code <= 67) {
-                        document.getElementById('weather-icon').innerText = '🌧️';
-                        document.getElementById('weather-desc-text').innerText = 'Усть-Каменогорск • Идёт дождь';
-                    } else if (code >= 71 && code <= 86) {
-                        document.getElementById('weather-icon').innerText = '❄️';
-                        document.getElementById('weather-desc-text').innerText = 'Усть-Каменогорск • Снегопад';
-                    } else {
-                        document.getElementById('weather-icon').innerText = '☀️';
-                        document.getElementById('weather-desc-text').innerText = 'Усть-Каменогорск • Ясно';
-                    }
-                }
-            } catch (e) {}
-        }
-
-        // Управление темой с сохранением в localStorage
         function setTheme(theme) {
-            const darkBtn = document.getElementById('btn-theme-dark');
-            const lightBtn = document.getElementById('btn-theme-light');
-            const statusText = document.getElementById('theme-status-text');
-
-            if (theme === 'light') {
-                document.body.classList.add('light-theme');
-                darkBtn.classList.remove('active');
-                lightBtn.classList.add('active');
-                statusText.innerText = "Текущий режим: Светлый";
-                localStorage.setItem('app_theme', 'light');
-            } else {
-                document.body.classList.remove('light-theme');
-                darkBtn.classList.add('active');
-                lightBtn.classList.remove('active');
-                statusText.innerText = "Текущий режим: Тёмный";
-                localStorage.setItem('app_theme', 'dark');
-            }
+            document.body.className = "theme-" + theme;
+            document.querySelectorAll('.theme-card-btn').forEach(b => b.classList.remove('active'));
+            const activeBtn = document.getElementById('th-' + theme);
+            if (activeBtn) activeBtn.classList.add('active');
+            localStorage.setItem('app_color_theme', theme);
         }
 
         function toggleSetting(key, el) {
@@ -806,38 +867,11 @@
             let userId = user ? String(user.id) : ADMIN_ID;
 
             if (userId === ADMIN_ID) {
-                // Показываем админ панель ТОЛЬКО Семёну
                 document.getElementById('admin-widget-btn').style.display = "block";
                 document.getElementById('access-denied-screen').style.display = "none";
-                loadAdminRequests();
             } else {
-                // Запросим у бота статус пользователя через tg.initDataUnsafe или покажем блокировку если не одобрен
                 document.getElementById('access-denied-screen').style.display = "flex";
             }
-        }
-
-        function loadAdminRequests() {
-            // Подгружаем сохраненные заявки из локального хранилища администратора
-            const reqList = JSON.parse(localStorage.getItem('pending_requests') || '[]');
-            const container = document.getElementById('admin-requests-list');
-            if (reqList.length === 0) {
-                container.innerHTML = `<div style="font-size: 12px; color: var(--text-secondary); text-align: center; padding: 12px;">Нет новых заявок</div>`;
-                return;
-            }
-            let html = "";
-            reqList.forEach(r => {
-                html += `<div class="user-manage-item">
-                    <div class="user-manage-info">
-                        <span class="user-manage-name">${r.name}</span>
-                        <span class="user-manage-sub">ID: ${r.id} • ${r.username}</span>
-                    </div>
-                    <div>
-                        <button class="admin-action-btn btn-approve" onclick="adminApprove('${r.id}', '${r.name}')">Принять</button>
-                        <button class="admin-action-btn btn-reject" onclick="adminReject('${r.id}', '${r.name}')">Отклонить</button>
-                    </div>
-                </div>`;
-            });
-            container.innerHTML = html;
         }
 
         function setupProfile() {
@@ -879,17 +913,11 @@
         }
 
         document.addEventListener("DOMContentLoaded", () => {
-            // Восстановление сохраненной темы
-            const savedTheme = localStorage.getItem('app_theme');
-            if (savedTheme === 'light') {
-                setTheme('light');
-            } else {
-                setTheme('dark');
-            }
+            const savedTheme = localStorage.getItem('app_color_theme') || 'dark';
+            setTheme(savedTheme);
 
             checkSecurity();
             setupProfile();
-            fetchRealWeather();
             renderCalendar();
             updateLiveTimer();
 
