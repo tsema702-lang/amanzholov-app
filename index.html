@@ -17,17 +17,17 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         :root {
-            --bg-color: #090a0f;
-            --card-bg: rgba(26, 29, 39, 0.75);
-            --card-secondary: rgba(38, 42, 58, 0.65);
+            --bg-color: #000000;
+            --card-bg: #1c1c1e;
+            --card-secondary: #2c2c2e;
             --accent-blue: #0a84ff;
             --text-primary: #ffffff;
             --text-secondary: #8e8e93;
-            --border-color: rgba(255, 255, 255, 0.1);
-            --nav-bg: rgba(20, 22, 31, 0.88);
-            --badge-lecture: rgba(48, 176, 199, 0.18);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --nav-bg: rgba(28, 28, 30, 0.90);
+            --badge-lecture: rgba(48, 176, 199, 0.15);
             --text-lecture: #64d2ff;
-            --badge-spz: rgba(10, 132, 255, 0.18);
+            --badge-spz: rgba(10, 132, 255, 0.15);
             --text-spz: #0a84ff;
             
             --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -35,83 +35,210 @@
         }
 
         body.theme-light {
-            --bg-color: #f2f4f8; --card-bg: rgba(255, 255, 255, 0.85); --card-secondary: #e5e9f0;
-            --accent-blue: #007aff; --text-primary: #1c1c1e; --text-secondary: #6c6c70;
+            --bg-color: #f2f2f7; --card-bg: #ffffff; --card-secondary: #e5e5ea;
+            --accent-blue: #007aff; --text-primary: #000000; --text-secondary: #6c6c70;
             --border-color: rgba(0, 0, 0, 0.08); --nav-bg: rgba(249, 249, 249, 0.92);
         }
         body.theme-sunset {
-            --bg-color: #1a0b2e; --card-bg: rgba(39, 18, 61, 0.8); --card-secondary: #3b1b5c;
+            --bg-color: #1a0b2e; --card-bg: #27123d; --card-secondary: #3b1b5c;
             --accent-blue: #ff6b4a; --text-primary: #fff0f5; --text-secondary: #b388eb;
             --border-color: rgba(255, 107, 74, 0.2); --nav-bg: rgba(39, 18, 61, 0.92);
         }
         body.theme-sakura {
-            --bg-color: #2b1e23; --card-bg: rgba(61, 43, 51, 0.8); --card-secondary: #523a45;
+            --bg-color: #2b1e23; --card-bg: #3d2b33; --card-secondary: #523a45;
             --accent-blue: #ff75a0; --text-primary: #fff0f3; --text-secondary: #f7aef8;
             --border-color: rgba(255, 117, 160, 0.25); --nav-bg: rgba(61, 43, 51, 0.92);
         }
         body.theme-lava {
-            --bg-color: #121212; --card-bg: rgba(30, 27, 27, 0.85); --card-secondary: #2d2626;
+            --bg-color: #121212; --card-bg: #1e1b1b; --card-secondary: #2d2626;
             --accent-blue: #ff3b30; --text-primary: #ffffff; --text-secondary: #a08a8a;
             --border-color: rgba(255, 59, 48, 0.25); --nav-bg: rgba(30, 27, 27, 0.92);
         }
         body.theme-cyber {
-            --bg-color: #08091a; --card-bg: rgba(16, 19, 48, 0.85); --card-secondary: #1a1f4d;
+            --bg-color: #08091a; --card-bg: #101330; --card-secondary: #1a1f4d;
             --accent-blue: #00f0ff; --text-primary: #ffffff; --text-secondary: #707eb4;
             --border-color: rgba(0, 240, 255, 0.25); --nav-bg: rgba(16, 19, 48, 0.92);
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--font-main); -webkit-tap-highlight-color: transparent; transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
-        body { background-color: var(--bg-color); color: var(--text-primary); padding: 14px 14px 100px 14px; display: flex; flex-direction: column; min-height: 100vh; max-width: 440px; margin: 0 auto; user-select: none; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-main);
+            -webkit-tap-highlight-color: transparent;
+            transition: background-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                        color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                        border-color 0.35s ease,
+                        transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+                        box-shadow 0.3s ease;
+        }
 
-        /* Lock Screen */
-        #access-denied-screen { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--bg-color); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px; text-align: center; }
-        .lock-icon { font-size: 60px; margin-bottom: 16px; }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            padding: 14px 14px 100px 14px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            max-width: 440px;
+            margin: 0 auto;
+            user-select: none;
+            overflow-x: hidden;
+        }
+
+        #access-denied-screen {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--bg-color);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            text-align: center;
+            animation: zoomIn 0.35s ease-out;
+        }
+        .lock-icon { font-size: 60px; margin-bottom: 16px; animation: pulseLock 2s infinite ease-in-out; }
+        @keyframes pulseLock { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
         .lock-title { font-family: var(--font-display); font-size: 24px; font-weight: 800; margin-bottom: 8px; }
         .lock-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 24px; max-width: 300px; }
-        .btn-request { background: linear-gradient(135deg, var(--accent-blue), #5e5ce6); color: #fff; border: none; padding: 14px 24px; border-radius: 14px; font-weight: 700; width: 100%; max-width: 280px; cursor: pointer; box-shadow: 0 4px 15px rgba(10, 132, 255, 0.3); }
+        .btn-request {
+            background: linear-gradient(135deg, var(--accent-blue), #5e5ce6);
+            color: #fff;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 14px;
+            font-weight: 700;
+            width: 100%;
+            max-width: 280px;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(10, 132, 255, 0.3);
+        }
+        .btn-request:active { transform: scale(0.95); }
 
-        /* Header */
-        .app-header { display: flex; align-items: center; justify-content: space-between; padding: 6px 4px 14px 4px; position: relative; }
+        .app-header { display: flex; align-items: center; justify-content: space-between; padding: 8px 4px 14px 4px; position: relative; }
         .uni-brand-wrap { display: flex; align-items: center; gap: 10px; }
         .uni-logo-box { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; }
         .uni-brand { display: flex; flex-direction: column; }
         .uni-name { font-family: var(--font-display); font-size: 18px; font-weight: 800; color: var(--text-primary); line-height: 1.1; }
         .uni-sub { font-size: 11px; color: var(--text-secondary); font-weight: 500; margin-top: 2px; }
 
-        .menu-dots-btn { background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-primary); width: 36px; height: 36px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 800; cursor: pointer; backdrop-filter: blur(10px); }
-        .dropdown-menu { position: absolute; top: 54px; right: 4px; background: var(--card-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border: 1px solid var(--border-color); border-radius: 16px; padding: 8px; width: 220px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); display: none; flex-direction: column; gap: 4px; z-index: 2000; }
-        .dropdown-menu.active { display: flex; }
-        .dropdown-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 10px; font-size: 13px; font-weight: 600; color: var(--text-primary); cursor: pointer; background: transparent; border: none; text-align: left; width: 100%; }
-        .dropdown-item:active { background: var(--card-secondary); }
+        .menu-dots-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .menu-dots-btn:active { transform: scale(0.92); }
 
-        /* Cards & Glassmorphism */
-        .card { background: var(--card-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-radius: 18px; padding: 16px; border: 1px solid var(--border-color); margin-bottom: 12px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); }
-        .card-header { font-family: var(--font-display); font-size: 13px; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
+        .dropdown-menu {
+            position: absolute;
+            top: 54px; right: 4px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 8px;
+            width: 220px;
+            box-shadow: 0 12px 36px rgba(0,0,0,0.4);
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            z-index: 2000;
+            transform-origin: top right;
+        }
+        .dropdown-menu.active {
+            display: flex;
+            animation: popDropdown 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes popDropdown {
+            from { opacity: 0; transform: scale(0.85); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            text-align: left;
+            width: 100%;
+        }
+        .dropdown-item:active { background: var(--card-secondary); transform: scale(0.98); }
 
-        /* Weather */
-        .weather-card { background: linear-gradient(135deg, rgba(10, 132, 255, 0.18), rgba(94, 92, 230, 0.12)); border: 1px solid rgba(10, 132, 255, 0.25); border-radius: 18px; padding: 14px 16px; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; backdrop-filter: blur(12px); }
+        .weather-card {
+            background: linear-gradient(135deg, rgba(10, 132, 255, 0.18), rgba(94, 92, 230, 0.12));
+            border: 1px solid rgba(10, 132, 255, 0.25);
+            border-radius: 18px;
+            padding: 14px 16px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+        .weather-card:active { transform: scale(0.98); }
         .weather-temp { font-family: var(--font-display); font-size: 22px; font-weight: 800; }
         .weather-city { font-size: 12px; color: var(--text-secondary); }
         .weather-hint { font-size: 10px; color: var(--accent-blue); font-weight: 600; margin-top: 2px; }
 
-        /* Live Timer Card */
-        .live-timer-card { background: var(--card-bg); backdrop-filter: blur(16px); border: 1px solid var(--border-color); border-radius: 18px; padding: 16px; margin-bottom: 14px; position: relative; overflow: hidden; }
-        .live-timer-card::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(10, 132, 255, 0.08) 0%, transparent 60%); pointer-events: none; }
+        .live-timer-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            padding: 16px;
+            margin-bottom: 14px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+        }
         .timer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-        .timer-status-pill { font-family: var(--font-display); font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px; }
-        .timer-status-pill.active { background: rgba(52, 199, 89, 0.18); color: #30d158; border: 1px solid rgba(52, 199, 89, 0.3); }
-        .timer-status-pill.break { background: rgba(255, 149, 0, 0.18); color: #ff9500; border: 1px solid rgba(255, 149, 0, 0.3); }
-        .timer-status-pill.ended { background: rgba(142, 142, 147, 0.18); color: #8e8e93; border: 1px solid rgba(142, 142, 147, 0.3); }
-        .timer-title { font-size: 16px; font-weight: 700; margin-bottom: 4px; color: var(--text-primary); }
-        .timer-sub { font-size: 12px; color: var(--text-secondary); font-weight: 500; }
+        .timer-status-pill { font-family: var(--font-display); font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; }
+        .timer-status-pill.active { background: rgba(52, 199, 89, 0.15); color: #30d158; border: 1px solid rgba(52, 199, 89, 0.3); }
+        .timer-status-pill.break { background: rgba(255, 149, 0, 0.15); color: #ff9500; border: 1px solid rgba(255, 149, 0, 0.3); }
+        .timer-status-pill.ended { background: rgba(142, 142, 147, 0.15); color: #8e8e93; border: 1px solid rgba(142, 142, 147, 0.3); }
+        .timer-title { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+        .timer-sub { font-size: 12px; color: var(--text-secondary); }
 
-        /* Navigation & Tabs */
         .tabs-container { display: flex; gap: 6px; margin-bottom: 14px; overflow-x: auto; scrollbar-width: none; }
         .tabs-container::-webkit-scrollbar { display: none; }
-        .tab-item { font-family: var(--font-display); background: var(--card-bg); color: var(--text-secondary); border: 1px solid var(--border-color); padding: 8px 14px; border-radius: 12px; font-size: 13px; font-weight: 700; white-space: nowrap; cursor: pointer; }
-        .tab-item.active { background: var(--accent-blue); color: #fff; border-color: var(--accent-blue); box-shadow: 0 2px 10px rgba(10, 132, 255, 0.3); }
+        .tab-item {
+            font-family: var(--font-display);
+            background: var(--card-bg);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            padding: 8px 14px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 700;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+        .tab-item.active {
+            background: var(--accent-blue);
+            color: #fff;
+            border-color: var(--accent-blue);
+            box-shadow: 0 4px 12px rgba(10, 132, 255, 0.35);
+        }
+        .tab-item:active { transform: scale(0.95); }
 
-        /* Schedule Lessons */
+        .card { background: var(--card-bg); border-radius: 18px; padding: 16px; border: 1px solid var(--border-color); margin-bottom: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+        .card-header { font-family: var(--font-display); font-size: 13px; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 12px; display: flex; justify-content: space-between; }
+
         .lesson-row { display: flex; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid var(--border-color); }
         .lesson-row:last-child { border-bottom: none; padding-bottom: 0; }
         .lesson-time-col { width: 85px; flex-shrink: 0; }
@@ -124,66 +251,159 @@
         .type-pill.lecture { background: var(--badge-lecture); color: var(--text-lecture); }
         .type-pill.spz { background: var(--badge-spz); color: var(--text-spz); }
 
-        .page { display: none; animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
-        .page.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+        .page { display: none; }
+        .page.active {
+            display: block;
+            animation: slideUpFade 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-        /* Services Grid */
         .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 14px; }
-        .widget-item { background: var(--card-bg); backdrop-filter: blur(12px); border: 1px solid var(--border-color); border-radius: 16px; padding: 16px 14px; cursor: pointer; transition: transform 0.15s ease, border-color 0.2s ease; }
-        .widget-item:active { transform: scale(0.97); }
+        .widget-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 16px 14px;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+        }
+        .widget-item:active { transform: scale(0.96); }
         .widget-icon { width: 28px; height: 28px; margin-bottom: 10px; color: var(--accent-blue); }
         .widget-title { font-family: var(--font-display); font-size: 14px; font-weight: 700; margin-bottom: 2px; }
         .widget-sub { font-size: 11px; color: var(--text-secondary); }
 
-        .sub-panel { display: none; margin-top: 8px; animation: fadeIn 0.3s ease-in-out; }
-        .sub-panel.active { display: block; }
+        .sub-panel { display: none; margin-top: 8px; }
+        .sub-panel.active {
+            display: block;
+            animation: slideUpFade 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
 
-        /* Admin Controls */
-        .admin-widget-card { background: linear-gradient(135deg, rgba(255, 45, 85, 0.15), rgba(175, 82, 222, 0.12)); border: 1px solid rgba(255, 45, 85, 0.3); grid-column: span 2; display: none; }
-        .admin-input { background: var(--card-secondary); border: 1px solid var(--border-color); color: var(--text-primary); padding: 10px 12px; border-radius: 12px; font-size: 13px; width: 100%; margin-bottom: 8px; outline: none; }
-        .admin-btn { background: #ff2d55; color: #fff; border: none; padding: 12px 16px; border-radius: 12px; font-weight: 700; width: 100%; cursor: pointer; font-size: 13px; margin-bottom: 12px; box-shadow: 0 4px 12px rgba(255, 45, 85, 0.3); }
-        
-        .user-manage-item { display: flex; flex-direction: column; background: var(--card-secondary); padding: 12px; border-radius: 12px; margin-bottom: 8px; gap: 6px; border: 1px solid var(--border-color); }
-        .user-manage-row { display: flex; justify-content: space-between; align-items: center; }
-        .user-manage-name { font-size: 14px; font-weight: 700; color: var(--text-primary); }
-        .user-manage-sub { font-size: 11px; color: var(--text-secondary); }
-        .admin-action-btn { padding: 6px 10px; border-radius: 8px; border: none; font-size: 11px; font-weight: 700; cursor: pointer; margin-left: 4px; }
-        .btn-kick { background: rgba(255, 59, 48, 0.2); color: #ff3b30; }
-        .btn-mute { background: rgba(255, 149, 0, 0.2); color: #ff9500; }
-        .btn-unmute { background: rgba(52, 199, 89, 0.2); color: #30d158; }
+        /* 🔔 АНИМИРОВАННЫЙ ЗВОНОК НАСТРОЕК */
+        .bell-icon-box {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: var(--card-secondary);
+            font-size: 20px;
+            position: relative;
+            user-select: none;
+        }
+        .bell-icon-box.vibrate {
+            animation: bellRing 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97) infinite;
+        }
+        @keyframes bellRing {
+            0% { transform: rotate(0); }
+            15% { transform: rotate(14deg); }
+            30% { transform: rotate(-14deg); }
+            45% { transform: rotate(10deg); }
+            60% { transform: rotate(-10deg); }
+            75% { transform: rotate(4deg); }
+            85% { transform: rotate(-4deg); }
+            100% { transform: rotate(0); }
+        }
 
-        /* Checklist / Homework */
-        .todo-item { display: flex; align-items: center; justify-content: space-between; background: var(--card-secondary); padding: 10px 12px; border-radius: 12px; margin-bottom: 6px; font-size: 13px; }
-        .todo-item.done { opacity: 0.5; text-decoration: line-through; }
-        .todo-check { width: 18px; height: 18px; cursor: pointer; accent-color: var(--accent-blue); }
+        .sound-wave-waves {
+            position: absolute;
+            top: -2px; right: -2px;
+            width: 8px; height: 8px;
+            background: #34c759;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #34c759;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .bell-icon-box.vibrate .sound-wave-waves {
+            opacity: 1;
+            animation: pulseWave 1s infinite ease-out;
+        }
+        @keyframes pulseWave {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(2.2); opacity: 0; }
+        }
 
-        /* Settings & Form elements */
         .setting-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border-color); }
         .setting-row:last-child { border-bottom: none; }
         .setting-title { font-size: 14px; font-weight: 500; }
         .setting-sub { font-size: 11px; color: var(--text-secondary); }
 
         .theme-grid-selector { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
-        .theme-card-btn { border: 1px solid var(--border-color); background: var(--card-secondary); color: var(--text-primary); border-radius: 12px; padding: 10px 6px; font-size: 11px; font-weight: 700; text-align: center; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px; }
-        .theme-card-btn.active { border-color: var(--accent-blue); background: var(--accent-blue); color: #fff; }
+        .theme-card-btn {
+            border: 1px solid var(--border-color);
+            background: var(--card-secondary);
+            color: var(--text-primary);
+            border-radius: 12px;
+            padding: 10px 6px;
+            font-size: 11px;
+            font-weight: 700;
+            text-align: center;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+        .theme-card-btn:active { transform: scale(0.95); }
+        .theme-card-btn.active { border-color: var(--accent-blue); background: var(--accent-blue); color: #fff; box-shadow: 0 2px 10px rgba(10,132,255,0.3); }
+
+        .admin-widget-card { background: linear-gradient(135deg, rgba(255, 45, 85, 0.15), rgba(175, 82, 222, 0.12)); border: 1px solid rgba(255, 45, 85, 0.3); grid-column: span 2; display: none; }
+        
+        .admin-input { background: var(--card-secondary); border: 1px solid var(--border-color); color: var(--text-primary); padding: 10px 12px; border-radius: 12px; font-size: 13px; width: 100%; margin-bottom: 8px; outline: none; }
+        .admin-btn { background: #ff2d55; color: #fff; border: none; padding: 12px 16px; border-radius: 12px; font-weight: 700; width: 100%; cursor: pointer; font-size: 13px; margin-bottom: 10px; box-shadow: 0 4px 12px rgba(255,45,85,0.3); }
+        .admin-btn:active { transform: scale(0.97); }
+
+        .user-manage-item { display: flex; flex-direction: column; background: var(--card-secondary); padding: 10px 12px; border-radius: 12px; margin-bottom: 8px; gap: 6px; }
+        .user-manage-row { display: flex; justify-content: space-between; align-items: center; }
+        .user-manage-name { font-size: 13px; font-weight: 700; color: var(--text-primary); }
+        .user-manage-sub { font-size: 11px; color: var(--text-secondary); }
+        .admin-action-btn { padding: 5px 10px; border-radius: 8px; border: none; font-size: 11px; font-weight: 700; cursor: pointer; margin-left: 4px; }
+        .admin-action-btn:active { transform: scale(0.93); }
+        .btn-kick { background: rgba(255, 59, 48, 0.2); color: #ff3b30; }
+        .btn-mute { background: rgba(255, 149, 0, 0.2); color: #ff9500; }
+        .btn-unmute { background: rgba(52, 199, 89, 0.2); color: #30d158; }
 
         .gpa-input { background: var(--card-secondary); border: 1px solid var(--border-color); color: var(--text-primary); padding: 10px 12px; border-radius: 12px; font-size: 14px; width: 100%; margin-bottom: 8px; outline: none; }
-        .gpa-btn { background: var(--accent-blue); color: #fff; border: none; padding: 12px 16px; border-radius: 12px; font-weight: 700; width: 100%; cursor: pointer; }
+        .gpa-btn { background: var(--accent-blue); color: #fff; border: none; padding: 12px 16px; border-radius: 12px; font-weight: 700; width: 100%; cursor: pointer; box-shadow: 0 4px 14px rgba(10,132,255,0.3); }
+        .gpa-btn:active { transform: scale(0.97); }
 
-        /* Calendar */
+        .ios-switch { position: relative; display: inline-block; width: 46px; height: 26px; }
+        .ios-switch input { opacity: 0; width: 0; height: 0; }
+        .switch-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #3a3a3c; transition: .3s cubic-bezier(0.16, 1, 0.3, 1); border-radius: 30px; }
+        .switch-slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 3px; bottom: 3px; background-color: #fff; transition: .3s cubic-bezier(0.16, 1, 0.3, 1); border-radius: 50%; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        input:checked + .switch-slider { background-color: #34c759; }
+        input:checked + .switch-slider:before { transform: translateX(20px); }
+
         .calendar-header-box { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
         .calendar-month-title { font-family: var(--font-display); font-size: 16px; font-weight: 800; }
         .calendar-nav-btn { background: var(--card-secondary); color: var(--text-primary); border: 1px solid var(--border-color); width: 32px; height: 32px; border-radius: 8px; font-weight: 800; cursor: pointer; }
+        .calendar-nav-btn:active { transform: scale(0.92); }
         .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; text-align: center; }
         .cal-day-name { font-size: 11px; font-weight: 700; color: var(--text-secondary); padding-bottom: 6px; }
         .cal-date-cell { font-size: 13px; font-weight: 600; padding: 8px 0; border-radius: 10px; background: var(--card-secondary); }
         .cal-date-cell.empty { background: transparent; }
-        .cal-date-cell.today { background: var(--accent-blue); color: #fff; font-weight: 800; }
+        .cal-date-cell.today { background: var(--accent-blue); color: #fff; font-weight: 800; box-shadow: 0 2px 8px rgba(10,132,255,0.4); }
 
-        /* Bottom Nav */
-        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--nav-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); display: flex; justify-content: space-around; padding: 8px 16px 22px 16px; border-top: 1px solid var(--border-color); max-width: 440px; margin: 0 auto; z-index: 1000; }
+        .bottom-nav {
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            background: var(--nav-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 16px 20px 16px;
+            border-top: 1px solid var(--border-color);
+            max-width: 440px;
+            margin: 0 auto;
+            z-index: 1000;
+        }
         .nav-tab { display: flex; flex-direction: column; align-items: center; color: var(--text-secondary); background: none; border: none; gap: 3px; cursor: pointer; flex: 1; }
+        .nav-tab:active { transform: scale(0.92); }
         .nav-tab.active { color: var(--accent-blue); }
         .nav-svg { width: 22px; height: 22px; fill: currentColor; }
         .nav-title { font-family: var(--font-display); font-size: 11px; font-weight: 700; }
@@ -191,15 +411,15 @@
 </head>
 <body class="theme-dark">
 
-    <!-- Access Denied Screen -->
+    <!-- ЭКРАН СТРОГОГО ДОСТУПА -->
     <div id="access-denied-screen" style="display: none;">
         <div class="lock-icon">🔒</div>
         <div class="lock-title" id="lock-title-text">Доступ ограничен</div>
-        <div class="lock-desc" id="lock-desc-text">Закрытая система Amanzholov University. Доступ разрешён только авторизованным студентам.</div>
+        <div class="lock-desc" id="lock-desc-text">Это закрытая система Amanzholov University. Вход разрешён только авторизованным студентам.</div>
         <button class="btn-request" onclick="sendAccessRequest()">Подать заявку на доступ</button>
     </div>
 
-    <!-- Header -->
+    <!-- Хедер -->
     <div class="app-header">
         <div class="uni-brand-wrap">
             <div class="uni-logo-box">
@@ -225,22 +445,22 @@
         </div>
     </div>
 
-    <!-- Weather Widget -->
+    <!-- Погода -->
     <div class="weather-card" onclick="toggleWeeklyWeather()">
         <div class="weather-info">
             <div class="weather-temp" id="weather-temp-text">--°C</div>
             <div class="weather-city" id="weather-desc-text">Усть-Каменогорск • Загрузка...</div>
-            <div class="weather-hint">Нажмите для прогноза ➔</div>
+            <div class="weather-hint">Нажмите для прогноза на неделю ➔</div>
         </div>
-        <div class="weather-anim-box"><span id="weather-icon" style="font-size:26px;">🌤️</span></div>
+        <div class="weather-anim-box"><span id="weather-icon">🌤️</span></div>
     </div>
 
     <div id="sub-weather-week" class="sub-panel card" style="margin-bottom:14px;">
-        <div class="card-header">Прогноз погоды (Усть-Каменогорск)</div>
+        <div class="card-header">Прогноз на 7 дней (Усть-Каменогорск)</div>
         <div id="weather-week-list">Загрузка прогноза...</div>
     </div>
 
-    <!-- Live Schedule Timer -->
+    <!-- Таймер Пар -->
     <div class="live-timer-card">
         <div class="timer-header">
             <span class="timer-sub">Текущий статус</span>
@@ -250,10 +470,10 @@
         <div class="timer-sub" id="timer-location-text">Университет им. С. Аманжолова</div>
     </div>
 
-    <!-- PAGE 1: SCHEDULE -->
+    <!-- РАЗДЕЛ 1: РАСПИСАНИЕ -->
     <div id="page-schedule" class="page active">
-        <div class="tabs-container" id="day-tabs-container">
-            <button class="tab-item" onclick="selectDay('mon', this)">ПН</button>
+        <div class="tabs-container">
+            <button class="tab-item active" onclick="selectDay('mon', this)">ПН</button>
             <button class="tab-item" onclick="selectDay('tue', this)">ВТ</button>
             <button class="tab-item" onclick="selectDay('wed', this)">СР</button>
             <button class="tab-item" onclick="selectDay('thu', this)">ЧТ</button>
@@ -263,7 +483,6 @@
         </div>
 
         <div class="card">
-            <!-- Monday -->
             <div id="day-mon" class="day-content">
                 <div class="card-header"><span>Понедельник</span><span>6 пар</span></div>
                 <div class="lesson-row"><div class="lesson-time-col"><div class="lesson-start">09:50</div><div class="lesson-end">10:40</div></div><div class="lesson-main"><div class="lesson-title">Социология</div><div class="lesson-meta"><span class="type-pill lecture">Лекция</span><span>Рякова Е.Г.</span>•<span>Корп. №1, ауд. 111</span></div></div></div>
@@ -274,7 +493,6 @@
                 <div class="lesson-row"><div class="lesson-time-col"><div class="lesson-start">14:40</div><div class="lesson-end">15:30</div></div><div class="lesson-main"><div class="lesson-title">Гигиена, медицина и первая помощь</div><div class="lesson-meta"><span class="type-pill lecture">Лекция</span><span>Куленова Г.Б.</span>•<span>Корп. №2, ауд. 31</span></div></div></div>
             </div>
 
-            <!-- Tuesday -->
             <div id="day-tue" class="day-content" style="display:none;">
                 <div class="card-header"><span>Вторник</span><span>5 пар</span></div>
                 <div class="lesson-row"><div class="lesson-time-col"><div class="lesson-start">08:00</div><div class="lesson-end">08:50</div></div><div class="lesson-main"><div class="lesson-title">Политология</div><div class="lesson-meta"><span class="type-pill lecture">Лекция</span><span>Жиренова А.Т.</span>•<span>Корп. №1, ауд. 305</span></div></div></div>
@@ -284,7 +502,6 @@
                 <div class="lesson-row"><div class="lesson-time-col"><div class="lesson-start">12:50</div><div class="lesson-end">13:40</div></div><div class="lesson-main"><div class="lesson-title">Социология</div><div class="lesson-meta"><span class="type-pill spz">СПЗ</span><span>Рякова Е.Г.</span>•<span>Корп. №1, ауд. 252</span></div></div></div>
             </div>
 
-            <!-- Wednesday -->
             <div id="day-wed" class="day-content" style="display:none;">
                 <div class="card-header"><span>Среда</span><span>5 пар</span></div>
                 <div class="lesson-row"><div class="lesson-time-col"><div class="lesson-start">08:00</div><div class="lesson-end">08:50</div></div><div class="lesson-main"><div class="lesson-title">Казахский (русский) язык</div><div class="lesson-meta"><span class="type-pill spz">СПЗ</span><span>Апышева К.А.</span>•<span>Корп. №1, ауд. 406</span></div></div></div>
@@ -294,7 +511,6 @@
                 <div class="lesson-row"><div class="lesson-time-col"><div class="lesson-start">12:50</div><div class="lesson-end">13:40</div></div><div class="lesson-main"><div class="lesson-title">История Казахстана</div><div class="lesson-meta"><span class="type-pill spz">СПЗ</span><span>Омарканова А.О.</span>•<span>Корп. №1, ауд. 316</span></div></div></div>
             </div>
 
-            <!-- Thursday -->
             <div id="day-thu" class="day-content" style="display:none;">
                 <div class="card-header"><span>Четверг</span><span>3 пары</span></div>
                 <div class="lesson-row"><div class="lesson-time-col"><div class="lesson-start">08:00</div><div class="lesson-end">08:50</div></div><div class="lesson-main"><div class="lesson-title">Психология</div><div class="lesson-meta"><span class="type-pill spz">СПЗ</span><span>Ахаева А.Ш.</span>•<span>Корп. №9, ауд. 301</span></div></div></div>
@@ -302,7 +518,6 @@
                 <div class="lesson-row"><div class="lesson-time-col"><div class="lesson-start">13:45</div><div class="lesson-end">14:35</div></div><div class="lesson-main"><div class="lesson-title">Гигиена, медицина и первая помощь</div><div class="lesson-meta"><span class="type-pill spz">СПЗ</span><span>Куленова Г.Б.</span>•<span>Корп. №2, ауд. 32</span></div></div></div>
             </div>
 
-            <!-- Friday -->
             <div id="day-fri" class="day-content" style="display:none;">
                 <div class="card-header"><span>Пятница</span><span>3 пары</span></div>
                 <div class="lesson-row"><div class="lesson-time-col"><div class="lesson-start">09:50</div><div class="lesson-end">10:40</div></div><div class="lesson-main"><div class="lesson-title">Физическая культура</div><div class="lesson-meta"><span class="type-pill spz">СПЗ</span><span>Зуев А.С.</span>•<span>Спортзал</span></div></div></div>
@@ -310,13 +525,11 @@
                 <div class="lesson-row"><div class="lesson-time-col"><div class="lesson-start">12:50</div><div class="lesson-end">13:40</div></div><div class="lesson-main"><div class="lesson-title">Казахский (русский) язык</div><div class="lesson-meta"><span class="type-pill spz">СПЗ</span><span>Апышева К.А.</span>•<span>Корп. №9, ауд. 304</span></div></div></div>
             </div>
 
-            <!-- Saturday -->
             <div id="day-sat" class="day-content" style="display:none;">
                 <div class="card-header"><span>Суббота</span></div>
-                <div style="text-align: center; padding: 28px 0; color: var(--text-secondary); font-size: 14px;">🎉 Выходной день</div>
+                <div style="text-align: center; padding: 24px 0; color: var(--text-secondary); font-size: 14px;">Выходной день</div>
             </div>
 
-            <!-- Calls Schedule -->
             <div id="day-calls" class="day-content" style="display:none;">
                 <div class="card-header"><span>Расписание звонков</span></div>
                 <div class="lesson-row"><div class="lesson-time-col"><div class="lesson-start">08:00</div><div class="lesson-end">08:50</div></div><div class="lesson-main"><div class="lesson-title">1 пара</div></div></div>
@@ -331,25 +544,19 @@
         </div>
     </div>
 
-    <!-- PAGE 2: SERVICES -->
+    <!-- РАЗДЕЛ 2: СЕРВИСЫ -->
     <div id="page-services" class="page">
         <div class="services-grid">
             <div class="widget-item admin-widget-card" id="admin-widget-btn" onclick="openWidget('admin')">
                 <svg class="widget-icon" style="color:#ff2d55;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                <div class="widget-title" style="color:#ff2d55;">Админ Панель</div>
-                <div class="widget-sub">Добавление по ID, Кик, Мут</div>
+                <div class="widget-title" style="color:#ff2d55;">Панель Администратора</div>
+                <div class="widget-sub">Кик, Мут и Ручной ввод ID</div>
             </div>
 
-            <div class="widget-item" onclick="openWidget('todo')">
-                <svg class="widget-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-                <div class="widget-title">Задания & Д/З</div>
-                <div class="widget-sub">Чеклист задач</div>
-            </div>
-
-            <div class="widget-item" onclick="openWidget('finder')">
-                <svg class="widget-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                <div class="widget-title">Поиск Кабинета</div>
-                <div class="widget-sub">Корпуса и аудитории</div>
+            <div class="widget-item" onclick="openWidget('calendar')">
+                <svg class="widget-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                <div class="widget-title">Календарь</div>
+                <div class="widget-sub">Календарь месяца</div>
             </div>
 
             <div class="widget-item" onclick="openWidget('gpa')">
@@ -358,58 +565,33 @@
                 <div class="widget-sub">Успеваемость</div>
             </div>
 
-            <div class="widget-item" onclick="openWidget('calendar')">
-                <svg class="widget-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                <div class="widget-title">Календарь</div>
-                <div class="widget-sub">Месяц и сессия</div>
-            </div>
-
             <div class="widget-item" onclick="openWidget('settings')">
                 <svg class="widget-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
                 <div class="widget-title">Настройки</div>
-                <div class="widget-sub">Темы и опции</div>
+                <div class="widget-sub">Параметры</div>
             </div>
 
             <div class="widget-item" style="grid-column: span 2;" onclick="openWidget('profile')">
                 <svg class="widget-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                 <div class="widget-title">Мой Профиль</div>
-                <div class="widget-sub" id="widget-profile-sub">Автоопределение...</div>
+                <div class="widget-sub" id="widget-profile-sub">Загрузка профиля...</div>
             </div>
         </div>
 
-        <!-- SUB PANEL: ADMIN (MANUAL ID ENTRY) -->
+        <!-- АДМИН ПАНЕЛЬ С РУЧНЫМ ДОБАВЛЕНИЕМ И УПРАВЛЕНИЕМ -->
         <div id="sub-admin" class="sub-panel card" style="border-color: rgba(255,45,85,0.4);">
             <div class="card-header" style="color:#ff2d55;">Панель Администратора</div>
-            <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 8px;">Добавление по Telegram ID:</div>
-            <input type="number" id="manual-user-id" class="admin-input" placeholder="Введите Telegram ID (напр. 5644768982)">
-            <button class="admin-btn" onclick="manualAddUserById()">+ Добавить пользователя</button>
+            <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 8px;">Добавить пользователя по Telegram ID:</div>
+            <input type="number" id="manual-user-id" class="admin-input" placeholder="Введите Telegram ID (например: 123456789)">
+            <input type="text" id="manual-user-name" class="admin-input" placeholder="Имя / Ник студента">
+            <button class="admin-btn" onclick="manualAddUser()">+ Добавить пользователя</button>
             
-            <div style="font-size: 13px; font-weight: 700; margin: 12px 0 8px 0; color: var(--text-primary);">Управление доступом:</div>
+            <div style="font-size: 13px; font-weight: 700; margin: 12px 0 6px 0; color: var(--text-primary);">База пользователей:</div>
             <div id="admin-users-list">
-                <div style="font-size: 12px; color: var(--text-secondary); text-align: center; padding: 10px;">Загрузка списка...</div>
+                <div style="font-size: 12px; color: var(--text-secondary); text-align: center; padding: 10px;">Список пуст</div>
             </div>
         </div>
 
-        <!-- SUB PANEL: HOMEWORK CHECKLIST -->
-        <div id="sub-todo" class="sub-panel card">
-            <div class="card-header">Задания & Д/З</div>
-            <div style="display:flex; gap:8px; margin-bottom:12px;">
-                <input type="text" id="todo-input" class="admin-input" style="margin-bottom:0;" placeholder="Добавить задание...">
-                <button class="gpa-btn" style="width: auto; padding: 0 16px;" onclick="addTodoItem()">+</button>
-            </div>
-            <div id="todo-list-container">
-                <div style="font-size: 12px; color: var(--text-secondary); text-align: center; padding: 10px;">Заданий нет</div>
-            </div>
-        </div>
-
-        <!-- SUB PANEL: ROOM FINDER -->
-        <div id="sub-finder" class="sub-panel card">
-            <div class="card-header">Поиск аудиторий</div>
-            <input type="text" id="finder-input" class="admin-input" placeholder="Введите номер аудитории или предмет..." oninput="searchRooms()">
-            <div id="finder-results" style="margin-top:10px; font-size:13px;"></div>
-        </div>
-
-        <!-- SUB PANEL: CALENDAR -->
         <div id="sub-calendar" class="sub-panel card">
             <div class="calendar-header-box">
                 <button class="calendar-nav-btn" onclick="changeMonth(-1)">‹</button>
@@ -421,18 +603,17 @@
             </div>
         </div>
 
-        <!-- SUB PANEL: GPA CALCULATOR -->
         <div id="sub-gpa" class="sub-panel card">
             <div class="card-header">Калькулятор GPA</div>
-            <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 12px;">Введите итоговые баллы (0-100):</div>
-            <input type="number" id="gpa-val1" class="gpa-input" placeholder="Предмет 1">
-            <input type="number" id="gpa-val2" class="gpa-input" placeholder="Предмет 2">
-            <input type="number" id="gpa-val3" class="gpa-input" placeholder="Предмет 3">
+            <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 12px;">Введите баллы за дисциплины (0-100):</div>
+            <input type="number" id="gpa-val1" class="gpa-input" placeholder="Предмет 1 (например 90)">
+            <input type="number" id="gpa-val2" class="gpa-input" placeholder="Предмет 2 (например 85)">
+            <input type="number" id="gpa-val3" class="gpa-input" placeholder="Предмет 3 (например 95)">
             <button class="gpa-btn" onclick="calculateGPA()">Рассчитать GPA</button>
             <div id="gpa-result" style="margin-top: 12px; font-size: 15px; font-weight: 800; text-align: center; color: var(--accent-blue);"></div>
         </div>
 
-        <!-- SUB PANEL: SETTINGS -->
+        <!-- АНИМИРОВАННЫЕ НАСТРОЙКИ ЗВУКА И ТЕМ -->
         <div id="sub-settings" class="sub-panel card">
             <div class="card-header">Выбор Цветовой Темы</div>
             <div class="theme-grid-selector">
@@ -443,24 +624,53 @@
                 <div class="theme-card-btn" id="th-lava" onclick="setTheme('lava')"><span>🌋</span>Лава</div>
                 <div class="theme-card-btn" id="th-cyber" onclick="setTheme('cyber')"><span>🌌</span>Неон</div>
             </div>
+
+            <!-- Анимированный переключатель звука -->
+            <div class="setting-row" style="margin-top: 18px;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <div class="bell-icon-box vibrate" id="sound-bell-box">
+                        <span id="sound-bell-emoji">🔔</span>
+                        <div class="sound-wave-waves"></div>
+                    </div>
+                    <div>
+                        <div class="setting-title" id="sound-status-title">Звук и Уведомления</div>
+                        <div class="setting-sub" id="sound-status-sub">Анимированный отклик включён</div>
+                    </div>
+                </div>
+                <label class="ios-switch">
+                    <input type="checkbox" id="set-sound-toggle" checked onchange="toggleSoundSetting(this)">
+                    <span class="switch-slider"></span>
+                </label>
+            </div>
+
+            <div class="setting-row">
+                <div>
+                    <div class="setting-title">Тактильный отклик (Haptic)</div>
+                    <div class="setting-sub">Системная вибрация при нажатиях</div>
+                </div>
+                <label class="ios-switch">
+                    <input type="checkbox" id="set-haptic" checked onchange="toggleSetting('haptic', this)">
+                    <span class="switch-slider"></span>
+                </label>
+            </div>
         </div>
 
-        <!-- SUB PANEL: PROFILE -->
+        <!-- ПРОФИЛЬ ПОЛЬЗОВАТЕЛЯ -->
         <div id="sub-profile" class="sub-panel card">
-            <div class="card-header">Профиль Студента</div>
-            <div style="padding: 10px 0; display: flex; flex-direction: column; align-items: center; text-align: center;">
-                <div style="font-size: 48px; margin-bottom: 8px;" id="prof-emoji">👨‍🎓</div>
-                <div style="font-size: 18px; font-weight: 800;" id="prof-display-name">Загрузка...</div>
-                <div style="font-size: 13px; color: var(--accent-blue); margin-bottom: 14px; font-weight:600;" id="prof-display-username">@username</div>
+            <div class="card-header">Карточка Студента</div>
+            <div style="padding: 4px 0; display: flex; flex-direction: column; align-items: center; text-align: center;">
+                <div style="font-size: 44px; margin-bottom: 6px;" id="prof-emoji">👨‍🎓</div>
+                <div style="font-size: 18px; font-weight: 700;" id="prof-display-name">Загрузка...</div>
+                <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 12px;" id="prof-display-username">@username</div>
                 <div style="width: 100%;">
-                    <div class="setting-row"><span class="setting-title">Telegram ID</span><span class="setting-sub" style="color:var(--text-primary); font-weight:700;" id="prof-id">--</span></div>
+                    <div class="setting-row"><span class="setting-title">Telegram ID</span><span class="setting-sub" style="color:var(--text-primary);" id="prof-id">--</span></div>
                     <div class="setting-row"><span class="setting-title">Статус доступа</span><span class="setting-sub" style="color:#30d158; font-weight:700;" id="prof-status-val">Активен</span></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Bottom Navigation -->
+    <!-- Нижняя Навигация -->
     <div class="bottom-nav">
         <button class="nav-tab active" onclick="navigate('schedule', this)">
             <svg class="nav-svg" viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/></svg>
@@ -479,50 +689,14 @@
         const ADMIN_ID = "5644768982";
         let deferredPrompt = null;
 
-        // Timetable Structure for Timer Engine
-        const WEEKLY_SCHEDULE = {
-            1: [ // Mon
-                { start: "09:50", end: "10:40", name: "Социология", type: "Лекция", room: "Корп. №1, ауд. 111" },
-                { start: "11:00", end: "11:50", name: "Иностранный язык", type: "СПЗ", room: "Корп. №7, ауд. 219" },
-                { start: "11:55", end: "12:45", name: "Иностранный язык", type: "СПЗ", room: "Корп. №7, ауд. 219" },
-                { start: "12:50", end: "13:40", name: "Иностранный язык", type: "СПЗ", room: "Корп. №7, ауд. 112" },
-                { start: "13:45", end: "14:35", name: "Гигиена, медицина и первая помощь", type: "Лекция", room: "Корп. №2, ауд. 31" },
-                { start: "14:40", end: "15:30", name: "Гигиена, медицина и первая помощь", type: "Лекция", room: "Корп. №2, ауд. 31" }
-            ],
-            2: [ // Tue
-                { start: "08:00", end: "08:50", name: "Политология", type: "Лекция", room: "Корп. №1, ауд. 305" },
-                { start: "09:50", end: "10:40", name: "Политология", type: "СПЗ", room: "Корп. №1, ауд. 311" },
-                { start: "11:00", end: "11:50", name: "Культурология", type: "Лекция", room: "Корп. №1, ауд. 111" },
-                { start: "11:55", end: "12:45", name: "История Казахстана", type: "Лекция", room: "Корп. №1, ауд. 111" },
-                { start: "12:50", end: "13:40", name: "Социология", type: "СПЗ", room: "Корп. №1, ауд. 252" }
-            ],
-            3: [ // Wed
-                { start: "08:00", end: "08:50", name: "Казахский (русский) язык", type: "СПЗ", room: "Корп. №1, ауд. 406" },
-                { start: "08:55", end: "09:45", name: "Психология", type: "Лекция", room: "Корп. №1, ауд. 111" },
-                { start: "11:00", end: "11:50", name: "Культурология", type: "СПЗ", room: "Корп. №1, ауд. 327а" },
-                { start: "11:55", end: "12:45", name: "История Казахстана", type: "Лекция", room: "Корп. №1, Зал 257" },
-                { start: "12:50", end: "13:40", name: "История Казахстана", type: "СПЗ", room: "Корп. №1, ауд. 316" }
-            ],
-            4: [ // Thu
-                { start: "08:00", end: "08:50", name: "Психология", type: "СПЗ", room: "Корп. №9, ауд. 301" },
-                { start: "12:50", end: "13:40", name: "Казахский (русский) язык", type: "СПЗ", room: "Корп. №9, ауд. 304" },
-                { start: "13:45", end: "14:35", name: "Гигиена, медицина и первая помощь", type: "СПЗ", room: "Корп. №2, ауд. 32" }
-            ],
-            5: [ // Fri
-                { start: "09:50", end: "10:40", name: "Физическая культура", type: "СПЗ", room: "Спортзал" },
-                { start: "11:00", end: "11:50", name: "Физическая культура", type: "СПЗ", room: "Спортзал" },
-                { start: "12:50", end: "13:40", name: "Казахский (русский) язык", type: "СПЗ", room: "Корп. №9, ауд. 304" }
-            ]
-        };
-
-        // PWA Helper
         window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt = e; });
+
         function installPWAApp() {
             if (deferredPrompt) {
                 deferredPrompt.prompt();
                 deferredPrompt.userChoice.then(() => { deferredPrompt = null; });
             } else if (tg) {
-                tg.showAlert("Нажмите 'Поделиться' в меню браузера и выберите 'На экран Домой'.");
+                tg.showAlert("Чтобы добавить на рабочий стол, нажмите 'Поделиться' в браузере и выберите 'На экран Домой'.");
             }
         }
 
@@ -530,98 +704,94 @@
         function closeDropdownMenu() { const m = document.getElementById('app-dropdown-menu'); if(m) m.classList.remove('active'); }
         document.addEventListener('click', () => closeDropdownMenu());
 
-        // AUTO-DETECTION & SECURITY SYSTEM
+        // АНИМИРОВАННЫЙ ПЕРЕКЛЮЧАТЕЛЬ ЗВУКА И УВЕДОМЛЕНИЙ
+        function toggleSoundSetting(el) {
+            const bellBox = document.getElementById('sound-bell-box');
+            const bellEmoji = document.getElementById('sound-bell-emoji');
+            const statusTitle = document.getElementById('sound-status-title');
+            const statusSub = document.getElementById('sound-status-sub');
+
+            if (el.checked) {
+                bellBox.classList.add('vibrate');
+                bellEmoji.innerText = '🔔';
+                statusTitle.innerText = "Звук и Уведомления";
+                statusSub.innerText = "Анимированный отклик включён";
+                localStorage.setItem('app_sound_enabled', 'true');
+                if (tg && tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
+            } else {
+                bellBox.classList.remove('vibrate');
+                bellEmoji.innerText = '🔕';
+                statusTitle.innerText = "Звук выключен";
+                statusSub.innerText = "Беззвучный режим активен";
+                localStorage.setItem('app_sound_enabled', 'false');
+                if (tg && tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('warning');
+            }
+        }
+
         function checkSecurity() {
-            let tgUser = tg && tg.initDataUnsafe ? tg.initDataUnsafe.user : null;
-            let userId = tgUser ? String(tgUser.id) : ADMIN_ID;
-            let username = tgUser ? (tgUser.username ? "@" + tgUser.username : "без юзернейма") : "@semen";
-            let fullName = tgUser ? (tgUser.first_name + (tgUser.last_name ? " " + tgUser.last_name : "")) : "Семён";
+            let user = tg && tg.initDataUnsafe ? tg.initDataUnsafe.user : null;
+            let userId = user ? String(user.id) : ADMIN_ID;
+            let username = user ? (user.username ? "@" + user.username : "Без юзернейма") : "@semen";
+            let firstName = user ? (user.first_name || "Студент") : "Семён";
 
             let usersDb = JSON.parse(localStorage.getItem('portal_users') || '{}');
-            
-            // Ensure Admin exists in database
-            usersDb[ADMIN_ID] = { id: ADMIN_ID, name: "Семён (Админ)", username: "@semen", muted: false, kicked: false };
+            usersDb[ADMIN_ID] = { id: ADMIN_ID, name: "Семён (Админ)", username: "@semen", muted: false, status: "Владелец" };
 
-            // Auto-register current Telegram user if missing
-            if (!usersDb[userId]) {
-                usersDb[userId] = { id: userId, name: fullName, username: username, muted: false, kicked: false };
-                localStorage.setItem('portal_users', JSON.stringify(usersDb));
-            } else {
-                // Update credentials if changed
-                usersDb[userId].name = fullName;
-                usersDb[userId].username = username;
+            if (!usersDb[userId] && userId !== ADMIN_ID) {
+                usersDb[userId] = { id: userId, name: firstName, username: username, muted: false, status: "Ожидает" };
                 localStorage.setItem('portal_users', JSON.stringify(usersDb));
             }
 
-            let curr = usersDb[userId];
+            let currentUser = usersDb[userId] || { muted: false, kicked: false };
 
-            // Kick enforcement
-            if (curr.kicked && userId !== ADMIN_ID) {
+            if (currentUser.kicked && userId !== ADMIN_ID) {
                 document.getElementById('access-denied-screen').style.display = "flex";
                 document.getElementById('lock-title-text').innerText = "Доступ заблокирован";
-                document.getElementById('lock-desc-text').innerText = "Администратор заблокировал ваш доступ к порталу.";
+                document.getElementById('lock-desc-text').innerText = "Администратор заблокировал ваш доступ к системе.";
                 return;
             }
 
-            // Mute enforcement
-            if (curr.muted && userId !== ADMIN_ID) {
+            if (currentUser.muted && userId !== ADMIN_ID) {
                 document.getElementById('access-denied-screen').style.display = "flex";
-                document.getElementById('lock-title-text').innerText = "Вы ограничены";
-                document.getElementById('lock-desc-text').innerText = "Администратор временно заблокировал ваши функции.";
+                document.getElementById('lock-title-text').innerText = "Вы в муте";
+                document.getElementById('lock-desc-text').innerText = "Администратор ограничил вам доступ к функциям портала.";
                 return;
             }
 
-            document.getElementById('access-denied-screen').style.display = "none";
-
-            // Show Admin Widget strictly for Admin ID
             if (userId === ADMIN_ID) {
                 document.getElementById('admin-widget-btn').style.display = "block";
+                document.getElementById('access-denied-screen').style.display = "none";
                 renderAdminUsersList();
+            } else {
+                document.getElementById('access-denied-screen').style.display = "none";
             }
 
-            // Display Personal Profile Data
-            document.getElementById('prof-display-name').innerText = fullName;
+            document.getElementById('prof-display-name').innerText = firstName;
             document.getElementById('prof-display-username').innerText = username;
             document.getElementById('prof-id').innerText = userId;
-            document.getElementById('widget-profile-sub').innerText = fullName + " • " + username;
+            document.getElementById('widget-profile-sub').innerText = firstName + " • Студент";
         }
 
-        // ADMIN: ADD USER BY ID ONLY
-        function manualAddUserById() {
-            const inputId = document.getElementById('manual-user-id').value.trim();
-            if (!inputId) {
-                if (tg) tg.showAlert("Введите корректный Telegram ID!");
-                else alert("Введите Telegram ID!");
-                return;
-            }
+        function manualAddUser() {
+            const idInput = document.getElementById('manual-user-id').value.trim();
+            const nameInput = document.getElementById('manual-user-name').value.trim() || "Студент";
+
+            if (!idInput) { alert("Введите Telegram ID!"); return; }
 
             let usersDb = JSON.parse(localStorage.getItem('portal_users') || '{}');
-            if (usersDb[inputId]) {
-                if (tg) tg.showAlert("Пользователь с таким ID уже существует!");
-                return;
-            }
-
-            // Default auto-detected placeholder for manually added user
-            usersDb[inputId] = {
-                id: inputId,
-                name: "Студент (" + inputId + ")",
-                username: "@id" + inputId,
-                muted: false,
-                kicked: false
-            };
-
+            usersDb[idInput] = { id: idInput, name: nameInput, username: "ID " + idInput, muted: false, kicked: false, status: "Активен" };
             localStorage.setItem('portal_users', JSON.stringify(usersDb));
+
             document.getElementById('manual-user-id').value = "";
+            document.getElementById('manual-user-name').value = "";
             renderAdminUsersList();
-            if (tg) tg.showAlert("Пользователь " + inputId + " успешно добавлен!");
+            if (tg) tg.showAlert("Пользователь успешно добавлен!");
         }
 
-        // ADMIN: RENDER USER LIST
         function renderAdminUsersList() {
             let usersDb = JSON.parse(localStorage.getItem('portal_users') || '{}');
             const container = document.getElementById('admin-users-list');
             let keys = Object.keys(usersDb);
-
             if (keys.length === 0) {
                 container.innerHTML = `<div style="font-size: 12px; color: var(--text-secondary); text-align: center; padding: 10px;">Список пуст</div>`;
                 return;
@@ -629,8 +799,9 @@
 
             let html = "";
             keys.forEach(id => {
-                if (id === ADMIN_ID) return; // Skip admin
                 let u = usersDb[id];
+                if (id === ADMIN_ID) return;
+
                 let muteText = u.muted ? "Размутить" : "Мут";
                 let muteClass = u.muted ? "btn-unmute" : "btn-mute";
 
@@ -645,7 +816,7 @@
                     <div class="user-manage-sub">ID: ${u.id} • ${u.username}</div>
                 </div>`;
             });
-            container.innerHTML = html || `<div style="font-size: 12px; color: var(--text-secondary); text-align: center; padding: 10px;">Нет сторонних пользователей</div>`;
+            container.innerHTML = html;
         }
 
         function kickUser(id) {
@@ -654,7 +825,7 @@
                 usersDb[id].kicked = true;
                 localStorage.setItem('portal_users', JSON.stringify(usersDb));
                 renderAdminUsersList();
-                if (tg) tg.showAlert("Пользователь заблокирован!");
+                if (tg) tg.showAlert("Пользователь кикнут.");
             }
         }
 
@@ -667,86 +838,19 @@
             }
         }
 
-        // REALTIME SCHEDULE ENGINE
-        function updateLiveScheduleTimer() {
-            const now = new Date();
-            const dayOfWeek = now.getDay(); // 0=Sun, 1=Mon, ..., 6=Sat
-            const currentMinutes = now.getHours() * 60 + now.getMinutes();
-
-            const pill = document.getElementById('timer-pill');
-            const title = document.getElementById('timer-title-text');
-            const location = document.getElementById('timer-location-text');
-
-            if (dayOfWeek === 0 || dayOfWeek === 6) { // Weekend
-                pill.className = "timer-status-pill ended";
-                pill.innerText = "Выходной";
-                title.innerText = "Занятий сегодня нет";
-                location.innerText = "Отдыхайте и наберайтесь сил!";
-                return;
-            }
-
-            const todayLessons = WEEKLY_SCHEDULE[dayOfWeek];
-            if (!todayLessons || todayLessons.length === 0) {
-                pill.className = "timer-status-pill ended";
-                pill.innerText = "Выходной";
-                title.innerText = "Расписание отсутствует";
-                location.innerText = "Университет им. С. Аманжолова";
-                return;
-            }
-
-            // Convert schedule to minute intervals
-            let foundActive = false;
-            let nextLesson = null;
-
-            for (let i = 0; i < todayLessons.length; i++) {
-                let l = todayLessons[i];
-                let [sH, sM] = l.start.split(":").map(Number);
-                let [eH, eM] = l.end.split(":").map(Number);
-                let startMin = sH * 60 + sM;
-                let endMin = eH * 60 + eM;
-
-                if (currentMinutes >= startMin && currentMinutes <= endMin) {
-                    let left = endMin - currentMinutes;
-                    pill.className = "timer-status-pill active";
-                    pill.innerText = "Идёт пара";
-                    title.innerText = l.name + " (" + l.type + ")";
-                    location.innerText = l.room + " • Осталось " + left + " мин";
-                    foundActive = true;
-                    break;
-                } else if (currentMinutes < startMin) {
-                    if (!nextLesson) nextLesson = { lesson: l, startMin: startMin };
+        function sendAccessRequest() {
+            if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
+                try {
+                    tg.sendData(JSON.stringify({ action: "request_access" }));
+                    tg.showAlert("Заявка отправлена Семёну!");
+                } catch (e) {
+                    window.location.href = "https://t.me/AmanzholovStudentBot?start=apply";
                 }
-            }
-
-            if (!foundActive) {
-                if (nextLesson) {
-                    let diff = nextLesson.startMin - currentMinutes;
-                    pill.className = "timer-status-pill break";
-                    pill.innerText = "Перемена";
-                    title.innerText = "След: " + nextLesson.lesson.name;
-                    location.innerText = "Начало через " + diff + " мин • " + nextLesson.lesson.room;
-                } else {
-                    pill.className = "timer-status-pill ended";
-                    pill.innerText = "Завершено";
-                    title.innerText = "Пары на сегодня окончены";
-                    location.innerText = "Университет им. С. Аманжолова";
-                }
+            } else {
+                window.location.href = "https://t.me/AmanzholovStudentBot?start=apply";
             }
         }
 
-        // Auto Select Active Day Tab
-        function autoSelectCurrentDayTab() {
-            const dayMap = ["sat", "mon", "tue", "wed", "thu", "fri", "sat"];
-            const currentDayKey = dayMap[new Date().getDay()];
-            const tabButtons = document.querySelectorAll('#day-tabs-container .tab-item');
-            
-            const targetMap = { "mon": 0, "tue": 1, "wed": 2, "thu": 3, "fri": 4, "sat": 5 };
-            let idx = targetMap[currentDayKey] !== undefined ? targetMap[currentDayKey] : 0;
-            
-            selectDay(currentDayKey, tabButtons[idx]);
-        }
-
-        // WEATHER
         async function fetchRealWeather() {
             try {
                 const res = await fetch("https://api.open-meteo.com/v1/forecast?latitude=49.95&longitude=82.61&current_weather=true");
@@ -762,21 +866,20 @@
         async function fetchWeeklyForecast() {
             const container = document.getElementById('weather-week-list');
             try {
-                const res = await fetch("https://api.open-meteo.com/v1/forecast?latitude=49.95&longitude=82.61&daily=temperature_2m_max,temperature_2m_min&timezone=auto");
+                const res = await fetch("https://api.open-meteo.com/v1/forecast?latitude=49.95&longitude=82.61&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=auto");
                 const data = await res.json();
                 if (data && data.daily) {
                     let html = "";
                     const days = ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"];
                     for (let i = 0; i < 7; i++) {
-                        let date = new Date(data.daily.time[i]);
-                        let dayName = i === 0 ? "Сегодня" : days[date.getDay()];
+                        let dayName = i === 0 ? "Сегодня" : days[new Date(data.daily.time[i]).getDay()];
                         html += `<div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid var(--border-color); font-size:13px;">
                             <div>${dayName}</div><div>${Math.round(data.daily.temperature_2m_min[i])}° / ${Math.round(data.daily.temperature_2m_max[i])}°C</div>
                         </div>`;
                     }
                     container.innerHTML = html;
                 }
-            } catch (e) { container.innerHTML = " Ошибка прогноза"; }
+            } catch (e) { container.innerHTML = "Ошибка прогноза"; }
         }
 
         function toggleWeeklyWeather() {
@@ -785,65 +888,6 @@
             else { p.classList.add('active'); fetchWeeklyForecast(); }
         }
 
-        // HOMEWORK CHECKLIST WIDGET
-        function renderTodoList() {
-            let todos = JSON.parse(localStorage.getItem('portal_todos') || '[]');
-            const container = document.getElementById('todo-list-container');
-            if (todos.length === 0) {
-                container.innerHTML = `<div style="font-size: 12px; color: var(--text-secondary); text-align: center; padding: 10px;">Заданий нет</div>`;
-                return;
-            }
-
-            let html = "";
-            todos.forEach((t, i) => {
-                html += `<div class="todo-item ${t.done ? 'done' : ''}">
-                    <span>${t.text}</span>
-                    <input type="checkbox" class="todo-check" ${t.done ? 'checked' : ''} onchange="toggleTodo(${i})">
-                </div>`;
-            });
-            container.innerHTML = html;
-        }
-
-        function addTodoItem() {
-            const input = document.getElementById('todo-input');
-            if (!input.value.trim()) return;
-            let todos = JSON.parse(localStorage.getItem('portal_todos') || '[]');
-            todos.push({ text: input.value.trim(), done: false });
-            localStorage.setItem('portal_todos', JSON.stringify(todos));
-            input.value = "";
-            renderTodoList();
-        }
-
-        function toggleTodo(idx) {
-            let todos = JSON.parse(localStorage.getItem('portal_todos') || '[]');
-            if (todos[idx]) {
-                todos[idx].done = !todos[idx].done;
-                localStorage.setItem('portal_todos', JSON.stringify(todos));
-                renderTodoList();
-            }
-        }
-
-        // ROOM FINDER
-        function searchRooms() {
-            const query = document.getElementById('finder-input').value.toLowerCase().trim();
-            const resContainer = document.getElementById('finder-results');
-            if (!query) { resContainer.innerHTML = ""; return; }
-
-            let results = [];
-            Object.values(WEEKLY_SCHEDULE).flat().forEach(item => {
-                if (item.room.toLowerCase().includes(query) || item.name.toLowerCase().includes(query)) {
-                    results.push(`<b>${item.name}</b> • ${item.room} (${item.type})`);
-                }
-            });
-
-            if (results.length > 0) {
-                resContainer.innerHTML = [...new Set(results)].map(r => `<div style="padding:6px 0; border-bottom:1px solid var(--border-color);">${r}</div>`).join("");
-            } else {
-                resContainer.innerHTML = `<div style="color:var(--text-secondary); padding:6px 0;">Ничего не найдено</div>`;
-            }
-        }
-
-        // THEMES & NAVIGATION
         function setTheme(theme) {
             document.body.className = "theme-" + theme;
             document.querySelectorAll('.theme-card-btn').forEach(b => b.classList.remove('active'));
@@ -851,6 +895,8 @@
             if (b) b.classList.add('active');
             localStorage.setItem('app_color_theme', theme);
         }
+
+        function toggleSetting(key, el) { localStorage.setItem(key, el.checked); }
 
         function navigate(pageId, btn) {
             document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
@@ -860,21 +906,16 @@
         }
 
         function selectDay(dayId, btn) {
-            document.querySelectorAll('#day-tabs-container .tab-item').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
             if (btn) btn.classList.add('active');
             document.querySelectorAll('.day-content').forEach(d => d.style.display = 'none');
-            const targetDay = document.getElementById('day-' + dayId);
-            if (targetDay) targetDay.style.display = 'block';
+            document.getElementById('day-' + dayId).style.display = 'block';
         }
 
         function openWidget(widgetId) {
             document.querySelectorAll('.sub-panel').forEach(sp => sp.classList.remove('active'));
             const target = document.getElementById('sub-' + widgetId);
-            if (target) {
-                target.classList.add('active');
-                target.scrollIntoView({ behavior: 'smooth' });
-                if (widgetId === 'todo') renderTodoList();
-            }
+            if (target) { target.classList.add('active'); target.scrollIntoView({ behavior: 'smooth' }); }
         }
 
         function calculateGPA() {
@@ -887,21 +928,16 @@
             document.getElementById('gpa-result').innerText = `Средний балл: ${avg.toFixed(1)}% | GPA: ${((avg/100)*4.0).toFixed(2)}`;
         }
 
-        function sendAccessRequest() {
-            if (tg) {
-                tg.showAlert("Заявка успешно отправлена Семёну!");
-            } else {
-                window.location.href = "https://t.me/AmanzholovStudentBot?start=apply";
-            }
-        }
-
         document.addEventListener("DOMContentLoaded", () => {
             setTheme(localStorage.getItem('app_color_theme') || 'dark');
+            
+            // Загрузка состояния анимированного звука
+            const isSoundOn = localStorage.getItem('app_sound_enabled') !== 'false';
+            document.getElementById('set-sound-toggle').checked = isSoundOn;
+            toggleSoundSetting(document.getElementById('set-sound-toggle'));
+
             checkSecurity();
             fetchRealWeather();
-            autoSelectCurrentDayTab();
-            updateLiveScheduleTimer();
-            setInterval(updateLiveScheduleTimer, 30000); // Live timer update every 30s
         });
     </script>
 </body>
