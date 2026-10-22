@@ -41,39 +41,11 @@
             --border-color: rgba(0, 0, 0, 0.08); --nav-bg: rgba(249, 249, 249, 0.92);
         }
 
-        /* 🎃 ХЭЛЛОУИН */
-        body.theme-halloween {
-            --bg-color: #13091c; --card-bg: #211130; --card-secondary: #331a4a;
-            --accent-blue: #ff6a00; --text-primary: #f8f5ff; --text-secondary: #b399d4;
-            --border-color: rgba(255, 106, 0, 0.3); --nav-bg: rgba(33, 17, 48, 0.92);
-        }
-
-        /* ❄️ НОВЫЙ ГОД */
-        body.theme-newyear {
-            --bg-color: #071326; --card-bg: #0f2342; --card-secondary: #1a3661;
-            --accent-blue: #00d2ff; --text-primary: #ffffff; --text-secondary: #8cb8e6;
-            --border-color: rgba(0, 210, 255, 0.25); --nav-bg: rgba(15, 35, 66, 0.92);
-        }
-
-        /* ☀️ ЛЕТО */
-        body.theme-summer {
-            --bg-color: #0b1f24; --card-bg: #14323b; --card-secondary: #1e4754;
-            --accent-blue: #ffaa00; --text-primary: #ffffff; --text-secondary: #80c4d6;
-            --border-color: rgba(255, 170, 0, 0.25); --nav-bg: rgba(20, 50, 59, 0.92);
-        }
-
-        /* 🌸 САКУРА */
-        body.theme-sakura {
-            --bg-color: #2b1e23; --card-bg: #3d2b33; --card-secondary: #523a45;
-            --accent-blue: #ff75a0; --text-primary: #fff0f3; --text-secondary: #f7aef8;
-            --border-color: rgba(255, 117, 160, 0.25); --nav-bg: rgba(61, 43, 51, 0.92);
-        }
-
-        /* 🌌 НЕОН */
-        body.theme-cyber {
-            --bg-color: #08091a; --card-bg: #101330; --card-secondary: #1a1f4d;
-            --accent-blue: #00f0ff; --text-primary: #ffffff; --text-secondary: #707eb4;
-            --border-color: rgba(0, 240, 255, 0.25); --nav-bg: rgba(16, 19, 48, 0.92);
+        /* 🌙 ТЁМНАЯ */
+        body.theme-dark {
+            --bg-color: #000000; --card-bg: #1c1c1e; --card-secondary: #2c2c2e;
+            --accent-blue: #0a84ff; --text-primary: #ffffff; --text-secondary: #8e8e93;
+            --border-color: rgba(255, 255, 255, 0.08); --nav-bg: rgba(28, 28, 30, 0.90);
         }
 
         * {
@@ -90,20 +62,15 @@
             min-height: 100vh; max-width: 440px; margin: 0 auto; user-select: none; overflow-x: hidden;
         }
 
-        #access-denied-screen {
-            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            background: var(--bg-color); z-index: 9999; display: flex;
-            flex-direction: column; align-items: center; justify-content: center; padding: 24px; text-align: center;
+        /* Уведомление (Тост) */
+        #notification-toast {
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px);
+            background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-primary);
+            padding: 12px 20px; border-radius: 14px; font-weight: 700; font-size: 13px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 10000; transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex; align-items: center; gap: 8px;
         }
-        .lock-icon { font-size: 60px; margin-bottom: 16px; animation: pulseLock 2s infinite ease-in-out; }
-        @keyframes pulseLock { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
-        .lock-title { font-family: var(--font-display); font-size: 24px; font-weight: 800; margin-bottom: 8px; }
-        .lock-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 24px; max-width: 300px; }
-        .btn-request {
-            background: linear-gradient(135deg, var(--accent-blue), #5e5ce6);
-            color: #fff; border: none; padding: 14px 24px; border-radius: 14px;
-            font-weight: 700; width: 100%; max-width: 280px; cursor: pointer;
-        }
+        #notification-toast.show { transform: translateX(-50%) translateY(0); }
 
         .app-header { display: flex; align-items: center; justify-content: space-between; padding: 8px 4px 14px 4px; position: relative; }
         .uni-brand-wrap { display: flex; align-items: center; gap: 10px; }
@@ -139,13 +106,8 @@
         .weather-city { font-size: 12px; color: var(--text-secondary); }
         .weather-hint { font-size: 10px; color: var(--accent-blue); font-weight: 600; margin-top: 2px; }
 
-        .weather-anim-icon {
-            display: inline-block; font-size: 28px; animation: floatIcon 3s infinite ease-in-out;
-        }
-        @keyframes floatIcon {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-4px) rotate(6deg); }
-        }
+        .weather-anim-icon { display: inline-block; font-size: 28px; animation: floatIcon 3s infinite ease-in-out; }
+        @keyframes floatIcon { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-4px) rotate(6deg); } }
 
         .live-timer-card {
             background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 18px; padding: 16px; margin-bottom: 14px;
@@ -194,11 +156,11 @@
         .sub-panel { display: none; margin-top: 8px; }
         .sub-panel.active { display: block; animation: slideUp 0.3s ease-out forwards; }
 
-        .theme-grid-selector { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
+        .theme-grid-selector { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 10px; }
         .theme-card-btn {
             border: 1px solid var(--border-color); background: var(--card-secondary); color: var(--text-primary);
-            border-radius: 12px; padding: 10px 6px; font-size: 11px; font-weight: 700; text-align: center; cursor: pointer;
-            display: flex; flex-direction: column; align-items: center; gap: 4px;
+            border-radius: 12px; padding: 14px; font-size: 13px; font-weight: 700; text-align: center; cursor: pointer;
+            display: flex; flex-direction: column; align-items: center; gap: 6px;
         }
         .theme-card-btn.active { border-color: var(--accent-blue); background: var(--accent-blue); color: #fff; }
 
@@ -206,7 +168,6 @@
         .admin-input { background: var(--card-secondary); border: 1px solid var(--border-color); color: var(--text-primary); padding: 10px 12px; border-radius: 12px; font-size: 13px; width: 100%; margin-bottom: 8px; outline: none; }
         .admin-btn { background: #ff2d55; color: #fff; border: none; padding: 12px 16px; border-radius: 12px; font-weight: 700; width: 100%; cursor: pointer; font-size: 13px; margin-bottom: 10px; }
 
-        /* Календарь */
         .calendar-header-box { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
         .calendar-month-title { font-family: var(--font-display); font-size: 16px; font-weight: 800; }
         .calendar-nav-btn { background: var(--card-secondary); color: var(--text-primary); border: 1px solid var(--border-color); width: 32px; height: 32px; border-radius: 8px; font-weight: 800; cursor: pointer; }
@@ -229,11 +190,9 @@
 </head>
 <body class="theme-dark">
 
-    <div id="access-denied-screen" style="display: none;">
-        <div class="lock-icon">🔒</div>
-        <div class="lock-title" id="lock-title-text">Доступ ограничен</div>
-        <div class="lock-desc" id="lock-desc-text">Это закрытая система Amanzholov University. Вход разрешён только авторизованным студентам.</div>
-        <button class="btn-request" onclick="sendAccessRequest()">Подать заявку на доступ</button>
+    <div id="notification-toast">
+        <span id="toast-icon">✅</span>
+        <span id="toast-text">Уведомление</span>
     </div>
 
     <div class="app-header">
@@ -254,7 +213,6 @@
         <button class="menu-dots-btn" onclick="toggleDropdownMenu(event)">⋮</button>
 
         <div class="dropdown-menu" id="app-dropdown-menu">
-            <button class="dropdown-item" onclick="installPWAApp()"><span>📱</span> <span>Ярлык на рабочий стол</span></button>
             <button class="dropdown-item" onclick="navigate('services'); openWidget('settings'); closeDropdownMenu();"><span>🎨</span> <span>Темы и Оформление</span></button>
             <button class="dropdown-item" onclick="navigate('services'); openWidget('profile'); closeDropdownMenu();"><span>👤</span> <span>Мой профиль</span></button>
             <button class="dropdown-item" onclick="sendAccessRequest(); closeDropdownMenu();"><span>🔔</span> <span>Заявка на доступ</span></button>
@@ -368,7 +326,7 @@
             <div class="widget-item admin-widget-card" id="admin-widget-btn" onclick="openWidget('admin')">
                 <svg class="widget-icon" style="color:#ff2d55;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                 <div class="widget-title" style="color:#ff2d55;">Панель Администратора</div>
-                <div class="widget-sub">Кик, Мут и Ручной ввод ID</div>
+                <div class="widget-sub">Управление доступом по ID</div>
             </div>
 
             <div class="widget-item" onclick="openWidget('calendar')">
@@ -399,9 +357,8 @@
         <div id="sub-admin" class="sub-panel card" style="border-color: rgba(255,45,85,0.4);">
             <div class="card-header" style="color:#ff2d55;">Панель Администратора</div>
             <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 8px;">Добавить пользователя по Telegram ID:</div>
-            <input type="number" id="manual-user-id" class="admin-input" placeholder="Введите Telegram ID">
-            <input type="text" id="manual-user-name" class="admin-input" placeholder="Имя / Ник студента">
-            <button class="admin-btn" onclick="manualAddUser()">+ Добавить пользователя</button>
+            <input type="number" id="manual-user-id" class="admin-input" placeholder="Введите Telegram ID (только цифры)">
+            <button class="admin-btn" onclick="manualAddUser()">+ Добавить по ID</button>
             
             <div style="font-size: 13px; font-weight: 700; margin: 12px 0 6px 0; color: var(--text-primary);">База пользователей:</div>
             <div id="admin-users-list">
@@ -443,11 +400,6 @@
             <div class="theme-grid-selector">
                 <div class="theme-card-btn active" id="th-dark" onclick="setTheme('dark')"><span>🌙</span>Тёмная</div>
                 <div class="theme-card-btn" id="th-light" onclick="setTheme('light')"><span>☀️</span>Светлая</div>
-                <div class="theme-card-btn" id="th-halloween" onclick="setTheme('halloween')"><span>🎃</span>Хэллоуин</div>
-                <div class="theme-card-btn" id="th-newyear" onclick="setTheme('newyear')"><span>❄️</span>Новый Год</div>
-                <div class="theme-card-btn" id="th-summer" onclick="setTheme('summer')"><span>☀️</span>Лето</div>
-                <div class="theme-card-btn" id="th-sakura" onclick="setTheme('sakura')"><span>🌸</span>Сакура</div>
-                <div class="theme-card-btn" id="th-cyber" onclick="setTheme('cyber')"><span>🌌</span>Неон</div>
             </div>
         </div>
 
@@ -483,6 +435,14 @@
 
         const ADMIN_ID = "5644768982";
 
+        function showNotification(text, icon = "✅") {
+            const toast = document.getElementById('notification-toast');
+            document.getElementById('toast-text').innerText = text;
+            document.getElementById('toast-icon').innerText = icon;
+            toast.classList.add('show');
+            setTimeout(() => { toast.classList.remove('show'); }, 3000);
+        }
+
         function toggleDropdownMenu(e) { e.stopPropagation(); document.getElementById('app-dropdown-menu').classList.toggle('active'); }
         function closeDropdownMenu() { const m = document.getElementById('app-dropdown-menu'); if(m) m.classList.remove('active'); }
         document.addEventListener('click', () => closeDropdownMenu());
@@ -494,10 +454,10 @@
             let firstName = user ? (user.first_name || "Семён") : "Семён";
 
             let usersDb = JSON.parse(localStorage.getItem('portal_users') || '{}');
-            usersDb[ADMIN_ID] = { id: ADMIN_ID, name: "Семён (Админ)", username: "@semen", muted: false, status: "Владелец" };
+            usersDb[ADMIN_ID] = { id: ADMIN_ID, name: "Семён (Админ)", username: "@semen", status: "Владелец" };
 
             if (!usersDb[userId] && userId !== ADMIN_ID) {
-                usersDb[userId] = { id: userId, name: firstName, username: username, muted: false, status: "Ожидает" };
+                usersDb[userId] = { id: userId, name: firstName, username: username, status: "Ожидает" };
                 localStorage.setItem('portal_users', JSON.stringify(usersDb));
             }
 
@@ -514,17 +474,15 @@
 
         function manualAddUser() {
             const idInput = document.getElementById('manual-user-id').value.trim();
-            const nameInput = document.getElementById('manual-user-name').value.trim() || "Студент";
-            if (!idInput) { alert("Введите Telegram ID!"); return; }
+            if (!idInput) { showNotification("Введите Telegram ID!", "⚠️"); return; }
 
             let usersDb = JSON.parse(localStorage.getItem('portal_users') || '{}');
-            usersDb[idInput] = { id: idInput, name: nameInput, username: "ID " + idInput, muted: false, kicked: false, status: "Активен" };
+            usersDb[idInput] = { id: idInput, name: "Студент ID " + idInput, username: "ID " + idInput, status: "Активен" };
             localStorage.setItem('portal_users', JSON.stringify(usersDb));
 
             document.getElementById('manual-user-id').value = "";
-            document.getElementById('manual-user-name').value = "";
             renderAdminUsersList();
-            if (tg) tg.showAlert("Пользователь добавлен!");
+            showNotification("Пользователь добавлен по ID!");
         }
 
         function renderAdminUsersList() {
@@ -540,12 +498,11 @@
             keys.forEach(id => {
                 if (id === ADMIN_ID) return;
                 let u = usersDb[id];
-                html += `<div class="user-manage-item" style="background:var(--card-secondary); padding:10px; border-radius:10px; margin-bottom:6px;">
+                html += `<div style="background:var(--card-secondary); padding:10px; border-radius:10px; margin-bottom:6px;">
                     <div style="display:flex; justify-content:space-between; align-items:center;">
-                        <span style="font-weight:700; font-size:13px;">${u.name}</span>
+                        <span style="font-weight:700; font-size:13px;">ID: ${u.id}</span>
                         <button style="background:rgba(255,59,48,0.2); color:#ff3b30; border:none; padding:4px 8px; border-radius:6px; font-weight:700; cursor:pointer;" onclick="kickUser('${id}')">Кик</button>
                     </div>
-                    <div style="font-size:11px; color:var(--text-secondary);">ID: ${u.id}</div>
                 </div>`;
             });
             container.innerHTML = html;
@@ -554,19 +511,91 @@
         function kickUser(id) {
             let usersDb = JSON.parse(localStorage.getItem('portal_users') || '{}');
             if (usersDb[id]) {
-                usersDb[id].kicked = true;
+                delete usersDb[id];
                 localStorage.setItem('portal_users', JSON.stringify(usersDb));
                 renderAdminUsersList();
+                showNotification("Пользователь удален!");
             }
         }
 
         function sendAccessRequest() {
-            if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
-                try { tg.sendData(JSON.stringify({ action: "request_access" })); tg.showAlert("Заявка отправлена!"); }
-                catch (e) { window.location.href = "https://t.me/AmanzholovStudentBot?start=apply"; }
-            } else { window.location.href = "https://t.me/AmanzholovStudentBot?start=apply"; }
+            showNotification("Заявка на доступ отправлена!", "📨");
+            if (tg) {
+                try { tg.sendData(JSON.stringify({ action: "request_access" })); } catch (e) {}
+            }
         }
 
+        // Логика таймера пар и расписания
+        const scheduleData = {
+            1: [["09:50","10:40"], ["11:00","11:50"], ["11:55","12:45"], ["12:50","13:40"], ["13:45","14:35"], ["14:40","15:30"]],
+            2: [["08:00","08:50"], ["09:50","10:40"], ["11:00","11:50"], ["11:55","12:45"], ["12:50","13:40"]],
+            3: [["08:00","08:50"], ["08:55","09:45"], ["11:00","11:50"], ["11:55","12:45"], ["12:50","13:40"]],
+            4: [["08:00","08:50"], ["12:50","13:40"], ["13:45","14:35"]],
+            5: [["09:50","10:40"], ["11:00","11:50"], ["12:50","13:40"]]
+        };
+
+        function timeToMinutes(tStr) {
+            const parts = tStr.split(":");
+            return parseInt(parts[0]) * 60 + parseInt(parts[1]);
+        }
+
+        function updateLiveTimer() {
+            const now = new Date();
+            const dayOfWeek = now.getDay(); // 0 - ВС, 1 - ПН ... 6 - СБ
+            const currentMin = now.getHours() * 60 + now.getMinutes();
+
+            const pill = document.getElementById('timer-pill');
+            const title = document.getElementById('timer-title-text');
+            const loc = document.getElementById('timer-location-text');
+
+            if (dayOfWeek === 0 || dayOfWeek === 6 || !scheduleData[dayOfWeek]) {
+                pill.className = "timer-status-pill ended";
+                pill.innerText = "Выходной";
+                title.innerText = "Сегодня пар нет 🎉";
+                loc.innerText = "Отдыхайте и набирайтесь сил";
+                return;
+            }
+
+            const lessons = scheduleData[dayOfWeek];
+            let activeLesson = null;
+            let nextLesson = null;
+
+            for (let i = 0; i < lessons.length; i++) {
+                let start = timeToMinutes(lessons[i][0]);
+                let end = timeToMinutes(lessons[i][1]);
+
+                if (currentMin >= start && currentMin <= end) {
+                    activeLesson = { num: i + 1, start: lessons[i][0], end: lessons[i][1] };
+                    break;
+                } else if (currentMin < start) {
+                    nextLesson = { num: i + 1, start: lessons[i][0] };
+                    break;
+                }
+            }
+
+            if (activeLesson) {
+                pill.className = "timer-status-pill active";
+                pill.innerText = `Идет ${activeLesson.num} пара`;
+                title.innerText = `До конца пары осталось:`;
+                let endMin = timeToMinutes(activeLesson.end);
+                let diff = endMin - currentMin;
+                loc.innerText = `Конец в ${activeLesson.end} (осталось ~${diff} мин.)`;
+            } else if (nextLesson) {
+                pill.className = "timer-status-pill break";
+                pill.innerText = "Перемена / Ожидание";
+                title.innerText = `Следующая (${nextLesson.num} пара):`;
+                let startMin = timeToMinutes(nextLesson.start);
+                let diff = startMin - currentMin;
+                loc.innerText = `Начало в ${nextLesson.start} (через ${diff} мин.)`;
+            } else {
+                pill.className = "timer-status-pill ended";
+                pill.innerText = "Завершено";
+                title.innerText = "Все пары на сегодня окончены";
+                loc.innerText = "Отличная работа, Семён!";
+            }
+        }
+
+        // Календарь
         let calCurrentDate = new Date();
 
         function renderCalendar() {
@@ -613,6 +642,15 @@
             renderCalendar();
         }
 
+        // Погода с иконками для недели
+        function getWeatherIcon(code, temp) {
+            if (temp <= 0) return "❄️"; // Снег
+            if (code >= 50 && code <= 67) return "🌧️"; // Дождь
+            if (code >= 1 && code <= 3) return "⛅"; // Облачно
+            if (code >= 95) return "⚡"; // Гроза
+            return "☀️"; // Солнечно / Ясно
+        }
+
         async function fetchRealWeather() {
             try {
                 const res = await fetch("https://api.open-meteo.com/v1/forecast?latitude=49.95&longitude=82.61&current_weather=true");
@@ -621,6 +659,7 @@
                     const temp = Math.round(data.current_weather.temperature);
                     document.getElementById('weather-temp-text').innerText = (temp > 0 ? "+" : "") + temp + "°C";
                     document.getElementById('weather-desc-text').innerText = 'Усть-Каменогорск • Ясно';
+                    document.getElementById('weather-icon').innerText = getWeatherIcon(data.current_weather.weathercode, temp);
                 }
             } catch (e) {}
         }
@@ -635,13 +674,17 @@
                     const days = ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"];
                     for (let i = 0; i < 7; i++) {
                         let dayName = i === 0 ? "Сегодня" : days[new Date(data.daily.time[i]).getDay()];
-                        html += `<div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid var(--border-color); font-size:13px;">
-                            <div>${dayName}</div><div>${Math.round(data.daily.temperature_2m_min[i])}° / ${Math.round(data.daily.temperature_2m_max[i])}°C</div>
+                        let minT = Math.round(data.daily.temperature_2m_min[i]);
+                        let maxT = Math.round(data.daily.temperature_2m_max[i]);
+                        let icon = getWeatherIcon(data.daily.weathercode[i], minT);
+                        html += `<div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--border-color); font-size:13px;">
+                            <div style="display:flex; align-items:center; gap:8px;"><span>${icon}</span><span>${dayName}</span></div>
+                            <div>${minT}° / ${maxT}°C</div>
                         </div>`;
                     }
                     container.innerHTML = html;
                 }
-            } catch (e) { container.innerHTML = "Ошибка прогноза"; }
+            } catch (e) { container.innerHTML = "Ошибка загрузки прогноза"; }
         }
 
         function toggleWeeklyWeather() {
@@ -693,6 +736,8 @@
             checkSecurity();
             fetchRealWeather();
             renderCalendar();
+            updateLiveTimer();
+            setInterval(updateLiveTimer, 30000); // Обновление таймера каждые 30 секунд
         });
     </script>
 </body>
