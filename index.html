@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Amanzholov Student Portal</title>
     
-    <!-- PWA Настройки для установки на рабочий стол -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Amanzholov">
@@ -35,271 +34,83 @@
             --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
-        /* 💡 СВЕТЛАЯ ТЕМА */
         body.theme-light {
-            --bg-color: #f2f2f7;
-            --card-bg: #ffffff;
-            --card-secondary: #e5e5ea;
-            --accent-blue: #007aff;
-            --text-primary: #000000;
-            --text-secondary: #6c6c70;
-            --border-color: rgba(0, 0, 0, 0.08);
-            --nav-bg: rgba(249, 249, 249, 0.92);
-            --badge-lecture: rgba(0, 122, 255, 0.1);
-            --text-lecture: #007aff;
-            --badge-spz: rgba(52, 199, 89, 0.12);
-            --text-spz: #28cd41;
+            --bg-color: #f2f2f7; --card-bg: #ffffff; --card-secondary: #e5e5ea;
+            --accent-blue: #007aff; --text-primary: #000000; --text-secondary: #6c6c70;
+            --border-color: rgba(0, 0, 0, 0.08); --nav-bg: rgba(249, 249, 249, 0.92);
         }
-
-        /* 🌅 ТЕМА ЗАКАТ (SUNSET) */
         body.theme-sunset {
-            --bg-color: #1a0b2e;
-            --card-bg: #27123d;
-            --card-secondary: #3b1b5c;
-            --accent-blue: #ff6b4a;
-            --text-primary: #fff0f5;
-            --text-secondary: #b388eb;
-            --border-color: rgba(255, 107, 74, 0.2);
-            --nav-bg: rgba(39, 18, 61, 0.92);
-            --badge-lecture: rgba(255, 107, 74, 0.2);
-            --text-lecture: #ff9e80;
-            --badge-spz: rgba(255, 159, 28, 0.2);
-            --text-spz: #ff9f1c;
+            --bg-color: #1a0b2e; --card-bg: #27123d; --card-secondary: #3b1b5c;
+            --accent-blue: #ff6b4a; --text-primary: #fff0f5; --text-secondary: #b388eb;
+            --border-color: rgba(255, 107, 74, 0.2); --nav-bg: rgba(39, 18, 61, 0.92);
         }
-
-        /* 🌸 ТЕМА САКУРА (SAKURA) */
         body.theme-sakura {
-            --bg-color: #2b1e23;
-            --card-bg: #3d2b33;
-            --card-secondary: #523a45;
-            --accent-blue: #ff75a0;
-            --text-primary: #fff0f3;
-            --text-secondary: #f7aef8;
-            --border-color: rgba(255, 117, 160, 0.25);
-            --nav-bg: rgba(61, 43, 51, 0.92);
-            --badge-lecture: rgba(255, 117, 160, 0.2);
-            --text-lecture: #ff75a0;
-            --badge-spz: rgba(247, 174, 248, 0.2);
-            --text-spz: #f7aef8;
+            --bg-color: #2b1e23; --card-bg: #3d2b33; --card-secondary: #523a45;
+            --accent-blue: #ff75a0; --text-primary: #fff0f3; --text-secondary: #f7aef8;
+            --border-color: rgba(255, 117, 160, 0.25); --nav-bg: rgba(61, 43, 51, 0.92);
         }
-
-        /* 🌋 ТЕМА ЛАВА (LAVA) */
         body.theme-lava {
-            --bg-color: #121212;
-            --card-bg: #1e1b1b;
-            --card-secondary: #2d2626;
-            --accent-blue: #ff3b30;
-            --text-primary: #ffffff;
-            --text-secondary: #a08a8a;
-            --border-color: rgba(255, 59, 48, 0.25);
-            --nav-bg: rgba(30, 27, 27, 0.92);
-            --badge-lecture: rgba(255, 59, 48, 0.2);
-            --text-lecture: #ff6b60;
-            --badge-spz: rgba(255, 149, 0, 0.2);
-            --text-spz: #ff9500;
+            --bg-color: #121212; --card-bg: #1e1b1b; --card-secondary: #2d2626;
+            --accent-blue: #ff3b30; --text-primary: #ffffff; --text-secondary: #a08a8a;
+            --border-color: rgba(255, 59, 48, 0.25); --nav-bg: rgba(30, 27, 27, 0.92);
         }
-
-        /* 🌌 ТЕМА НЕОН / КИБЕРПАНК */
         body.theme-cyber {
-            --bg-color: #08091a;
-            --card-bg: #101330;
-            --card-secondary: #1a1f4d;
-            --accent-blue: #00f0ff;
-            --text-primary: #ffffff;
-            --text-secondary: #707eb4;
-            --border-color: rgba(0, 240, 255, 0.25);
-            --nav-bg: rgba(16, 19, 48, 0.92);
-            --badge-lecture: rgba(0, 240, 255, 0.2);
-            --text-lecture: #00f0ff;
-            --badge-spz: rgba(255, 0, 127, 0.2);
-            --text-spz: #ff007f;
+            --bg-color: #08091a; --card-bg: #101330; --card-secondary: #1a1f4d;
+            --accent-blue: #00f0ff; --text-primary: #ffffff; --text-secondary: #707eb4;
+            --border-color: rgba(0, 240, 255, 0.25); --nav-bg: rgba(16, 19, 48, 0.92);
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: var(--font-main);
-            -webkit-tap-highlight-color: transparent;
-            transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease, transform 0.2s ease;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--font-main); -webkit-tap-highlight-color: transparent; transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
+        body { background-color: var(--bg-color); color: var(--text-primary); padding: 14px 14px 100px 14px; display: flex; flex-direction: column; min-height: 100vh; max-width: 440px; margin: 0 auto; user-select: none; }
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            padding: 14px 14px 100px 14px;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            max-width: 440px;
-            margin: 0 auto;
-            user-select: none;
-        }
-
-        /* ЭКРАН СТРОГОГО ДОСТУПА */
-        #access-denied-screen {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: var(--bg-color);
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 24px;
-            text-align: center;
-        }
-        .lock-icon { font-size: 60px; margin-bottom: 16px; animation: pulseLock 2s infinite ease-in-out; }
-        @keyframes pulseLock { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
-        .lock-title { font-family: var(--font-display); font-size: 24px; font-weight: 800; color: var(--text-primary); margin-bottom: 8px; }
+        #access-denied-screen { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--bg-color); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px; text-align: center; }
+        .lock-icon { font-size: 60px; margin-bottom: 16px; }
+        .lock-title { font-family: var(--font-display); font-size: 24px; font-weight: 800; margin-bottom: 8px; }
         .lock-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 24px; max-width: 300px; }
-        .btn-request {
-            background: linear-gradient(135deg, var(--accent-blue), #5e5ce6);
-            color: #ffffff;
-            border: none;
-            padding: 14px 24px;
-            border-radius: 14px;
-            font-weight: 700;
-            font-size: 14px;
-            width: 100%;
-            max-width: 280px;
-            cursor: pointer;
-            box-shadow: 0 4px 16px rgba(10, 132, 255, 0.4);
-        }
-        .btn-request:active { transform: scale(0.96); }
+        .btn-request { background: linear-gradient(135deg, var(--accent-blue), #5e5ce6); color: #fff; border: none; padding: 14px 24px; border-radius: 14px; font-weight: 700; width: 100%; max-width: 280px; cursor: pointer; }
 
-        .app-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 8px 4px 14px 4px;
-            position: relative;
-        }
+        .app-header { display: flex; align-items: center; justify-content: space-between; padding: 8px 4px 14px 4px; position: relative; }
         .uni-brand-wrap { display: flex; align-items: center; gap: 10px; }
-        .uni-logo-box { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .uni-logo-box { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; }
         .uni-brand { display: flex; flex-direction: column; }
-        .uni-name {
-            font-family: var(--font-display);
-            font-size: 18px;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            color: var(--text-primary);
-            line-height: 1.1;
-        }
+        .uni-name { font-family: var(--font-display); font-size: 18px; font-weight: 800; color: var(--text-primary); line-height: 1.1; }
         .uni-sub { font-size: 11px; color: var(--text-secondary); font-weight: 500; margin-top: 2px; }
 
-        /* КНОПКА МЕНЮ 3 ТОЧКИ */
-        .menu-dots-btn {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            color: var(--text-primary);
-            width: 36px;
-            height: 36px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            font-weight: 800;
-            cursor: pointer;
-            flex-shrink: 0;
-        }
-        .menu-dots-btn:active { transform: scale(0.92); }
-
-        /* ВЫПАДАЮЩЕЕ МЕНЮ */
-        .dropdown-menu {
-            position: absolute;
-            top: 54px;
-            right: 4px;
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 8px;
-            width: 210px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            display: none;
-            flex-direction: column;
-            gap: 4px;
-            z-index: 2000;
-            animation: fadeIn 0.2s ease-out;
-        }
+        .menu-dots-btn { background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-primary); width: 36px; height: 36px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 800; cursor: pointer; }
+        .dropdown-menu { position: absolute; top: 54px; right: 4px; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 8px; width: 210px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); display: none; flex-direction: column; gap: 4px; z-index: 2000; }
         .dropdown-menu.active { display: flex; }
-        .dropdown-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 12px;
-            border-radius: 10px;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-primary);
-            cursor: pointer;
-            background: transparent;
-            border: none;
-            width: 100%;
-            text-align: left;
-        }
+        .dropdown-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 10px; font-size: 13px; font-weight: 600; color: var(--text-primary); cursor: pointer; background: transparent; border: none; text-align: left; width: 100%; }
         .dropdown-item:active { background: var(--card-secondary); }
 
-        /* Погода */
-        .weather-card {
-            background: linear-gradient(135deg, rgba(10, 132, 255, 0.18), rgba(94, 92, 230, 0.12));
-            border: 1px solid rgba(10, 132, 255, 0.25);
-            border-radius: 18px;
-            padding: 14px 16px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-        }
-        .weather-info { z-index: 2; }
-        .weather-temp { font-family: var(--font-display); font-size: 22px; font-weight: 800; color: var(--text-primary); }
-        .weather-city { font-size: 12px; color: var(--text-secondary); font-weight: 500; }
+        .weather-card { background: linear-gradient(135deg, rgba(10, 132, 255, 0.18), rgba(94, 92, 230, 0.12)); border: 1px solid rgba(10, 132, 255, 0.25); border-radius: 18px; padding: 14px 16px; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
+        .weather-temp { font-family: var(--font-display); font-size: 22px; font-weight: 800; }
+        .weather-city { font-size: 12px; color: var(--text-secondary); }
         .weather-hint { font-size: 10px; color: var(--accent-blue); font-weight: 600; margin-top: 2px; }
-        .weather-anim-box { position: relative; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; font-size: 30px; z-index: 2; }
 
-        .weather-forecast-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border-color); }
-        .weather-forecast-row:last-child { border-bottom: none; }
-        .wf-day { font-size: 14px; font-weight: 600; width: 80px; }
-        .wf-icon { font-size: 18px; text-align: center; width: 40px; }
-        .wf-temp { font-size: 14px; font-weight: 700; text-align: right; width: 80px; color: var(--accent-blue); }
-
-        /* Таймер Пар */
-        .live-timer-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 18px;
-            padding: 16px;
-            margin-bottom: 14px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-        }
+        .live-timer-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 18px; padding: 16px; margin-bottom: 14px; }
         .timer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-        .timer-status-pill { font-family: var(--font-display); font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .timer-status-pill { font-family: var(--font-display); font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; }
         .timer-status-pill.active { background: rgba(52, 199, 89, 0.15); color: #30d158; }
         .timer-status-pill.break { background: rgba(255, 149, 0, 0.15); color: #ff9500; }
         .timer-status-pill.ended { background: rgba(142, 142, 147, 0.15); color: #8e8e93; }
-
-        .timer-title { font-size: 16px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
+        .timer-title { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
         .timer-sub { font-size: 12px; color: var(--text-secondary); }
 
-        .tabs-container { display: flex; gap: 6px; margin-bottom: 14px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+        .tabs-container { display: flex; gap: 6px; margin-bottom: 14px; overflow-x: auto; scrollbar-width: none; }
         .tabs-container::-webkit-scrollbar { display: none; }
         .tab-item { font-family: var(--font-display); background: var(--card-bg); color: var(--text-secondary); border: 1px solid var(--border-color); padding: 8px 14px; border-radius: 12px; font-size: 13px; font-weight: 700; white-space: nowrap; cursor: pointer; }
-        .tab-item.active { background: var(--accent-blue); color: #ffffff; border-color: var(--accent-blue); box-shadow: 0 4px 14px rgba(10, 132, 255, 0.35); }
+        .tab-item.active { background: var(--accent-blue); color: #fff; border-color: var(--accent-blue); }
 
         .card { background: var(--card-bg); border-radius: 18px; padding: 16px; border: 1px solid var(--border-color); margin-bottom: 12px; }
-        .card-header { font-family: var(--font-display); font-size: 13px; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; display: flex; justify-content: space-between; }
+        .card-header { font-family: var(--font-display); font-size: 13px; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 12px; display: flex; justify-content: space-between; }
 
         .lesson-row { display: flex; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid var(--border-color); }
         .lesson-row:last-child { border-bottom: none; padding-bottom: 0; }
         .lesson-time-col { width: 85px; flex-shrink: 0; }
-        .lesson-start { font-family: var(--font-display); font-size: 15px; font-weight: 700; color: var(--text-primary); }
-        .lesson-end { font-size: 12px; color: var(--text-secondary); font-weight: 500; }
+        .lesson-start { font-family: var(--font-display); font-size: 15px; font-weight: 700; }
+        .lesson-end { font-size: 12px; color: var(--text-secondary); }
         .lesson-main { flex-grow: 1; padding-left: 8px; }
-        .lesson-title { font-size: 15px; font-weight: 600; color: var(--text-primary); line-height: 1.25; margin-bottom: 4px; }
+        .lesson-title { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
         .lesson-meta { font-size: 12px; color: var(--text-secondary); display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
         .type-pill { font-family: var(--font-display); font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 6px; text-transform: uppercase; }
         .type-pill.lecture { background: var(--badge-lecture); color: var(--text-lecture); }
@@ -311,9 +122,8 @@
 
         .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 14px; }
         .widget-item { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 16px 14px; cursor: pointer; }
-        .widget-item:active { transform: scale(0.97); }
         .widget-icon { width: 28px; height: 28px; margin-bottom: 10px; color: var(--accent-blue); }
-        .widget-title { font-family: var(--font-display); font-size: 14px; font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
+        .widget-title { font-family: var(--font-display); font-size: 14px; font-weight: 700; margin-bottom: 2px; }
         .widget-sub { font-size: 11px; color: var(--text-secondary); }
 
         .sub-panel { display: none; margin-top: 8px; animation: fadeIn 0.3s ease-in-out; }
@@ -325,44 +135,41 @@
         .setting-sub { font-size: 11px; color: var(--text-secondary); }
 
         .theme-grid-selector { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
-        .theme-card-btn {
-            border: 1px solid var(--border-color);
-            background: var(--card-secondary);
-            color: var(--text-primary);
-            border-radius: 12px;
-            padding: 10px 6px;
-            font-size: 11px;
-            font-weight: 700;
-            text-align: center;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-        }
+        .theme-card-btn { border: 1px solid var(--border-color); background: var(--card-secondary); color: var(--text-primary); border-radius: 12px; padding: 10px 6px; font-size: 11px; font-weight: 700; text-align: center; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px; }
         .theme-card-btn.active { border-color: var(--accent-blue); background: var(--accent-blue); color: #fff; }
 
         .admin-widget-card { background: linear-gradient(135deg, rgba(255, 45, 85, 0.15), rgba(175, 82, 222, 0.12)); border: 1px solid rgba(255, 45, 85, 0.3); grid-column: span 2; display: none; }
         
+        /* Стили админ-управления */
+        .admin-input { background: var(--card-secondary); border: 1px solid var(--border-color); color: var(--text-primary); padding: 8px 12px; border-radius: 10px; font-size: 13px; width: 100%; margin-bottom: 8px; outline: none; }
+        .admin-btn { background: #ff2d55; color: #fff; border: none; padding: 10px 16px; border-radius: 10px; font-weight: 700; width: 100%; cursor: pointer; font-size: 13px; margin-bottom: 10px; }
+        .user-manage-item { display: flex; flex-direction: column; background: var(--card-secondary); padding: 10px 12px; border-radius: 12px; margin-bottom: 8px; gap: 6px; }
+        .user-manage-row { display: flex; justify-content: space-between; align-items: center; }
+        .user-manage-name { font-size: 13px; font-weight: 700; color: var(--text-primary); }
+        .user-manage-sub { font-size: 11px; color: var(--text-secondary); }
+        .admin-action-btn { padding: 4px 8px; border-radius: 6px; border: none; font-size: 10px; font-weight: 700; cursor: pointer; margin-left: 4px; }
+        .btn-kick { background: rgba(255, 59, 48, 0.2); color: #ff3b30; }
+        .btn-mute { background: rgba(255, 149, 0, 0.2); color: #ff9500; }
+        .btn-unmute { background: rgba(52, 199, 89, 0.2); color: #30d158; }
+
         .gpa-input { background: var(--card-secondary); border: 1px solid var(--border-color); color: var(--text-primary); padding: 8px 12px; border-radius: 10px; font-size: 14px; width: 100%; margin-bottom: 8px; outline: none; }
         .gpa-btn { background: var(--accent-blue); color: #fff; border: none; padding: 10px 16px; border-radius: 10px; font-weight: 700; width: 100%; cursor: pointer; }
 
-        /* iOS Switch */
         .ios-switch { position: relative; display: inline-block; width: 44px; height: 24px; }
         .ios-switch input { opacity: 0; width: 0; height: 0; }
         .switch-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #3a3a3c; transition: .3s; border-radius: 30px; }
-        .switch-slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .3s; border-radius: 50%; }
+        .switch-slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: #fff; transition: .3s; border-radius: 50%; }
         input:checked + .switch-slider { background-color: #34c759; }
         input:checked + .switch-slider:before { transform: translateX(20px); }
 
         .calendar-header-box { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
-        .calendar-month-title { font-family: var(--font-display); font-size: 16px; font-weight: 800; color: var(--text-primary); }
+        .calendar-month-title { font-family: var(--font-display); font-size: 16px; font-weight: 800; }
         .calendar-nav-btn { background: var(--card-secondary); color: var(--text-primary); border: 1px solid var(--border-color); width: 32px; height: 32px; border-radius: 8px; font-weight: 800; cursor: pointer; }
         .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; text-align: center; }
         .cal-day-name { font-size: 11px; font-weight: 700; color: var(--text-secondary); padding-bottom: 6px; }
-        .cal-date-cell { font-size: 13px; font-weight: 600; padding: 8px 0; border-radius: 10px; color: var(--text-primary); background: var(--card-secondary); }
+        .cal-date-cell { font-size: 13px; font-weight: 600; padding: 8px 0; border-radius: 10px; background: var(--card-secondary); }
         .cal-date-cell.empty { background: transparent; }
-        .cal-date-cell.today { background: var(--accent-blue); color: #ffffff; font-weight: 800; box-shadow: 0 2px 8px rgba(10,132,255,0.4); }
+        .cal-date-cell.today { background: var(--accent-blue); color: #fff; font-weight: 800; }
 
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--nav-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); display: flex; justify-content: space-around; padding: 8px 16px 20px 16px; border-top: 1px solid var(--border-color); max-width: 440px; margin: 0 auto; z-index: 1000; }
         .nav-tab { display: flex; flex-direction: column; align-items: center; color: var(--text-secondary); background: none; border: none; gap: 3px; cursor: pointer; flex: 1; }
@@ -376,8 +183,8 @@
     <!-- ЭКРАН СТРОГОГО ДОСТУПА -->
     <div id="access-denied-screen" style="display: none;">
         <div class="lock-icon">🔒</div>
-        <div class="lock-title">Доступ ограничен</div>
-        <div class="lock-desc">Это закрытая система Amanzholov University. Вход разрешён только авторизованным студентам.</div>
+        <div class="lock-title" id="lock-title-text">Доступ ограничен</div>
+        <div class="lock-desc" id="lock-desc-text">Это закрытая система Amanzholov University. Вход разрешён только авторизованным студентам.</div>
         <button class="btn-request" onclick="sendAccessRequest()">Подать заявку на доступ</button>
     </div>
 
@@ -397,23 +204,13 @@
             </div>
         </div>
 
-        <!-- Кнопка 3 точки -->
         <button class="menu-dots-btn" onclick="toggleDropdownMenu(event)">⋮</button>
 
-        <!-- Выпадающее меню -->
         <div class="dropdown-menu" id="app-dropdown-menu">
-            <button class="dropdown-item" onclick="installPWAApp()">
-                <span>📱</span> <span>Ярлык на рабочий стол</span>
-            </button>
-            <button class="dropdown-item" onclick="navigate('services'); openWidget('settings'); closeDropdownMenu();">
-                <span>🎨</span> <span>Темы и Оформление</span>
-            </button>
-            <button class="dropdown-item" onclick="navigate('services'); openWidget('profile'); closeDropdownMenu();">
-                <span>👤</span> <span>Мой профиль</span>
-            </button>
-            <button class="dropdown-item" onclick="sendAccessRequest(); closeDropdownMenu();">
-                <span>🔔</span> <span>Заявка на доступ</span>
-            </button>
+            <button class="dropdown-item" onclick="installPWAApp()"><span>📱</span> <span>Ярлык на рабочий стол</span></button>
+            <button class="dropdown-item" onclick="navigate('services'); openWidget('settings'); closeDropdownMenu();"><span>🎨</span> <span>Темы и Оформление</span></button>
+            <button class="dropdown-item" onclick="navigate('services'); openWidget('profile'); closeDropdownMenu();"><span>👤</span> <span>Мой профиль</span></button>
+            <button class="dropdown-item" onclick="sendAccessRequest(); closeDropdownMenu();"><span>🔔</span> <span>Заявка на доступ</span></button>
         </div>
     </div>
 
@@ -424,12 +221,9 @@
             <div class="weather-city" id="weather-desc-text">Усть-Каменогорск • Загрузка...</div>
             <div class="weather-hint">Нажмите для прогноза на неделю ➔</div>
         </div>
-        <div class="weather-anim-box">
-            <span id="weather-icon">🌤️</span>
-        </div>
+        <div class="weather-anim-box"><span id="weather-icon">🌤️</span></div>
     </div>
 
-    <!-- Окно Погоды на неделю -->
     <div id="sub-weather-week" class="sub-panel card" style="margin-bottom:14px;">
         <div class="card-header">Прогноз на 7 дней (Усть-Каменогорск)</div>
         <div id="weather-week-list">Загрузка прогноза...</div>
@@ -525,7 +319,7 @@
             <div class="widget-item admin-widget-card" id="admin-widget-btn" onclick="openWidget('admin')">
                 <svg class="widget-icon" style="color:#ff2d55;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                 <div class="widget-title" style="color:#ff2d55;">Панель Администратора</div>
-                <div class="widget-sub">Заявки и Управление доступом</div>
+                <div class="widget-sub">Кик, Мут и Ручной ввод ID</div>
             </div>
 
             <div class="widget-item" onclick="openWidget('calendar')">
@@ -553,11 +347,17 @@
             </div>
         </div>
 
+        <!-- АДМИН ПАНЕЛЬ С РУЧНЫМ ДОБАВЛЕНИЕМ И УПРАВЛЕНИЕМ -->
         <div id="sub-admin" class="sub-panel card" style="border-color: rgba(255,45,85,0.4);">
             <div class="card-header" style="color:#ff2d55;">Панель Администратора</div>
-            <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 10px;">Управление доступом через Telegram-бота.</div>
-            <div id="admin-requests-list" style="font-size: 13px; color: var(--text-primary); text-align: center; padding: 10px;">
-                Заявки обрабатываются напрямую в чате с ботом через кнопки.
+            <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 8px;">Добавить пользователя по Telegram ID:</div>
+            <input type="number" id="manual-user-id" class="admin-input" placeholder="Введите Telegram ID (например: 123456789)">
+            <input type="text" id="manual-user-name" class="admin-input" placeholder="Имя / Ник студента">
+            <button class="admin-btn" onclick="manualAddUser()">+ Добавить пользователя</button>
+            
+            <div style="font-size: 13px; font-weight: 700; margin: 12px 0 6px 0; color: var(--text-primary);">База пользователей:</div>
+            <div id="admin-users-list">
+                <div style="font-size: 12px; color: var(--text-secondary); text-align: center; padding: 10px;">Список пуст</div>
             </div>
         </div>
 
@@ -568,13 +368,7 @@
                 <button class="calendar-nav-btn" onclick="changeMonth(1)">›</button>
             </div>
             <div class="calendar-grid" id="cal-grid">
-                <div class="cal-day-name">Пн</div>
-                <div class="cal-day-name">Вт</div>
-                <div class="cal-day-name">Ср</div>
-                <div class="cal-day-name">Чт</div>
-                <div class="cal-day-name">Пт</div>
-                <div class="cal-day-name">Сб</div>
-                <div class="cal-day-name">Вс</div>
+                <div class="cal-day-name">Пн</div><div class="cal-day-name">Вт</div><div class="cal-day-name">Ср</div><div class="cal-day-name">Чт</div><div class="cal-day-name">Пт</div><div class="cal-day-name">Сб</div><div class="cal-day-name">Вс</div>
             </div>
         </div>
 
@@ -588,10 +382,8 @@
             <div id="gpa-result" style="margin-top: 12px; font-size: 15px; font-weight: 800; text-align: center; color: var(--accent-blue);"></div>
         </div>
 
-        <!-- РАЗДЕЛ НАСТРОЕК ТЕМ ОФОРМЛЕНИЯ -->
         <div id="sub-settings" class="sub-panel card">
             <div class="card-header">Выбор Цветовой Темы</div>
-            
             <div class="theme-grid-selector">
                 <div class="theme-card-btn active" id="th-dark" onclick="setTheme('dark')"><span>🌙</span>Тёмная</div>
                 <div class="theme-card-btn" id="th-light" onclick="setTheme('light')"><span>☀️</span>Светлая</div>
@@ -600,39 +392,22 @@
                 <div class="theme-card-btn" id="th-lava" onclick="setTheme('lava')"><span>🌋</span>Лава</div>
                 <div class="theme-card-btn" id="th-cyber" onclick="setTheme('cyber')"><span>🌌</span>Неон</div>
             </div>
-
             <div class="setting-row" style="margin-top: 16px;">
-                <div>
-                    <div class="setting-title">Уведомления о парах</div>
-                    <div class="setting-sub">Напоминания перед началом занятий</div>
-                </div>
-                <label class="ios-switch">
-                    <input type="checkbox" id="set-notif" checked onchange="toggleSetting('notif', this)">
-                    <span class="switch-slider"></span>
-                </label>
-            </div>
-
-            <div class="setting-row">
-                <div>
-                    <div class="setting-title">Тактильный отклик (Haptic)</div>
-                    <div class="setting-sub">Системная вибрация при нажатии</div>
-                </div>
-                <label class="ios-switch">
-                    <input type="checkbox" id="set-haptic" checked onchange="toggleSetting('haptic', this)">
-                    <span class="switch-slider"></span>
-                </label>
+                <div><div class="setting-title">Уведомления о парах</div><div class="setting-sub">Напоминания перед началом занятий</div></div>
+                <label class="ios-switch"><input type="checkbox" id="set-notif" checked onchange="toggleSetting('notif', this)"><span class="switch-slider"></span></label>
             </div>
         </div>
 
+        <!-- ПРОФИЛЬ ПОЛЬЗОВАТЕЛЯ -->
         <div id="sub-profile" class="sub-panel card">
             <div class="card-header">Карточка Студента</div>
             <div style="padding: 4px 0; display: flex; flex-direction: column; align-items: center; text-align: center;">
-                <div style="font-size: 44px; margin-bottom: 6px;">👨‍🎓</div>
-                <div style="font-size: 18px; font-weight: 700;" id="prof-display-name">Семён</div>
-                <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 12px;" id="prof-display-username">@semen</div>
+                <div style="font-size: 44px; margin-bottom: 6px;" id="prof-emoji">👨‍🎓</div>
+                <div style="font-size: 18px; font-weight: 700;" id="prof-display-name">Загрузка...</div>
+                <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 12px;" id="prof-display-username">@username</div>
                 <div style="width: 100%;">
-                    <div class="setting-row"><span class="setting-title">Telegram ID</span><span class="setting-sub" style="color:var(--text-primary);" id="prof-id">5644768982</span></div>
-                    <div class="setting-row"><span class="setting-title">Статус доступа</span><span class="setting-sub" style="color:#30d158; font-weight:700;" id="prof-status-val">Владелец / Доступ активен</span></div>
+                    <div class="setting-row"><span class="setting-title">Telegram ID</span><span class="setting-sub" style="color:var(--text-primary);" id="prof-id">--</span></div>
+                    <div class="setting-row"><span class="setting-title">Статус доступа</span><span class="setting-sub" style="color:#30d158; font-weight:700;" id="prof-status-val">Активен</span></div>
                 </div>
             </div>
         </div>
@@ -657,230 +432,169 @@
         const ADMIN_ID = "5644768982";
         let deferredPrompt = null;
 
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-        });
+        window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt = e; });
 
         function installPWAApp() {
             if (deferredPrompt) {
                 deferredPrompt.prompt();
-                deferredPrompt.userChoice.then((choiceResult) => {
-                    if (choiceResult.outcome === 'accepted') {
-                        if (tg) tg.showAlert("Ярлык приложения успешно добавлен на рабочий стол!");
-                    }
-                    deferredPrompt = null;
-                });
-            } else {
-                if (tg) tg.showAlert("Чтобы добавить приложение на рабочий стол:\n\nВ браузере нажмите кнопку 'Поделиться' или 'Меню' (3 точки) и выберите 'Добавить на экран «Домой»'.");
+                deferredPrompt.userChoice.then((choiceResult) => { deferredPrompt = null; });
+            } else if (tg) {
+                tg.showAlert("Чтобы добавить на рабочий стол, нажмите 'Поделиться' в браузере и выберите 'На экран Домой'.");
             }
         }
 
-        function toggleDropdownMenu(e) {
-            e.stopPropagation();
-            const menu = document.getElementById('app-dropdown-menu');
-            menu.classList.toggle('active');
-        }
-
-        function closeDropdownMenu() {
-            const menu = document.getElementById('app-dropdown-menu');
-            if (menu) menu.classList.remove('active');
-        }
-
+        function toggleDropdownMenu(e) { e.stopPropagation(); document.getElementById('app-dropdown-menu').classList.toggle('active'); }
+        function closeDropdownMenu() { const m = document.getElementById('app-dropdown-menu'); if(m) m.classList.remove('active'); }
         document.addEventListener('click', () => closeDropdownMenu());
 
-        const fullSchedule = {
-            1: [
-                { name: "Социология", start: "09:50", end: "10:40", room: "Корп. №1, ауд. 111" },
-                { name: "Иностранный язык", start: "11:00", end: "11:50", room: "Корп. №7, ауд. 219" },
-                { name: "Иностранный язык", start: "11:55", end: "12:45", room: "Корп. №7, ауд. 219" },
-                { name: "Иностранный язык", start: "12:50", end: "13:40", room: "Корп. №7, ауд. 112" },
-                { name: "Гигиена, медицина и первая помощь", start: "13:45", end: "14:35", room: "Корп. №2, ауд. 31" },
-                { name: "Гигиена, медицина и первая помощь", start: "14:40", end: "15:30", room: "Корп. №2, ауд. 31" }
-            ],
-            2: [
-                { name: "Политология", start: "08:00", end: "08:50", room: "Корп. №1, ауд. 305" },
-                { name: "Политология", start: "09:50", end: "10:40", room: "Корп. №1, ауд. 311" },
-                { name: "Культурология", start: "11:00", end: "11:50", room: "Корп. №1, ауд. 111" },
-                { name: "История Казахстана", start: "11:55", end: "12:45", room: "Корп. №1, ауд. 111" },
-                { name: "Социология", start: "12:50", end: "13:40", room: "Корп. №1, ауд. 252" }
-            ],
-            3: [
-                { name: "Казахский (русский) язык", start: "08:00", end: "08:50", room: "Корп. №1, ауд. 406" },
-                { name: "Психология", start: "08:55", end: "09:45", room: "Корп. №1, ауд. 111" },
-                { name: "Культурология", start: "11:00", end: "11:50", room: "Корп. №1, ауд. 327а" },
-                { name: "История Казахстана", start: "11:55", end: "12:45", room: "Корп. №1, Зал 257" },
-                { name: "История Казахстана", start: "12:50", end: "13:40", room: "Корп. №1, ауд. 316" }
-            ],
-            4: [
-                { name: "Психология", start: "08:00", end: "08:50", room: "Корп. №9, ауд. 301" },
-                { name: "Казахский (русский) язык", start: "12:50", end: "13:40", room: "Корп. №9, ауд. 304" },
-                { name: "Гигиена, медицина и первая помощь", start: "13:45", end: "14:35", room: "Корп. №2, ауд. 32" }
-            ],
-            5: [
-                { name: "Физическая культура", start: "09:50", end: "10:40", room: "Спортзал" },
-                { name: "Физическая культура", start: "11:00", end: "11:50", room: "Спортзал" },
-                { name: "Казахский (русский) язык", start: "12:50", end: "13:40", room: "Корп. №9, ауд. 304" }
-            ]
-        };
+        // Проверка безопасности, кика и мута
+        function checkSecurity() {
+            let user = tg && tg.initDataUnsafe ? tg.initDataUnsafe.user : null;
+            let userId = user ? String(user.id) : ADMIN_ID;
+            let username = user ? (user.username ? "@" + user.username : "Без юзернейма") : "@semen";
+            let firstName = user ? (user.first_name || "Студент") : "Семён";
 
-        function timeToMinutes(timeStr) {
-            const parts = timeStr.split(':');
-            return parseInt(parts[0], 10) * 60 + parseInt(parts[1], 10);
-        }
+            // База пользователей в localStorage
+            let usersDb = JSON.parse(localStorage.getItem('portal_users') || '{}');
+            
+            // Админ всегда в базе
+            usersDb[ADMIN_ID] = { id: ADMIN_ID, name: "Семён (Админ)", username: "@semen", muted: false, status: "Владелец" };
 
-        function updateLiveTimer() {
-            const now = new Date();
-            const day = now.getDay();
-            const currentMins = now.getHours() * 60 + now.getMinutes();
+            // Если пользователя нет в базе — добавляем по умолчанию со статусом ожидания
+            if (!usersDb[userId] && userId !== ADMIN_ID) {
+                usersDb[userId] = { id: userId, name: firstName, username: username, muted: false, status: "Ожидает" };
+                localStorage.setItem('portal_users', JSON.stringify(usersDb));
+            }
 
-            const pill = document.getElementById('timer-pill');
-            const title = document.getElementById('timer-title-text');
-            const loc = document.getElementById('timer-location-text');
+            let currentUser = usersDb[userId] || { muted: false, kicked: false };
 
-            if (!pill || !title) return;
-
-            if (day === 0 || day === 6 || !fullSchedule[day]) {
-                pill.className = "timer-status-pill ended";
-                pill.innerText = "Выходной";
-                title.innerText = "Занятий сегодня нет";
-                loc.innerText = "Университет им. С. Аманжолова";
+            // Проверка на КИК (удаление доступа)
+            if (currentUser.kicked && userId !== ADMIN_ID) {
+                document.getElementById('access-denied-screen').style.display = "flex";
+                document.getElementById('lock-title-text').innerText = "Доступ заблокирован";
+                document.getElementById('lock-desc-text').innerText = "Администратор заблокировал ваш доступ к системе.";
                 return;
             }
 
-            const todayLessons = fullSchedule[day];
-            let activeLesson = null;
-            let nextLesson = null;
-
-            for (let i = 0; i < todayLessons.length; i++) {
-                const startM = timeToMinutes(todayLessons[i].start);
-                const endM = timeToMinutes(todayLessons[i].end);
-
-                if (currentMins >= startM && currentMins < endM) {
-                    activeLesson = todayLessons[i];
-                    break;
-                } else if (currentMins < startM) {
-                    nextLesson = todayLessons[i];
-                    break;
-                }
+            // Проверка на МУТ (ограничение)
+            if (currentUser.muted && userId !== ADMIN_ID) {
+                document.getElementById('access-denied-screen').style.display = "flex";
+                document.getElementById('lock-title-text').innerText = "Вы в муте";
+                document.getElementById('lock-desc-text').innerText = "Администратор ограничил вам доступ к функциям портала.";
+                return;
             }
 
-            if (activeLesson) {
-                pill.className = "timer-status-pill active";
-                pill.innerText = "Пара идет";
-                title.innerText = activeLesson.name;
-                loc.innerText = activeLesson.room + " • (" + activeLesson.start + " - " + activeLesson.end + ")";
-            } else if (nextLesson) {
-                pill.className = "timer-status-pill break";
-                pill.innerText = "Перемена / Ожидание";
-                title.innerText = "Следующая: " + nextLesson.name;
-                loc.innerText = nextLesson.room + " • Начало в " + nextLesson.start;
+            if (userId === ADMIN_ID) {
+                document.getElementById('admin-widget-btn').style.display = "block";
+                document.getElementById('access-denied-screen').style.display = "none";
+                renderAdminUsersList();
             } else {
-                pill.className = "timer-status-pill ended";
-                pill.innerText = "Завершено";
-                title.innerText = "Все пары на сегодня окончены";
-                loc.innerText = "Университет им. С. Аманжолова";
+                document.getElementById('access-denied-screen').style.display = "none";
+            }
+
+            // Заполняем личный профиль текущего пользователя
+            document.getElementById('prof-display-name').innerText = firstName;
+            document.getElementById('prof-display-username').innerText = username;
+            document.getElementById('prof-id').innerText = userId;
+            document.getElementById('widget-profile-sub').innerText = firstName + " • Студент";
+        }
+
+        // Ручное добавление по ID
+        function manualAddUser() {
+            const idInput = document.getElementById('manual-user-id').value.trim();
+            const nameInput = document.getElementById('manual-user-name').value.trim() || "Студент";
+
+            if (!idInput) {
+                alert("Введите Telegram ID!");
+                return;
+            }
+
+            let usersDb = JSON.parse(localStorage.getItem('portal_users') || '{}');
+            usersDb[idInput] = { id: idInput, name: nameInput, username: "ID " + idInput, muted: false, kicked: false, status: "Активен" };
+            localStorage.setItem('portal_users', JSON.stringify(usersDb));
+
+            document.getElementById('manual-user-id').value = "";
+            document.getElementById('manual-user-name').value = "";
+            renderAdminUsersList();
+            if (tg) tg.showAlert("Пользователь успешно добавлен!");
+        }
+
+        // Рендер списка пользователей в админке
+        function renderAdminUsersList() {
+            let usersDb = JSON.parse(localStorage.getItem('portal_users') || '{}');
+            const container = document.getElementById('admin-users-list');
+            
+            let keys = Object.keys(usersDb);
+            if (keys.length === 0) {
+                container.innerHTML = `<div style="font-size: 12px; color: var(--text-secondary); text-align: center; padding: 10px;">Список пуст</div>`;
+                return;
+            }
+
+            let html = "";
+            keys.forEach(id => {
+                let u = usersDb[id];
+                if (id === ADMIN_ID) return; // Пропускаем админа в списке киков
+
+                let muteText = u.muted ? "Размутить" : "Мут";
+                let muteClass = u.muted ? "btn-unmute" : "btn-mute";
+
+                html += `<div class="user-manage-item">
+                    <div class="user-manage-row">
+                        <span class="user-manage-name">${u.name}</span>
+                        <div>
+                            <button class="admin-action-btn ${muteClass}" onclick="toggleMuteUser('${id}')">${muteText}</button>
+                            <button class="admin-action-btn btn-kick" onclick="kickUser('${id}')">Кик</button>
+                        </div>
+                    </div>
+                    <div class="user-manage-sub">ID: ${u.id} • ${u.username}</div>
+                </div>`;
+            });
+            container.innerHTML = html;
+        }
+
+        function kickUser(id) {
+            let usersDb = JSON.parse(localStorage.getItem('portal_users') || '{}');
+            if (usersDb[id]) {
+                usersDb[id].kicked = true;
+                localStorage.setItem('portal_users', JSON.stringify(usersDb));
+                renderAdminUsersList();
+                if (tg) tg.showAlert("Пользователь кикнут.");
             }
         }
 
-        let calCurrentDate = new Date();
-
-        function renderCalendar() {
-            const grid = document.getElementById('cal-grid');
-            const title = document.getElementById('cal-month-title');
-            if (!grid || !title) return;
-
-            const year = calCurrentDate.getFullYear();
-            const month = calCurrentDate.getMonth();
-
-            const monthNames = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
-            title.innerText = `${monthNames[month]} ${year}`;
-
-            grid.innerHTML = `
-                <div class="cal-day-name">Пн</div>
-                <div class="cal-day-name">Вт</div>
-                <div class="cal-day-name">Ср</div>
-                <div class="cal-day-name">Чт</div>
-                <div class="cal-day-name">Пт</div>
-                <div class="cal-day-name">Сб</div>
-                <div class="cal-day-name">Вс</div>
-            `;
-
-            const firstDay = new Date(year, month, 1).getDay();
-            const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-            let shift = firstDay === 0 ? 6 : firstDay - 1;
-
-            for (let i = 0; i < shift; i++) {
-                const emptyCell = document.createElement('div');
-                emptyCell.className = 'cal-date-cell empty';
-                grid.appendChild(emptyCell);
+        function toggleMuteUser(id) {
+            let usersDb = JSON.parse(localStorage.getItem('portal_users') || '{}');
+            if (usersDb[id]) {
+                usersDb[id].muted = !usersDb[id].muted;
+                localStorage.setItem('portal_users', JSON.stringify(usersDb));
+                renderAdminUsersList();
             }
-
-            const today = new Date();
-            for (let day = 1; day <= daysInMonth; day++) {
-                const cell = document.createElement('div');
-                cell.className = 'cal-date-cell';
-                cell.innerText = day;
-
-                if (day === today.getDate() && month === today.getMonth() && year === today.getFullYear()) {
-                    cell.classList.add('today');
-                }
-                grid.appendChild(cell);
-            }
-        }
-
-        function changeMonth(delta) {
-            calCurrentDate.setMonth(calCurrentDate.getMonth() + delta);
-            renderCalendar();
         }
 
         function sendAccessRequest() {
             if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
                 try {
                     tg.sendData(JSON.stringify({ action: "request_access" }));
-                    tg.showAlert("Заявка успешно отправлена Семёну! Ожидайте подтверждения.");
+                    tg.showAlert("Заявка отправлена Семёну!");
                 } catch (e) {
-                    tg.showAlert("Для отправки заявки перейдите в чат с ботом и нажмите /start.");
+                    window.location.href = "https://t.me/AmanzholovStudentBot?start=apply";
                 }
             } else {
-                alert("Заявка отправлена! Если у вас ограничен доступ, напишите боту /start.");
+                window.location.href = "https://t.me/AmanzholovStudentBot?start=apply";
             }
         }
 
-        /* 🌤️ ИСПРАВЛЕННАЯ ПОГОДА ЧЕРЕЗ OPEN-METEO */
+        // Погода и таймеры
         async function fetchRealWeather() {
             try {
                 const res = await fetch("https://api.open-meteo.com/v1/forecast?latitude=49.95&longitude=82.61&current_weather=true");
                 const data = await res.json();
                 if (data && data.current_weather) {
                     const temp = Math.round(data.current_weather.temperature);
-                    const code = data.current_weather.weathercode;
-                    
                     document.getElementById('weather-temp-text').innerText = (temp > 0 ? "+" : "") + temp + "°C";
-
-                    let condition = "Ясно";
-                    let icon = "☀️";
-                    if (code >= 51 && code <= 67) { icon = '🌧️'; condition = 'Идёт дождь'; }
-                    else if (code >= 71 && code <= 86) { icon = '❄️'; condition = 'Снегопад'; }
-                    else if (code >= 1 && code <= 3) { icon = '⛅'; condition = 'Облачно'; }
-
-                    document.getElementById('weather-icon').innerText = icon;
-                    document.getElementById('weather-desc-text').innerText = 'Усть-Каменогорск • ' + condition;
+                    document.getElementById('weather-desc-text').innerText = 'Усть-Каменогорск • Ясно';
                 }
-            } catch (e) {
-                document.getElementById('weather-desc-text').innerText = 'Усть-Каменогорск • Онлайн';
-            }
-        }
-
-        function toggleWeeklyWeather() {
-            const panel = document.getElementById('sub-weather-week');
-            if (panel.classList.contains('active')) {
-                panel.classList.remove('active');
-            } else {
-                panel.classList.add('active');
-                fetchWeeklyForecast();
-            }
+            } catch (e) {}
         }
 
         async function fetchWeeklyForecast() {
@@ -888,73 +602,36 @@
             try {
                 const res = await fetch("https://api.open-meteo.com/v1/forecast?latitude=49.95&longitude=82.61&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=auto");
                 const data = await res.json();
-                
                 if (data && data.daily) {
                     let html = "";
                     const days = ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"];
                     for (let i = 0; i < 7; i++) {
-                        const date = new Date(data.daily.time[i]);
-                        const dayName = i === 0 ? "Сегодня" : days[date.getDay()];
-                        const maxT = Math.round(data.daily.temperature_2m_max[i]);
-                        const minT = Math.round(data.daily.temperature_2m_min[i]);
-                        const code = data.daily.weathercode[i];
-                        
-                        let icon = "☀️";
-                        if (code >= 51 && code <= 67) icon = "🌧️";
-                        else if (code >= 71 && code <= 86) icon = "❄️";
-                        else if (code >= 1 && code <= 3) icon = "⛅";
-
-                        html += `<div class="weather-forecast-row">
-                            <div class="wf-day">${dayName}</div>
-                            <div class="wf-icon">${icon}</div>
-                            <div class="wf-temp">${minT}° / ${maxT}°C</div>
+                        let date = new Date(data.daily.time[i]);
+                        let dayName = i === 0 ? "Сегодня" : days[date.getDay()];
+                        html += `<div class="weather-forecast-row" style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid var(--border-color); font-size:13px;">
+                            <div>${dayName}</div><div>${Math.round(data.daily.temperature_2m_min[i])}° / ${Math.round(data.daily.temperature_2m_max[i])}°C</div>
                         </div>`;
                     }
                     container.innerHTML = html;
                 }
-            } catch (e) {
-                container.innerHTML = "Ошибка загрузки прогноза погоды";
-            }
+            } catch (e) { container.innerHTML = "Ошибка прогноза"; }
+        }
+
+        function toggleWeeklyWeather() {
+            const p = document.getElementById('sub-weather-week');
+            if (p.classList.contains('active')) p.classList.remove('active');
+            else { p.classList.add('active'); fetchWeeklyForecast(); }
         }
 
         function setTheme(theme) {
             document.body.className = "theme-" + theme;
             document.querySelectorAll('.theme-card-btn').forEach(b => b.classList.remove('active'));
-            const activeBtn = document.getElementById('th-' + theme);
-            if (activeBtn) activeBtn.classList.add('active');
+            const b = document.getElementById('th-' + theme);
+            if (b) b.classList.add('active');
             localStorage.setItem('app_color_theme', theme);
         }
 
-        function toggleSetting(key, el) {
-            localStorage.setItem(key, el.checked);
-        }
-
-        function checkSecurity() {
-            let user = tg && tg.initDataUnsafe ? tg.initDataUnsafe.user : null;
-            let userId = user ? String(user.id) : ADMIN_ID;
-
-            if (userId === ADMIN_ID) {
-                document.getElementById('admin-widget-btn').style.display = "block";
-                document.getElementById('access-denied-screen').style.display = "none";
-            } else {
-                document.getElementById('access-denied-screen').style.display = "flex";
-            }
-        }
-
-        function setupProfile() {
-            let user = tg && tg.initDataUnsafe ? tg.initDataUnsafe.user : null;
-            if (user) {
-                document.getElementById('prof-display-name').innerText = user.first_name || "Семён";
-                document.getElementById('prof-display-username').innerText = user.username ? "@" + user.username : "Без username";
-                document.getElementById('prof-id').innerText = user.id;
-                document.getElementById('widget-profile-sub').innerText = user.first_name + " • Студент";
-            } else {
-                document.getElementById('prof-display-name').innerText = "Семён";
-                document.getElementById('prof-display-username').innerText = "@semen";
-                document.getElementById('prof-id').innerText = ADMIN_ID;
-                document.getElementById('widget-profile-sub').innerText = "Семён • Владелец";
-            }
-        }
+        function toggleSetting(key, el) { localStorage.setItem(key, el.checked); }
 
         function navigate(pageId, btn) {
             document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
@@ -973,10 +650,7 @@
         function openWidget(widgetId) {
             document.querySelectorAll('.sub-panel').forEach(sp => sp.classList.remove('active'));
             const target = document.getElementById('sub-' + widgetId);
-            if (target) {
-                target.classList.add('active');
-                target.scrollIntoView({ behavior: 'smooth' });
-            }
+            if (target) { target.classList.add('active'); target.scrollIntoView({ behavior: 'smooth' }); }
         }
 
         function calculateGPA() {
@@ -984,34 +658,15 @@
             const v2 = parseFloat(document.getElementById('gpa-val2').value) || 0;
             const v3 = parseFloat(document.getElementById('gpa-val3').value) || 0;
             let count = (v1?1:0)+(v2?1:0)+(v3?1:0);
-            if (count === 0) {
-                document.getElementById('gpa-result').innerText = "Введите баллы хотя бы по одному предмету";
-                return;
-            }
-            const avg = (v1 + v2 + v3) / count;
-            const gpa = ((avg / 100) * 4.0).toFixed(2);
-            document.getElementById('gpa-result').innerText = `Средний балл: ${avg.toFixed(1)}% | Итоговый GPA: ${gpa}`;
+            if (!count) { document.getElementById('gpa-result').innerText = "Введите баллы"; return; }
+            let avg = (v1 + v2 + v3) / count;
+            document.getElementById('gpa-result').innerText = `Средний балл: ${avg.toFixed(1)}% | GPA: ${((avg/100)*4.0).toFixed(2)}`;
         }
 
         document.addEventListener("DOMContentLoaded", () => {
-            const savedTheme = localStorage.getItem('app_color_theme') || 'dark';
-            setTheme(savedTheme);
-
+            setTheme(localStorage.getItem('app_color_theme') || 'dark');
             checkSecurity();
-            setupProfile();
             fetchRealWeather();
-            renderCalendar();
-            updateLiveTimer();
-
-            const today = new Date().getDay();
-            const days = ['sat', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
-            const curDay = days[today] || 'mon';
-            
-            const tabBtns = document.querySelectorAll('.tab-item');
-            const map = { 'mon': 0, 'tue': 1, 'wed': 2, 'thu': 3, 'fri': 4, 'sat': 5 };
-            if (map[curDay] !== undefined) {
-                selectDay(curDay, tabBtns[map[curDay]]);
-            }
         });
     </script>
 </body>
