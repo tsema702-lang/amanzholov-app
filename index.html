@@ -34,26 +34,42 @@
             --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
+        /* 💡 СВЕТЛАЯ */
         body.theme-light {
             --bg-color: #f2f2f7; --card-bg: #ffffff; --card-secondary: #e5e5ea;
             --accent-blue: #007aff; --text-primary: #000000; --text-secondary: #6c6c70;
             --border-color: rgba(0, 0, 0, 0.08); --nav-bg: rgba(249, 249, 249, 0.92);
         }
-        body.theme-sunset {
-            --bg-color: #1a0b2e; --card-bg: #27123d; --card-secondary: #3b1b5c;
-            --accent-blue: #ff6b4a; --text-primary: #fff0f5; --text-secondary: #b388eb;
-            --border-color: rgba(255, 107, 74, 0.2); --nav-bg: rgba(39, 18, 61, 0.92);
+
+        /* 🎃 ХЭЛЛОУИН */
+        body.theme-halloween {
+            --bg-color: #13091c; --card-bg: #211130; --card-secondary: #331a4a;
+            --accent-blue: #ff6a00; --text-primary: #f8f5ff; --text-secondary: #b399d4;
+            --border-color: rgba(255, 106, 0, 0.3); --nav-bg: rgba(33, 17, 48, 0.92);
         }
+
+        /* ❄️ НОВЫЙ ГОД */
+        body.theme-newyear {
+            --bg-color: #071326; --card-bg: #0f2342; --card-secondary: #1a3661;
+            --accent-blue: #00d2ff; --text-primary: #ffffff; --text-secondary: #8cb8e6;
+            --border-color: rgba(0, 210, 255, 0.25); --nav-bg: rgba(15, 35, 66, 0.92);
+        }
+
+        /* ☀️ ЛЕТО */
+        body.theme-summer {
+            --bg-color: #0b1f24; --card-bg: #14323b; --card-secondary: #1e4754;
+            --accent-blue: #ffaa00; --text-primary: #ffffff; --text-secondary: #80c4d6;
+            --border-color: rgba(255, 170, 0, 0.25); --nav-bg: rgba(20, 50, 59, 0.92);
+        }
+
+        /* 🌸 САКУРА */
         body.theme-sakura {
             --bg-color: #2b1e23; --card-bg: #3d2b33; --card-secondary: #523a45;
             --accent-blue: #ff75a0; --text-primary: #fff0f3; --text-secondary: #f7aef8;
             --border-color: rgba(255, 117, 160, 0.25); --nav-bg: rgba(61, 43, 51, 0.92);
         }
-        body.theme-lava {
-            --bg-color: #121212; --card-bg: #1e1b1b; --card-secondary: #2d2626;
-            --accent-blue: #ff3b30; --text-primary: #ffffff; --text-secondary: #a08a8a;
-            --border-color: rgba(255, 59, 48, 0.25); --nav-bg: rgba(30, 27, 27, 0.92);
-        }
+
+        /* 🌌 НЕОН */
         body.theme-cyber {
             --bg-color: #08091a; --card-bg: #101330; --card-secondary: #1a1f4d;
             --accent-blue: #00f0ff; --text-primary: #ffffff; --text-secondary: #707eb4;
@@ -61,43 +77,23 @@
         }
 
         * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: var(--font-main);
-            -webkit-tap-highlight-color: transparent;
+            box-sizing: border-box; margin: 0; padding: 0;
+            font-family: var(--font-main); -webkit-tap-highlight-color: transparent;
             transition: background-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
                         color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-                        border-color 0.35s ease,
-                        transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
-                        box-shadow 0.3s ease;
+                        border-color 0.35s ease, transform 0.2s ease;
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            padding: 14px 14px 100px 14px;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            max-width: 440px;
-            margin: 0 auto;
-            user-select: none;
-            overflow-x: hidden;
+            background-color: var(--bg-color); color: var(--text-primary);
+            padding: 14px 14px 100px 14px; display: flex; flex-direction: column;
+            min-height: 100vh; max-width: 440px; margin: 0 auto; user-select: none; overflow-x: hidden;
         }
 
         #access-denied-screen {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: var(--bg-color);
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 24px;
-            text-align: center;
-            animation: zoomIn 0.35s ease-out;
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--bg-color); z-index: 9999; display: flex;
+            flex-direction: column; align-items: center; justify-content: center; padding: 24px; text-align: center;
         }
         .lock-icon { font-size: 60px; margin-bottom: 16px; animation: pulseLock 2s infinite ease-in-out; }
         @keyframes pulseLock { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
@@ -105,17 +101,9 @@
         .lock-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 24px; max-width: 300px; }
         .btn-request {
             background: linear-gradient(135deg, var(--accent-blue), #5e5ce6);
-            color: #fff;
-            border: none;
-            padding: 14px 24px;
-            border-radius: 14px;
-            font-weight: 700;
-            width: 100%;
-            max-width: 280px;
-            cursor: pointer;
-            box-shadow: 0 4px 16px rgba(10, 132, 255, 0.3);
+            color: #fff; border: none; padding: 14px 24px; border-radius: 14px;
+            font-weight: 700; width: 100%; max-width: 280px; cursor: pointer;
         }
-        .btn-request:active { transform: scale(0.95); }
 
         .app-header { display: flex; align-items: center; justify-content: space-between; padding: 8px 4px 14px 4px; position: relative; }
         .uni-brand-wrap { display: flex; align-items: center; gap: 10px; }
@@ -125,86 +113,42 @@
         .uni-sub { font-size: 11px; color: var(--text-secondary); font-weight: 500; margin-top: 2px; }
 
         .menu-dots-btn {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            color: var(--text-primary);
-            width: 38px;
-            height: 38px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            font-weight: 800;
-            cursor: pointer;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-primary);
+            width: 38px; height: 38px; border-radius: 12px; display: flex; align-items: center; justify-content: center;
+            font-size: 20px; font-weight: 800; cursor: pointer;
         }
-        .menu-dots-btn:active { transform: scale(0.92); }
 
         .dropdown-menu {
-            position: absolute;
-            top: 54px; right: 4px;
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 8px;
-            width: 220px;
-            box-shadow: 0 12px 36px rgba(0,0,0,0.4);
-            display: none;
-            flex-direction: column;
-            gap: 4px;
-            z-index: 2000;
-            transform-origin: top right;
+            position: absolute; top: 54px; right: 4px; background: var(--card-bg);
+            border: 1px solid var(--border-color); border-radius: 16px; padding: 8px; width: 220px;
+            box-shadow: 0 12px 36px rgba(0,0,0,0.4); display: none; flex-direction: column; gap: 4px; z-index: 2000;
         }
-        .dropdown-menu.active {
-            display: flex;
-            animation: popDropdown 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        @keyframes popDropdown {
-            from { opacity: 0; transform: scale(0.85); }
-            to { opacity: 1; transform: scale(1); }
-        }
+        .dropdown-menu.active { display: flex; animation: popDropdown 0.25s ease-out forwards; }
+        @keyframes popDropdown { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
         .dropdown-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 12px;
-            border-radius: 10px;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-primary);
-            cursor: pointer;
-            background: transparent;
-            border: none;
-            text-align: left;
-            width: 100%;
+            display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 10px;
+            font-size: 13px; font-weight: 600; color: var(--text-primary); cursor: pointer; background: transparent; border: none; width: 100%; text-align: left;
         }
-        .dropdown-item:active { background: var(--card-secondary); transform: scale(0.98); }
 
         .weather-card {
             background: linear-gradient(135deg, rgba(10, 132, 255, 0.18), rgba(94, 92, 230, 0.12));
-            border: 1px solid rgba(10, 132, 255, 0.25);
-            border-radius: 18px;
-            padding: 14px 16px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            cursor: pointer;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            border: 1px solid rgba(10, 132, 255, 0.25); border-radius: 18px; padding: 14px 16px; margin-bottom: 12px;
+            display: flex; align-items: center; justify-content: space-between; cursor: pointer;
         }
-        .weather-card:active { transform: scale(0.98); }
         .weather-temp { font-family: var(--font-display); font-size: 22px; font-weight: 800; }
         .weather-city { font-size: 12px; color: var(--text-secondary); }
         .weather-hint { font-size: 10px; color: var(--accent-blue); font-weight: 600; margin-top: 2px; }
 
+        .weather-anim-icon {
+            display: inline-block; font-size: 28px; animation: floatIcon 3s infinite ease-in-out;
+        }
+        @keyframes floatIcon {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-4px) rotate(6deg); }
+        }
+
         .live-timer-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 18px;
-            padding: 16px;
-            margin-bottom: 14px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+            background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 18px; padding: 16px; margin-bottom: 14px;
         }
         .timer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
         .timer-status-pill { font-family: var(--font-display); font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; }
@@ -217,26 +161,12 @@
         .tabs-container { display: flex; gap: 6px; margin-bottom: 14px; overflow-x: auto; scrollbar-width: none; }
         .tabs-container::-webkit-scrollbar { display: none; }
         .tab-item {
-            font-family: var(--font-display);
-            background: var(--card-bg);
-            color: var(--text-secondary);
-            border: 1px solid var(--border-color);
-            padding: 8px 14px;
-            border-radius: 12px;
-            font-size: 13px;
-            font-weight: 700;
-            white-space: nowrap;
-            cursor: pointer;
+            font-family: var(--font-display); background: var(--card-bg); color: var(--text-secondary);
+            border: 1px solid var(--border-color); padding: 8px 14px; border-radius: 12px; font-size: 13px; font-weight: 700; white-space: nowrap; cursor: pointer;
         }
-        .tab-item.active {
-            background: var(--accent-blue);
-            color: #fff;
-            border-color: var(--accent-blue);
-            box-shadow: 0 4px 12px rgba(10, 132, 255, 0.35);
-        }
-        .tab-item:active { transform: scale(0.95); }
+        .tab-item.active { background: var(--accent-blue); color: #fff; border-color: var(--accent-blue); }
 
-        .card { background: var(--card-bg); border-radius: 18px; padding: 16px; border: 1px solid var(--border-color); margin-bottom: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+        .card { background: var(--card-bg); border-radius: 18px; padding: 16px; border: 1px solid var(--border-color); margin-bottom: 12px; }
         .card-header { font-family: var(--font-display); font-size: 13px; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 12px; display: flex; justify-content: space-between; }
 
         .lesson-row { display: flex; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid var(--border-color); }
@@ -252,158 +182,46 @@
         .type-pill.spz { background: var(--badge-spz); color: var(--text-spz); }
 
         .page { display: none; }
-        .page.active {
-            display: block;
-            animation: slideUpFade 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        @keyframes slideUpFade {
-            from { opacity: 0; transform: translateY(12px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        .page.active { display: block; animation: slideUp 0.3s ease-out forwards; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
         .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 14px; }
-        .widget-item {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 16px 14px;
-            cursor: pointer;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-        }
-        .widget-item:active { transform: scale(0.96); }
+        .widget-item { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 16px 14px; cursor: pointer; }
         .widget-icon { width: 28px; height: 28px; margin-bottom: 10px; color: var(--accent-blue); }
         .widget-title { font-family: var(--font-display); font-size: 14px; font-weight: 700; margin-bottom: 2px; }
         .widget-sub { font-size: 11px; color: var(--text-secondary); }
 
         .sub-panel { display: none; margin-top: 8px; }
-        .sub-panel.active {
-            display: block;
-            animation: slideUpFade 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        /* 🔔 АНИМИРОВАННЫЙ ЗВОНОК НАСТРОЕК */
-        .bell-icon-box {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 38px;
-            height: 38px;
-            border-radius: 10px;
-            background: var(--card-secondary);
-            font-size: 20px;
-            position: relative;
-            user-select: none;
-        }
-        .bell-icon-box.vibrate {
-            animation: bellRing 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97) infinite;
-        }
-        @keyframes bellRing {
-            0% { transform: rotate(0); }
-            15% { transform: rotate(14deg); }
-            30% { transform: rotate(-14deg); }
-            45% { transform: rotate(10deg); }
-            60% { transform: rotate(-10deg); }
-            75% { transform: rotate(4deg); }
-            85% { transform: rotate(-4deg); }
-            100% { transform: rotate(0); }
-        }
-
-        .sound-wave-waves {
-            position: absolute;
-            top: -2px; right: -2px;
-            width: 8px; height: 8px;
-            background: #34c759;
-            border-radius: 50%;
-            box-shadow: 0 0 8px #34c759;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        .bell-icon-box.vibrate .sound-wave-waves {
-            opacity: 1;
-            animation: pulseWave 1s infinite ease-out;
-        }
-        @keyframes pulseWave {
-            0% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(2.2); opacity: 0; }
-        }
-
-        .setting-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border-color); }
-        .setting-row:last-child { border-bottom: none; }
-        .setting-title { font-size: 14px; font-weight: 500; }
-        .setting-sub { font-size: 11px; color: var(--text-secondary); }
+        .sub-panel.active { display: block; animation: slideUp 0.3s ease-out forwards; }
 
         .theme-grid-selector { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
         .theme-card-btn {
-            border: 1px solid var(--border-color);
-            background: var(--card-secondary);
-            color: var(--text-primary);
-            border-radius: 12px;
-            padding: 10px 6px;
-            font-size: 11px;
-            font-weight: 700;
-            text-align: center;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
+            border: 1px solid var(--border-color); background: var(--card-secondary); color: var(--text-primary);
+            border-radius: 12px; padding: 10px 6px; font-size: 11px; font-weight: 700; text-align: center; cursor: pointer;
+            display: flex; flex-direction: column; align-items: center; gap: 4px;
         }
-        .theme-card-btn:active { transform: scale(0.95); }
-        .theme-card-btn.active { border-color: var(--accent-blue); background: var(--accent-blue); color: #fff; box-shadow: 0 2px 10px rgba(10,132,255,0.3); }
+        .theme-card-btn.active { border-color: var(--accent-blue); background: var(--accent-blue); color: #fff; }
 
         .admin-widget-card { background: linear-gradient(135deg, rgba(255, 45, 85, 0.15), rgba(175, 82, 222, 0.12)); border: 1px solid rgba(255, 45, 85, 0.3); grid-column: span 2; display: none; }
-        
         .admin-input { background: var(--card-secondary); border: 1px solid var(--border-color); color: var(--text-primary); padding: 10px 12px; border-radius: 12px; font-size: 13px; width: 100%; margin-bottom: 8px; outline: none; }
-        .admin-btn { background: #ff2d55; color: #fff; border: none; padding: 12px 16px; border-radius: 12px; font-weight: 700; width: 100%; cursor: pointer; font-size: 13px; margin-bottom: 10px; box-shadow: 0 4px 12px rgba(255,45,85,0.3); }
-        .admin-btn:active { transform: scale(0.97); }
+        .admin-btn { background: #ff2d55; color: #fff; border: none; padding: 12px 16px; border-radius: 12px; font-weight: 700; width: 100%; cursor: pointer; font-size: 13px; margin-bottom: 10px; }
 
-        .user-manage-item { display: flex; flex-direction: column; background: var(--card-secondary); padding: 10px 12px; border-radius: 12px; margin-bottom: 8px; gap: 6px; }
-        .user-manage-row { display: flex; justify-content: space-between; align-items: center; }
-        .user-manage-name { font-size: 13px; font-weight: 700; color: var(--text-primary); }
-        .user-manage-sub { font-size: 11px; color: var(--text-secondary); }
-        .admin-action-btn { padding: 5px 10px; border-radius: 8px; border: none; font-size: 11px; font-weight: 700; cursor: pointer; margin-left: 4px; }
-        .admin-action-btn:active { transform: scale(0.93); }
-        .btn-kick { background: rgba(255, 59, 48, 0.2); color: #ff3b30; }
-        .btn-mute { background: rgba(255, 149, 0, 0.2); color: #ff9500; }
-        .btn-unmute { background: rgba(52, 199, 89, 0.2); color: #30d158; }
-
-        .gpa-input { background: var(--card-secondary); border: 1px solid var(--border-color); color: var(--text-primary); padding: 10px 12px; border-radius: 12px; font-size: 14px; width: 100%; margin-bottom: 8px; outline: none; }
-        .gpa-btn { background: var(--accent-blue); color: #fff; border: none; padding: 12px 16px; border-radius: 12px; font-weight: 700; width: 100%; cursor: pointer; box-shadow: 0 4px 14px rgba(10,132,255,0.3); }
-        .gpa-btn:active { transform: scale(0.97); }
-
-        .ios-switch { position: relative; display: inline-block; width: 46px; height: 26px; }
-        .ios-switch input { opacity: 0; width: 0; height: 0; }
-        .switch-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #3a3a3c; transition: .3s cubic-bezier(0.16, 1, 0.3, 1); border-radius: 30px; }
-        .switch-slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 3px; bottom: 3px; background-color: #fff; transition: .3s cubic-bezier(0.16, 1, 0.3, 1); border-radius: 50%; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-        input:checked + .switch-slider { background-color: #34c759; }
-        input:checked + .switch-slider:before { transform: translateX(20px); }
-
+        /* Календарь */
         .calendar-header-box { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
         .calendar-month-title { font-family: var(--font-display); font-size: 16px; font-weight: 800; }
         .calendar-nav-btn { background: var(--card-secondary); color: var(--text-primary); border: 1px solid var(--border-color); width: 32px; height: 32px; border-radius: 8px; font-weight: 800; cursor: pointer; }
-        .calendar-nav-btn:active { transform: scale(0.92); }
         .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; text-align: center; }
         .cal-day-name { font-size: 11px; font-weight: 700; color: var(--text-secondary); padding-bottom: 6px; }
-        .cal-date-cell { font-size: 13px; font-weight: 600; padding: 8px 0; border-radius: 10px; background: var(--card-secondary); }
+        .cal-date-cell { font-size: 13px; font-weight: 600; padding: 8px 0; border-radius: 10px; background: var(--card-secondary); color: var(--text-primary); }
         .cal-date-cell.empty { background: transparent; }
         .cal-date-cell.today { background: var(--accent-blue); color: #fff; font-weight: 800; box-shadow: 0 2px 8px rgba(10,132,255,0.4); }
 
         .bottom-nav {
-            position: fixed;
-            bottom: 0; left: 0; right: 0;
-            background: var(--nav-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            display: flex;
-            justify-content: space-around;
-            padding: 8px 16px 20px 16px;
-            border-top: 1px solid var(--border-color);
-            max-width: 440px;
-            margin: 0 auto;
-            z-index: 1000;
+            position: fixed; bottom: 0; left: 0; right: 0; background: var(--nav-bg); backdrop-filter: blur(20px);
+            display: flex; justify-content: space-around; padding: 8px 16px 20px 16px; border-top: 1px solid var(--border-color);
+            max-width: 440px; margin: 0 auto; z-index: 1000;
         }
         .nav-tab { display: flex; flex-direction: column; align-items: center; color: var(--text-secondary); background: none; border: none; gap: 3px; cursor: pointer; flex: 1; }
-        .nav-tab:active { transform: scale(0.92); }
         .nav-tab.active { color: var(--accent-blue); }
         .nav-svg { width: 22px; height: 22px; fill: currentColor; }
         .nav-title { font-family: var(--font-display); font-size: 11px; font-weight: 700; }
@@ -411,7 +229,6 @@
 </head>
 <body class="theme-dark">
 
-    <!-- ЭКРАН СТРОГОГО ДОСТУПА -->
     <div id="access-denied-screen" style="display: none;">
         <div class="lock-icon">🔒</div>
         <div class="lock-title" id="lock-title-text">Доступ ограничен</div>
@@ -419,7 +236,6 @@
         <button class="btn-request" onclick="sendAccessRequest()">Подать заявку на доступ</button>
     </div>
 
-    <!-- Хедер -->
     <div class="app-header">
         <div class="uni-brand-wrap">
             <div class="uni-logo-box">
@@ -452,7 +268,9 @@
             <div class="weather-city" id="weather-desc-text">Усть-Каменогорск • Загрузка...</div>
             <div class="weather-hint">Нажмите для прогноза на неделю ➔</div>
         </div>
-        <div class="weather-anim-box"><span id="weather-icon">🌤️</span></div>
+        <div>
+            <span class="weather-anim-icon" id="weather-icon">🌤️</span>
+        </div>
     </div>
 
     <div id="sub-weather-week" class="sub-panel card" style="margin-bottom:14px;">
@@ -578,11 +396,10 @@
             </div>
         </div>
 
-        <!-- АДМИН ПАНЕЛЬ С РУЧНЫМ ДОБАВЛЕНИЕМ И УПРАВЛЕНИЕМ -->
         <div id="sub-admin" class="sub-panel card" style="border-color: rgba(255,45,85,0.4);">
             <div class="card-header" style="color:#ff2d55;">Панель Администратора</div>
             <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 8px;">Добавить пользователя по Telegram ID:</div>
-            <input type="number" id="manual-user-id" class="admin-input" placeholder="Введите Telegram ID (например: 123456789)">
+            <input type="number" id="manual-user-id" class="admin-input" placeholder="Введите Telegram ID">
             <input type="text" id="manual-user-name" class="admin-input" placeholder="Имя / Ник студента">
             <button class="admin-btn" onclick="manualAddUser()">+ Добавить пользователя</button>
             
@@ -592,6 +409,7 @@
             </div>
         </div>
 
+        <!-- КАЛЕНДАРЬ -->
         <div id="sub-calendar" class="sub-panel card">
             <div class="calendar-header-box">
                 <button class="calendar-nav-btn" onclick="changeMonth(-1)">‹</button>
@@ -599,85 +417,62 @@
                 <button class="calendar-nav-btn" onclick="changeMonth(1)">›</button>
             </div>
             <div class="calendar-grid" id="cal-grid">
-                <div class="cal-day-name">Пн</div><div class="cal-day-name">Вт</div><div class="cal-day-name">Ср</div><div class="cal-day-name">Чт</div><div class="cal-day-name">Пт</div><div class="cal-day-name">Сб</div><div class="cal-day-name">Вс</div>
+                <div class="cal-day-name">Пн</div>
+                <div class="cal-day-name">Вт</div>
+                <div class="cal-day-name">Ср</div>
+                <div class="cal-day-name">Чт</div>
+                <div class="cal-day-name">Пт</div>
+                <div class="cal-day-name">Сб</div>
+                <div class="cal-day-name">Вс</div>
             </div>
         </div>
 
         <div id="sub-gpa" class="sub-panel card">
             <div class="card-header">Калькулятор GPA</div>
             <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 12px;">Введите баллы за дисциплины (0-100):</div>
-            <input type="number" id="gpa-val1" class="gpa-input" placeholder="Предмет 1 (например 90)">
-            <input type="number" id="gpa-val2" class="gpa-input" placeholder="Предмет 2 (например 85)">
-            <input type="number" id="gpa-val3" class="gpa-input" placeholder="Предмет 3 (например 95)">
-            <button class="gpa-btn" onclick="calculateGPA()">Рассчитать GPA</button>
+            <input type="number" id="gpa-val1" class="admin-input" placeholder="Предмет 1 (например 90)">
+            <input type="number" id="gpa-val2" class="admin-input" placeholder="Предмет 2 (например 85)">
+            <input type="number" id="gpa-val3" class="admin-input" placeholder="Предмет 3 (например 95)">
+            <button class="admin-btn" style="background:var(--accent-blue);" onclick="calculateGPA()">Рассчитать GPA</button>
             <div id="gpa-result" style="margin-top: 12px; font-size: 15px; font-weight: 800; text-align: center; color: var(--accent-blue);"></div>
         </div>
 
-        <!-- АНИМИРОВАННЫЕ НАСТРОЙКИ ЗВУКА И ТЕМ -->
+        <!-- ТЕМЫ ОФОРМЛЕНИЯ -->
         <div id="sub-settings" class="sub-panel card">
             <div class="card-header">Выбор Цветовой Темы</div>
             <div class="theme-grid-selector">
                 <div class="theme-card-btn active" id="th-dark" onclick="setTheme('dark')"><span>🌙</span>Тёмная</div>
                 <div class="theme-card-btn" id="th-light" onclick="setTheme('light')"><span>☀️</span>Светлая</div>
-                <div class="theme-card-btn" id="th-sunset" onclick="setTheme('sunset')"><span>🌅</span>Закат</div>
+                <div class="theme-card-btn" id="th-halloween" onclick="setTheme('halloween')"><span>🎃</span>Хэллоуин</div>
+                <div class="theme-card-btn" id="th-newyear" onclick="setTheme('newyear')"><span>❄️</span>Новый Год</div>
+                <div class="theme-card-btn" id="th-summer" onclick="setTheme('summer')"><span>☀️</span>Лето</div>
                 <div class="theme-card-btn" id="th-sakura" onclick="setTheme('sakura')"><span>🌸</span>Сакура</div>
-                <div class="theme-card-btn" id="th-lava" onclick="setTheme('lava')"><span>🌋</span>Лава</div>
                 <div class="theme-card-btn" id="th-cyber" onclick="setTheme('cyber')"><span>🌌</span>Неон</div>
-            </div>
-
-            <!-- Анимированный переключатель звука -->
-            <div class="setting-row" style="margin-top: 18px;">
-                <div style="display: flex; align-items: center; gap: 12px;">
-                    <div class="bell-icon-box vibrate" id="sound-bell-box">
-                        <span id="sound-bell-emoji">🔔</span>
-                        <div class="sound-wave-waves"></div>
-                    </div>
-                    <div>
-                        <div class="setting-title" id="sound-status-title">Звук и Уведомления</div>
-                        <div class="setting-sub" id="sound-status-sub">Анимированный отклик включён</div>
-                    </div>
-                </div>
-                <label class="ios-switch">
-                    <input type="checkbox" id="set-sound-toggle" checked onchange="toggleSoundSetting(this)">
-                    <span class="switch-slider"></span>
-                </label>
-            </div>
-
-            <div class="setting-row">
-                <div>
-                    <div class="setting-title">Тактильный отклик (Haptic)</div>
-                    <div class="setting-sub">Системная вибрация при нажатиях</div>
-                </div>
-                <label class="ios-switch">
-                    <input type="checkbox" id="set-haptic" checked onchange="toggleSetting('haptic', this)">
-                    <span class="switch-slider"></span>
-                </label>
             </div>
         </div>
 
-        <!-- ПРОФИЛЬ ПОЛЬЗОВАТЕЛЯ -->
         <div id="sub-profile" class="sub-panel card">
             <div class="card-header">Карточка Студента</div>
             <div style="padding: 4px 0; display: flex; flex-direction: column; align-items: center; text-align: center;">
-                <div style="font-size: 44px; margin-bottom: 6px;" id="prof-emoji">👨‍🎓</div>
+                <div style="font-size: 44px; margin-bottom: 6px;">👨‍🎓</div>
                 <div style="font-size: 18px; font-weight: 700;" id="prof-display-name">Загрузка...</div>
                 <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 12px;" id="prof-display-username">@username</div>
                 <div style="width: 100%;">
-                    <div class="setting-row"><span class="setting-title">Telegram ID</span><span class="setting-sub" style="color:var(--text-primary);" id="prof-id">--</span></div>
-                    <div class="setting-row"><span class="setting-title">Статус доступа</span><span class="setting-sub" style="color:#30d158; font-weight:700;" id="prof-status-val">Активен</span></div>
+                    <div class="setting-row" style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid var(--border-color);"><span style="font-size:14px;">Telegram ID</span><span style="font-size:12px; color:var(--text-primary);" id="prof-id">--</span></div>
+                    <div class="setting-row" style="display:flex; justify-content:space-between; padding:10px 0;"><span style="font-size:14px;">Статус</span><span style="font-size:12px; color:#30d158; font-weight:700;" id="prof-status-val">Активен</span></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Нижняя Навигация -->
+    <!-- Навигация -->
     <div class="bottom-nav">
         <button class="nav-tab active" onclick="navigate('schedule', this)">
             <svg class="nav-svg" viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/></svg>
             <span class="nav-title">Расписание</span>
         </button>
         <button class="nav-tab" onclick="navigate('services', this)">
-            <svg class="nav-svg" viewBox="0 0 24 24"><path d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"/></svg>
+            <svg class="nav-svg" viewBox="0 0 24 24"><path d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4H4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"/></svg>
             <span class="nav-title">Сервисы</span>
         </button>
     </div>
@@ -687,52 +482,16 @@
         if (tg) { tg.expand(); tg.ready(); }
 
         const ADMIN_ID = "5644768982";
-        let deferredPrompt = null;
-
-        window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt = e; });
-
-        function installPWAApp() {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                deferredPrompt.userChoice.then(() => { deferredPrompt = null; });
-            } else if (tg) {
-                tg.showAlert("Чтобы добавить на рабочий стол, нажмите 'Поделиться' в браузере и выберите 'На экран Домой'.");
-            }
-        }
 
         function toggleDropdownMenu(e) { e.stopPropagation(); document.getElementById('app-dropdown-menu').classList.toggle('active'); }
         function closeDropdownMenu() { const m = document.getElementById('app-dropdown-menu'); if(m) m.classList.remove('active'); }
         document.addEventListener('click', () => closeDropdownMenu());
 
-        // АНИМИРОВАННЫЙ ПЕРЕКЛЮЧАТЕЛЬ ЗВУКА И УВЕДОМЛЕНИЙ
-        function toggleSoundSetting(el) {
-            const bellBox = document.getElementById('sound-bell-box');
-            const bellEmoji = document.getElementById('sound-bell-emoji');
-            const statusTitle = document.getElementById('sound-status-title');
-            const statusSub = document.getElementById('sound-status-sub');
-
-            if (el.checked) {
-                bellBox.classList.add('vibrate');
-                bellEmoji.innerText = '🔔';
-                statusTitle.innerText = "Звук и Уведомления";
-                statusSub.innerText = "Анимированный отклик включён";
-                localStorage.setItem('app_sound_enabled', 'true');
-                if (tg && tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
-            } else {
-                bellBox.classList.remove('vibrate');
-                bellEmoji.innerText = '🔕';
-                statusTitle.innerText = "Звук выключен";
-                statusSub.innerText = "Беззвучный режим активен";
-                localStorage.setItem('app_sound_enabled', 'false');
-                if (tg && tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('warning');
-            }
-        }
-
         function checkSecurity() {
             let user = tg && tg.initDataUnsafe ? tg.initDataUnsafe.user : null;
             let userId = user ? String(user.id) : ADMIN_ID;
             let username = user ? (user.username ? "@" + user.username : "Без юзернейма") : "@semen";
-            let firstName = user ? (user.first_name || "Студент") : "Семён";
+            let firstName = user ? (user.first_name || "Семён") : "Семён";
 
             let usersDb = JSON.parse(localStorage.getItem('portal_users') || '{}');
             usersDb[ADMIN_ID] = { id: ADMIN_ID, name: "Семён (Админ)", username: "@semen", muted: false, status: "Владелец" };
@@ -742,28 +501,9 @@
                 localStorage.setItem('portal_users', JSON.stringify(usersDb));
             }
 
-            let currentUser = usersDb[userId] || { muted: false, kicked: false };
-
-            if (currentUser.kicked && userId !== ADMIN_ID) {
-                document.getElementById('access-denied-screen').style.display = "flex";
-                document.getElementById('lock-title-text').innerText = "Доступ заблокирован";
-                document.getElementById('lock-desc-text').innerText = "Администратор заблокировал ваш доступ к системе.";
-                return;
-            }
-
-            if (currentUser.muted && userId !== ADMIN_ID) {
-                document.getElementById('access-denied-screen').style.display = "flex";
-                document.getElementById('lock-title-text').innerText = "Вы в муте";
-                document.getElementById('lock-desc-text').innerText = "Администратор ограничил вам доступ к функциям портала.";
-                return;
-            }
-
             if (userId === ADMIN_ID) {
                 document.getElementById('admin-widget-btn').style.display = "block";
-                document.getElementById('access-denied-screen').style.display = "none";
                 renderAdminUsersList();
-            } else {
-                document.getElementById('access-denied-screen').style.display = "none";
             }
 
             document.getElementById('prof-display-name').innerText = firstName;
@@ -775,7 +515,6 @@
         function manualAddUser() {
             const idInput = document.getElementById('manual-user-id').value.trim();
             const nameInput = document.getElementById('manual-user-name').value.trim() || "Студент";
-
             if (!idInput) { alert("Введите Telegram ID!"); return; }
 
             let usersDb = JSON.parse(localStorage.getItem('portal_users') || '{}');
@@ -785,35 +524,28 @@
             document.getElementById('manual-user-id').value = "";
             document.getElementById('manual-user-name').value = "";
             renderAdminUsersList();
-            if (tg) tg.showAlert("Пользователь успешно добавлен!");
+            if (tg) tg.showAlert("Пользователь добавлен!");
         }
 
         function renderAdminUsersList() {
             let usersDb = JSON.parse(localStorage.getItem('portal_users') || '{}');
             const container = document.getElementById('admin-users-list');
             let keys = Object.keys(usersDb);
-            if (keys.length === 0) {
+            if (keys.length <= 1) {
                 container.innerHTML = `<div style="font-size: 12px; color: var(--text-secondary); text-align: center; padding: 10px;">Список пуст</div>`;
                 return;
             }
 
             let html = "";
             keys.forEach(id => {
-                let u = usersDb[id];
                 if (id === ADMIN_ID) return;
-
-                let muteText = u.muted ? "Размутить" : "Мут";
-                let muteClass = u.muted ? "btn-unmute" : "btn-mute";
-
-                html += `<div class="user-manage-item">
-                    <div class="user-manage-row">
-                        <span class="user-manage-name">${u.name}</span>
-                        <div>
-                            <button class="admin-action-btn ${muteClass}" onclick="toggleMuteUser('${id}')">${muteText}</button>
-                            <button class="admin-action-btn btn-kick" onclick="kickUser('${id}')">Кик</button>
-                        </div>
+                let u = usersDb[id];
+                html += `<div class="user-manage-item" style="background:var(--card-secondary); padding:10px; border-radius:10px; margin-bottom:6px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span style="font-weight:700; font-size:13px;">${u.name}</span>
+                        <button style="background:rgba(255,59,48,0.2); color:#ff3b30; border:none; padding:4px 8px; border-radius:6px; font-weight:700; cursor:pointer;" onclick="kickUser('${id}')">Кик</button>
                     </div>
-                    <div class="user-manage-sub">ID: ${u.id} • ${u.username}</div>
+                    <div style="font-size:11px; color:var(--text-secondary);">ID: ${u.id}</div>
                 </div>`;
             });
             container.innerHTML = html;
@@ -825,30 +557,60 @@
                 usersDb[id].kicked = true;
                 localStorage.setItem('portal_users', JSON.stringify(usersDb));
                 renderAdminUsersList();
-                if (tg) tg.showAlert("Пользователь кикнут.");
-            }
-        }
-
-        function toggleMuteUser(id) {
-            let usersDb = JSON.parse(localStorage.getItem('portal_users') || '{}');
-            if (usersDb[id]) {
-                usersDb[id].muted = !usersDb[id].muted;
-                localStorage.setItem('portal_users', JSON.stringify(usersDb));
-                renderAdminUsersList();
             }
         }
 
         function sendAccessRequest() {
             if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
-                try {
-                    tg.sendData(JSON.stringify({ action: "request_access" }));
-                    tg.showAlert("Заявка отправлена Семёну!");
-                } catch (e) {
-                    window.location.href = "https://t.me/AmanzholovStudentBot?start=apply";
-                }
-            } else {
-                window.location.href = "https://t.me/AmanzholovStudentBot?start=apply";
+                try { tg.sendData(JSON.stringify({ action: "request_access" })); tg.showAlert("Заявка отправлена!"); }
+                catch (e) { window.location.href = "https://t.me/AmanzholovStudentBot?start=apply"; }
+            } else { window.location.href = "https://t.me/AmanzholovStudentBot?start=apply"; }
+        }
+
+        let calCurrentDate = new Date();
+
+        function renderCalendar() {
+            const grid = document.getElementById('cal-grid');
+            const title = document.getElementById('cal-month-title');
+            if (!grid || !title) return;
+
+            const year = calCurrentDate.getFullYear();
+            const month = calCurrentDate.getMonth();
+
+            const monthNames = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
+            title.innerText = `${monthNames[month]} ${year}`;
+
+            grid.innerHTML = `
+                <div class="cal-day-name">Пн</div><div class="cal-day-name">Вт</div><div class="cal-day-name">Ср</div>
+                <div class="cal-day-name">Чт</div><div class="cal-day-name">Пт</div><div class="cal-day-name">Сб</div><div class="cal-day-name">Вс</div>
+            `;
+
+            const firstDayIndex = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            let shift = firstDayIndex === 0 ? 6 : firstDayIndex - 1;
+
+            for (let i = 0; i < shift; i++) {
+                const emptyCell = document.createElement('div');
+                emptyCell.className = 'cal-date-cell empty';
+                grid.appendChild(emptyCell);
             }
+
+            const today = new Date();
+            for (let day = 1; day <= daysInMonth; day++) {
+                const cell = document.createElement('div');
+                cell.className = 'cal-date-cell';
+                cell.innerText = day;
+
+                if (day === today.getDate() && month === today.getMonth() && year === today.getFullYear()) {
+                    cell.classList.add('today');
+                }
+                grid.appendChild(cell);
+            }
+        }
+
+        function changeMonth(delta) {
+            calCurrentDate.setMonth(calCurrentDate.getMonth() + delta);
+            renderCalendar();
         }
 
         async function fetchRealWeather() {
@@ -896,8 +658,6 @@
             localStorage.setItem('app_color_theme', theme);
         }
 
-        function toggleSetting(key, el) { localStorage.setItem(key, el.checked); }
-
         function navigate(pageId, btn) {
             document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
             if (btn) btn.classList.add('active');
@@ -930,14 +690,9 @@
 
         document.addEventListener("DOMContentLoaded", () => {
             setTheme(localStorage.getItem('app_color_theme') || 'dark');
-            
-            // Загрузка состояния анимированного звука
-            const isSoundOn = localStorage.getItem('app_sound_enabled') !== 'false';
-            document.getElementById('set-sound-toggle').checked = isSoundOn;
-            toggleSoundSetting(document.getElementById('set-sound-toggle'));
-
             checkSecurity();
             fetchRealWeather();
+            renderCalendar();
         });
     </script>
 </body>
